@@ -1,0 +1,756 @@
+---
+title: "Tecnología para la Gestión II - Clase 2: Proyectos, carga e inspección de datos"
+author:
+  - "Francisco Villarroel Riquelme"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+    seal: false
+---
+class: left, middle, bg_portada
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#b01333",
+  secondary_color = "#085e9f",
+  inverse_header_color = "#FFFFFF"
+)
+```
+```{css, echo=F}
+h1, h2, h3 {
+  text-align: center;
+}
+.bg_portada {
+  position: relative;
+  z-index: 1;
+}
+.bg_portada::before {
+  content: "";
+  background-image: url('https://www.infoworld.com/wp-content/uploads/2024/06/cw_r_guide_video_series_thinkstock_16x9_1920x1080-100758020-orig.jpg?quality=50&strip=all');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+.definition-box {
+  background: #fdf2f3;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #fef9e7;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.info-box {
+  background: #eaf2fb;
+  border-left: 5px solid #085e9f;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-green { border-top: 4px solid #1e8449; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.step-num {
+  background: #b01333;
+  color: white;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+table { font-size: 0.78em; width: 100%; border-collapse: collapse; }
+th { background: #b01333; color: white; padding: 7px 10px; text-align: left; }
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #f5f7fa; }
+blockquote {
+  border-left: 4px solid #b01333;
+  background: #fdf2f3;
+  padding: 10px 16px;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #333;
+  margin: 10px 0;
+  font-size: 0.90em;
+}
+```
+
+<!-- Logo USS: se carga desde Wikimedia Commons. Para ponerlo en cualquier otra diapo,
+     agrega estas 3 líneas justo despues del separador "---" de esa diapo:
+     background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+     background-size: 80px
+     background-position: 97% 97% -->
+
+---
+class: left, middle, bg_portada
+# Tecnología para la Gestión II
+## Clase 2 — Proyectos, carga e inspección de datos
+**Francisco Villarroel Riquelme** | `r Sys.Date()`
+
+.footnote-small[Administración Pública · Escuela de Gobierno · Facultad de Economía y Gobierno · ADPU B012]
+
+---
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+background-size: 80px
+background-position: 97% 97%
+class: middle
+
+# ¿Qué vimos la clase pasada?
+
+.three-col[
+.card.card-red[
+**R ≠ RStudio**
+R es el motor; RStudio, el tablero desde donde lo manejamos.
+]
+.card.card-blue[
+**Los 4 paneles**
+Script, Environment, Consola y Output (Files/Plots/Packages/Help).
+]
+.card.card-green[
+**Cargar datos**
+`read.csv`, `read_excel`, `readRDS`... los datos entran como un objeto.
+]
+]
+
+--
+
+.highlight-box[
+Hoy le damos **orden y método** a todo eso: trabajar con **proyectos**, cargar bien las bases y **mirar los datos antes de tocarlos**.
+]
+
+---
+class: middle
+
+# Agenda de hoy
+
+.two-col[
+.info-box[
+**Bloque 1 — Orden y carga**
+- Qué es un proyecto y por qué usarlo
+- Estructura de carpetas (`data`, `scripts`, `results`)
+- Instalar librerías
+- Activar librerías
+- Cargar bases de datos
+]
+.definition-box[
+**Bloque 2 — Mirar los datos**
+- Inspección de datos: `names()`, `glimpse()`, `class()`, `view()`
+- Tipos de variables en R *(si alcanzamos)*
+- **Control breve** al final
+]
+]
+
+---
+class: center, middle, inverse
+
+# Bloque 1
+
+# Proyectos, orden y carga de datos
+
+---
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+background-size: 80px
+background-position: 97% 97%
+class: middle
+
+# ¿Qué es un proyecto en RStudio?
+
+.definition-box[
+Un **proyecto** (`.Rproj`) es una **carpeta de trabajo autocontenida**: agrupa en un solo lugar tus datos, tus scripts y tus resultados, y le dice a R que ese es el punto de partida para trabajar.
+]
+
+--
+
+.info-box[
+Al abrir el `.Rproj`, el **directorio de trabajo** queda fijado automáticamente en esa carpeta. No tienes que andar escribiendo `setwd("C:/Users/...")` nunca más.
+]
+
+---
+class: middle
+
+# ¿Por qué usar proyectos? → **Replicabilidad**
+
+.two-col[
+.card.card-red[
+**Sin proyecto** ❌
+```r
+read.csv("C:/Users/Francisco/
+   Desktop/cosas/base_87.csv")
+```
+Esa ruta **solo existe en tu computador**. En otra máquina, el código se cae.
+]
+.card.card-green[
+**Con proyecto** ✅
+```r
+read.csv("data/base_87.csv")
+```
+Ruta **relativa** a la carpeta del proyecto. Funciona en **cualquier** computador que tenga la carpeta.
+]
+]
+
+--
+
+.highlight-box[
+Replicabilidad = que **otra persona (o tu yo del futuro)** pueda abrir la carpeta y correr todo sin cambiar nada. Es la base del trabajo serio con datos.
+]
+
+---
+class: middle
+
+# Otras ventajas del proyecto
+
+.three-col[
+.card.card-blue[
+**Orden**
+Todo lo de un análisis vive junto: nada de archivos perdidos en el Escritorio.
+]
+.card.card-orange[
+**Portabilidad**
+Comprimes la carpeta, la envías, y funciona igual en otro equipo.
+]
+.card.card-green[
+**Historial limpio**
+Cada proyecto recuerda sus scripts abiertos y su entorno.
+]
+]
+
+---
+class: middle
+
+# Cómo crear un proyecto
+
+<div class="step"><div class="step-num">1</div><div>En RStudio: <b>File → New Project…</b></div></div>
+<div class="step"><div class="step-num">2</div><div>Elige <b>New Directory → New Project</b></div></div>
+<div class="step"><div class="step-num">3</div><div>Ponle un <b>nombre</b> (ej. <code>clase2</code>) y elige <b>dónde</b> guardarlo</div></div>
+<div class="step"><div class="step-num">4</div><div>Click en <b>Create Project</b> → RStudio se reinicia dentro del proyecto</div></div>
+
+--
+
+.info-box[
+Sabrás que estás dentro del proyecto porque su nombre aparece **arriba a la derecha** de RStudio, y la pestaña *Files* muestra la carpeta del proyecto.
+]
+
+---
+class: middle
+
+# Estructura de carpetas recomendada
+
+Dentro del proyecto, separa por **función** lo que haces:
+
+```text
+clase2/
+├── clase2.Rproj      # el proyecto (no se toca)
+├── data/             # bases de datos crudas (.csv, .xlsx, .dta...)
+├── scripts/          # tu código .R
+└── results/          # gráficos, tablas e informes que generas
+```
+
+--
+
+.two-col[
+.definition-box[
+**data/** entra, **results/** sale. Los datos crudos **no se modifican**: lo que transformas queda en el script y lo que produces va a `results/`.
+]
+.info-box[
+Con esta estructura, tus rutas son cortas y claras: `read.csv("data/base_87.csv")` y `ggsave("results/grafico1.png")`.
+]
+]
+
+---
+class: center, middle, inverse
+
+# Librerías (paquetes)
+
+## Instalar ≠ activar
+
+---
+class: middle
+
+# 1) Instalar librerías
+
+Un **paquete** es una colección de funciones que amplía lo que R puede hacer.
+
+```r
+install.packages("readxl", dependencies = TRUE)
+install.packages("tidyverse", dependencies = TRUE)
+install.packages("haven", dependencies = TRUE)
+install.packages("car", dependencies = TRUE)
+```
+
+.definition-box[
+`install.packages("nombre")` = *"instala el paquete"*. El argumento `dependencies = TRUE` le pide que instale también **las librerías adicionales** que ese paquete necesita para funcionar.
+]
+
+.footnote-small[Se instala UNA vez por computador. Quedan disponibles en la pestaña *Packages* (abajo a la derecha).]
+
+---
+class: middle
+
+# 2) Activar (llamar) librerías
+
+Instalar **no es suficiente**: hay que **llamar** el paquete en cada script.
+
+```r
+library(readxl)
+library(tidyverse)
+library(haven)
+library(car)
+```
+
+--
+
+.highlight-box[
+Regla de oro: **`install.packages()` una vez** en el computador; **`library()` cada vez** que abres un script nuevo. Si abres R y una función "no existe", casi siempre es que te faltó el `library()`.
+]
+
+---
+class: middle
+
+# 3) Cargar bases de datos
+
+Ya con las librerías activas, cargamos la base como un **objeto**:
+
+```r
+# CSV separado por comas
+cep <- read.csv("data/base_87.csv")
+
+# ¿Cargó todo en una sola columna? Usa punto y coma:
+cep <- read.csv2("data/base_87.csv")
+```
+
+.info-box[
+Aparece el objeto `cep` en el panel **Environment** con sus dimensiones: por ejemplo, 2915 observaciones (filas) y 2019 variables (columnas).
+]
+
+---
+class: middle
+
+# Cargar otros formatos
+
+RStudio abre casi cualquier formato; a veces con un paquete específico:
+
+```r
+# Excel
+cep <- readxl::read_excel("data/base_87.xlsx")
+
+# STATA
+cep <- haven::read_dta("data/base_87.dta")
+
+# SPSS
+cep <- haven::read_spss("data/base_87.sav")
+
+# Formato propio de R
+cep <- readRDS("data/base_87.rds")
+```
+
+.definition-box[
+El `::` indica **de qué paquete** viene la función. `readxl::read_excel` = "la función `read_excel`, del paquete `readxl`". Sirve para diferenciar funciones que se llaman igual en paquetes distintos.
+]
+
+---
+class: center, middle, inverse
+
+# Bloque 2
+
+# Inspección de datos
+
+---
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+background-size: 80px
+background-position: 97% 97%
+class: middle
+
+# Antes de tocar, hay que mirar
+
+.definition-box[
+Con los datos cargados, necesitamos conocer su **naturaleza**: el tamaño de la base, el tipo de dato de cada columna, los nombres de las variables y sus categorías.
+]
+
+Cuatro funciones para empezar:
+
+.three-col[
+.card.card-red[
+**`names()`**
+
+los nombres de las variables
+]
+
+.card.card-blue[
+**`glimpse()`**
+
+un vistazo general
+]
+
+.card.card-green[
+**`class()`**
+
+el tipo de una variable
+]
+]
+
+.footnote-small[Y `view()` para abrir la base completa en una pestaña. Basado en tu material de RPubs (sección 2.2).]
+
+---
+class: middle
+
+# `names()` — los nombres de las columnas
+
+Entrega el nombre de **cada variable** del dataframe:
+
+```r
+names(cep)
+```
+
+--
+
+.info-box[
+En la CEP los nombres vienen **codificados** (`interes_pol_1_b`, `region`...). Para entenderlos hay que revisar el **libro de códigos** de la encuesta. Esto pasa con casi todas las bases públicas: conocer bien la base es un trabajo indispensable.
+]
+
+---
+class: middle
+
+# `glimpse()` — el vistazo más completo
+
+```r
+glimpse(cep)
+```
+
+--
+
+Es la que **más información** entrega de una sola vez:
+
+.two-col[
+.card.card-blue[
+- Dimensiones de la base
+- Nombres de las variables
+- **Tipo** de cada variable
+- Una muestra de sus valores
+]
+.card.card-orange[
+Abreviaturas del tipo:
+- `int` = integer (enteros)
+- `dbl` = double (con decimales)
+- `chr` = character (texto)
+]
+]
+
+.footnote-small[`glimpse()` viene con el `tidyverse` (paquete `dplyr`), así que recuerda tener activo `library(tidyverse)`.]
+
+---
+class: middle
+
+# `class()` y el operador `$`
+
+Para saber el tipo de **una** variable específica:
+
+```r
+class(cep$interes_pol_1_b)   # [1] "integer"
+class(cep$region)            # [1] "character"
+```
+
+--
+
+.definition-box[
+El signo **`$`** accede a una variable dentro de un dataframe: `cep$region` = "la variable `region`, dentro de `cep`". Acá vemos que una es numérica (`integer`) y la otra es texto (`character`).
+]
+
+---
+class: middle
+
+# `view()` — ver la base completa
+
+Abre la base como una **pestaña** aparte (arriba a la izquierda), tipo planilla:
+
+```r
+view(cep)
+```
+
+.info-box[
+Útil para explorar visualmente, pero **no reemplaza** a `glimpse()` / `class()`: para trabajar y documentar, siempre preferimos las funciones que dejan registro en el script.
+]
+
+--
+
+.highlight-box[
+Flujo recomendado al abrir cualquier base: **`names()` → `glimpse()` → `class()` de las variables clave → `view()`** para confirmar.
+]
+
+---
+class: center, middle, inverse
+
+# Tipos de variables en R
+
+
+---
+class: middle
+
+# Los tipos que más usaremos
+
+.three-col[
+.card.card-red[
+**logical**
+Booleanos: solo `TRUE` / `FALSE`. Útiles para condiciones y filtros.
+```r
+boul <- c(TRUE, FALSE, TRUE)
+class(boul)  # "logical"
+```
+]
+.card.card-blue[
+**integer**
+Enteros, sin decimales. Llevan el sufijo `L`.
+```r
+x <- 186L
+class(x)  # "integer"
+```
+]
+.card.card-green[
+**double / numeric**
+Números (con o sin decimales). Permiten operaciones matemáticas.
+```r
+altura <- c(1.67, 1.98, 1.50)
+class(altura)  # "numeric"
+```
+]
+]
+
+--
+
+.three-col[
+.card.card-orange[
+**character**
+Texto entre comillas. Categorías que se pueden contar.
+```r
+genero <- c("f", "m", "otro")
+class(genero)  # "character"
+```
+]
+.card.card-blue[
+**string**
+En rigor es `character`, pero para **frases** y texto complejo.
+```r
+w <- "hola, ¿qué tal?"
+class(w)  # "character"
+```
+]
+.card.card-red[
+**factor**
+Categoría con **niveles** ordenables. *(siguiente diapo)*
+]
+]
+
+---
+class: middle
+
+# El caso especial: `factor`
+
+Un **factor** es una variable categórica que guarda un **orden** (niveles). El problema: el texto se ordena **solo alfabéticamente**.
+
+```r
+clase <- c("clase baja", "clase alta", "clase media")
+table(clase)   # aparece en orden alfabético: alta, baja, media  ✗
+```
+
+--
+
+Lo convertimos a factor y le damos el **orden correcto**:
+
+```r
+clase <- as.factor(clase)
+levels(clase) <- c("clase baja", "clase media", "clase alta")
+table(clase)   # ahora: baja, media, alta  ✓
+```
+
+.info-box[
+Ojo: para transformar un objeto **hay que reasignarlo**. No basta `as.factor(clase)`, tiene que ser `clase <- as.factor(clase)`. Los factores nos servirán mucho para **gráficos** y **regresiones**.
+]
+
+---
+class: center, middle, inverse
+
+# Control breve
+
+## 5 preguntas + 2 ejercicios
+
+---
+class: middle
+
+# Parte teórica *(marca la alternativa correcta)*
+
+.info-box[
+**1. ¿Cuál es la principal ventaja de trabajar con proyectos en RStudio?**
+a) Hace que R corra más rápido  b) Permite la replicabilidad usando rutas relativas
+c) Instala los paquetes automáticamente  d) Convierte los .csv en .xlsx
+]
+
+.info-box[
+**2. ¿Cuál es la sintaxis correcta para _instalar_ un paquete?**
+a) `library("readxl")`  b) `install("readxl")`
+c) `install.packages("readxl", dependencies = TRUE)`  d) `load(readxl)`
+]
+
+.info-box[
+**3. Después de instalar un paquete, ¿qué necesitas para usarlo en un script?**
+a) Nada, queda activo para siempre  b) Llamarlo con `library()` en cada script
+c) Reiniciar el computador  d) Volver a instalarlo cada vez
+]
+
+---
+class: middle
+
+# Parte teórica *(continuación)*
+
+.info-box[
+**4. ¿Qué función entrega las dimensiones de la base, los nombres de las variables, su tipo y una muestra de los datos?**
+a) `names()`  b) `class()`  c) `glimpse()`  d) `view()`
+]
+
+.info-box[
+**5. Una variable categórica que guarda un _orden_ mediante niveles (levels) es de tipo:**
+a) `character`  b) `logical`  c) `numeric`  d) `factor`
+]
+
+--
+
+.highlight-box[
+Tiempo sugerido: 4–5 minutos para la parte teórica.
+]
+
+---
+class: middle
+
+# Parte práctica
+
+.definition-box[
+**Ejercicio 1 — Proyecto y carga**
+Crea un proyecto nuevo llamado `clase2` y, dentro, las carpetas `data`, `scripts` y `results`. Deja un archivo `.csv` en `data/`. Desde un script en `scripts/`, cárgalo en un objeto llamado `datos` usando una **ruta relativa**.
+]
+
+.definition-box[
+**Ejercicio 2 — Inspección y tipos**
+Con `datos` cargado, escribe las líneas para: (a) ver los **nombres** de las variables, (b) obtener un **vistazo general** con dimensiones y tipos, y (c) consultar la **clase** de una variable específica usando `$`. Luego crea el vector `clase <- c("clase baja","clase media","clase alta")` y conviértelo en **factor** con los niveles ordenados.
+]
+
+---
+class: center, middle
+
+
+
+### La próxima clase: manipulación de datos
+`select()`, `filter()`, operadores lógicos y *pipes* (`%>%`)
+
+.footnote-small[Dudas: fvillarroelr1@docente.uss.cl · Tecnología para la Gestión II · ADPU B012]
+
+---
+class: middle
+
+# Pauta del control .badge[solo docente]
+
+.two-col[
+.info-box[
+**Teóricas**
+1. **b)** replicabilidad con rutas relativas
+2. **c)** `install.packages("readxl", dependencies = TRUE)`
+3. **b)** llamarlo con `library()` en cada script
+4. **c)** `glimpse()`
+5. **d)** `factor`
+]
+.definition-box[
+**Prácticas (idea de solución)**
+
+Ej. 1:
+```r
+# tras crear el proyecto y las carpetas
+datos <- read.csv("data/mi_base.csv")
+```
+Ej. 2:
+```r
+names(datos)
+glimpse(datos)
+class(datos$mi_variable)
+
+clase <- c("clase baja","clase media","clase alta")
+clase <- as.factor(clase)
+levels(clase) <- c("clase baja","clase media","clase alta")
+```
+]
+]
+
+.footnote-small[Elimina esta diapositiva antes de proyectar si no quieres mostrar la pauta.]
