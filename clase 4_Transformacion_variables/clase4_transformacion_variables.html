@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Tecnología para la Gestión II - Clase 4: Repaso de tipos de variables y filtrado</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Francisco Villarroel Riquelme" />
+    <meta name="date" content="2026-08-26" />
+    <script src="clase4_transformacion_variables_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: left, middle, bg_portada
+
+
+&lt;style type="text/css"&gt;
+h1, h2, h3 {
+  text-align: center;
+}
+.bg_portada {
+  position: relative;
+  z-index: 1;
+}
+.bg_portada::before {
+  content: "";
+  background-image: url('https://www.infoworld.com/wp-content/uploads/2024/06/cw_r_guide_video_series_thinkstock_16x9_1920x1080-100758020-orig.jpg?quality=50&amp;strip=all');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+.definition-box {
+  background: #fdf2f3;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #fef9e7;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.info-box {
+  background: #eaf2fb;
+  border-left: 5px solid #085e9f;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-green { border-top: 4px solid #1e8449; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.step-num {
+  background: #b01333;
+  color: white;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+table { font-size: 0.78em; width: 100%; border-collapse: collapse; }
+th { background: #b01333; color: white; padding: 7px 10px; text-align: left; }
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #f5f7fa; }
+blockquote {
+  border-left: 4px solid #b01333;
+  background: #fdf2f3;
+  padding: 10px 16px;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #333;
+  margin: 10px 0;
+  font-size: 0.90em;
+}
+img { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+&lt;/style&gt;
+
+
+---
+class: left, middle, bg_portada
+# Tecnología para la Gestión II
+## Clase 4 — Repaso: tipos de variables y filtrado
+**Francisco Villarroel Riquelme** | 2026-08-26
+
+.footnote-small[Administración Pública · Escuela de Gobierno · Facultad de Economía y Gobierno · ADPU B012]
+
+---
+class: middle
+
+# ¿Qué haremos hoy?
+
+.definition-box[
+Hoy es una clase de **repaso y reforzamiento**. Volvemos sobre lo que más cuesta, con hartos casos prácticos para afianzarlo.
+]
+
+.two-col[
+.info-box[
+**Bloque 1 — Repaso**
+- Tipos de variables (mirada conceptual)
+- Del tipo conceptual al tipo en R
+- Filtrado con `filter()` y operadores lógicos
+- Ejercicios guiados y para ustedes
+]
+.info-box[
+**Bloque 2 — A lápiz y papel**
+- Escribir un script **a mano**, de principio a fin
+- Desde instalar paquetes hasta transformar una variable
+]
+]
+
+---
+class: center, middle, inverse
+
+# Bloque 1
+
+# Repaso de tipos de variables
+
+---
+class: middle
+
+# ¿Por qué volver sobre los tipos?
+
+.definition-box[
+En la clase pasada **reclasificamos** columnas mal cargadas. Hoy entendemos el **porqué conceptual**: qué tipo de variable es cada cosa antes de decirle a R cómo tratarla.
+]
+
+--
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.highlight-box[
+Clasificar bien no es un detalle técnico: **decide qué análisis puedes hacer**. Un promedio sobre una variable nominal no significa nada; un orden sobre categorías sin jerarquía, tampoco.
+]
+
+---
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+background-size: 80px
+background-position: 97% 97%
+class: middle
+
+# Dos grandes familias
+
+.two-col[
+.card.card-red[
+**Cualitativas** (categorías)
+
+- **Nominal:** categorías sin orden (comuna, sexo, signo zodiacal).
+- **Ordinal:** categorías con orden, pero sin distancia definida (Likert, prioridad).
+]
+.card.card-blue[
+**Cuantitativas** (números)
+
+- **Discreta:** conteos, solo enteros (n.º de hijos, visitas).
+- **Continua / de razón:** admite decimales (ingreso, índices 0–1).
+]
+]
+
+--
+
+.info-box[
+Regla rápida: si puedes **contar categorías**, es cualitativa; si puedes **hacer cuentas** (sumar, promediar), es cuantitativa.
+]
+
+---
+class: left, top
+
+## Cualitativa nominal (o categórica)
+
+.two-col[
+&lt;img src="clase4_transformacion_variables_files/dicotomica.png" width="100%"&gt;
+
+.definition-box[
+- Categorías, clases o tipos **sin jerarquía**.
+- No admiten puntuaciones numéricas ordenadas.
+- Existen en versión **dicotómica** (sí / no) o de **categorías múltiples**.
+- A veces se codifican con números en la base, pero ese número **no significa magnitud**.
+]
+]
+
+---
+class: left, top
+
+## Nominal de categorías múltiples
+
+.two-col[
+&lt;img src="clase4_transformacion_variables_files/categórica_final.png" width="100%"&gt;
+
+.definition-box[
+- Varias categorías, todas al mismo nivel: ninguna es "más" que otra.
+- Ej.: comuna, tipo de solicitud, oficina municipal.
+- En R viven como **`character`** o, mejor para analizar, como **`factor`**.
+]
+]
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+.footnote-small[Aunque se ordenen visualmente en un gráfico, entre las categorías no hay jerarquía real.]
+
+---
+class: left, top
+
+## Cualitativa ordinal
+
+.two-col[
+&lt;img src="clase4_transformacion_variables_files/ordinal_1.png" width="100%"&gt;
+
+.definition-box[
+- Son categorías, pero con **orden interno** y jerarquía clara.
+- No son numéricas: **no hay una distancia definida** entre categorías.
+- ¿Cuánta diferencia real hay entre "de acuerdo" y "muy de acuerdo"?
+- Versiones clásicas: **escalas Likert** y **escalas de polaridad**.
+]
+]
+
+---
+class:left, top
+
+## Ordinal: escalas de polaridad
+
+.two-col[
+&lt;img src="clase4_transformacion_variables_files/ordinal_polar.png" width="100%"&gt;
+
+.info-box[
+Las escalas 0–10 (o de un polo a otro) ordenan las respuestas de menor a mayor, pero **el paso de 3 a 4 no es necesariamente igual** al de 8 a 9. Por eso siguen siendo **ordinales**, no numéricas.
+]
+]
+
+---
+class:left, top
+
+## Cuantitativa continua o de razón
+
+.two-col[
+.definition-box[
+- Variable numérica que **incluye decimales**; puede ir de `\(-\infty\)` a `\(+\infty\)`.
+- También es de razón una versión **continua entre 0 y 1** (un índice).
+- Suelen ser **sintéticas** (ej.: un índice de capital social, centralidad de red).
+- Es la que **más versatilidad y precisión** entrega para cálculos estadísticos.
+]
+.card.card-blue[
+**Ejemplos**
+- Ingreso del hogar (CLP)
+- Índice de desarrollo (0 a 1)
+- Puntaje de satisfacción (1,0 a 7,0)
+- Monto asignado a una solicitud
+]
+]
+
+---
+class:left, top
+
+## Cuantitativa discreta
+
+.two-col[
+&lt;img src="clase4_transformacion_variables_files/casen_discreta.png" width="90%"&gt;
+
+.definition-box[
+- Variables que solo contemplan **números enteros**.
+- Suelen surgir de **conteos**.
+- Para los cálculos estadísticos se comportan casi como las de razón.
+- Ej.: puntaje PAES, n.º de hijos, n.º de beneficiarios, días de tramitación.
+]
+]
+
+---
+class: center, middle
+
+## De una nominal/dicotómica… a una de razón
+
+.two-col[
+&lt;img src="clase4_transformacion_variables_files/binaria_a_razon.png" width="90%"&gt;
+
+&lt;img src="clase4_transformacion_variables_files/nastiness_group2.png" width="90%"&gt;
+]
+
+.info-box[
+Varias variables **dicotómicas** (sí/no = 1/0) se pueden **sumar o promediar** para construir un **índice** de razón. Así, "¿fuma?", "¿bebe?", "¿maneja ebrio?"… se combinan en un índice de conductas de riesgo, o en una **proporción** entre 0 y 1.
+]
+
+---
+class: center, middle, inverse
+
+# Del tipo conceptual… al tipo en R
+
+---
+class: middle
+
+# Tabla puente: metodología ↔ R
+
+&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Tipo de variable (metodología)&lt;/th&gt;&lt;th&gt;Tipo en R&lt;/th&gt;&lt;th&gt;Cómo se declara&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Nominal / categórica&lt;/td&gt;&lt;td&gt;&lt;code&gt;character&lt;/code&gt; o &lt;code&gt;factor&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;as.character()&lt;/code&gt; · &lt;code&gt;as.factor()&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Dicotómica (sí / no)&lt;/td&gt;&lt;td&gt;&lt;code&gt;logical&lt;/code&gt; o &lt;code&gt;factor&lt;/code&gt; (2 niveles)&lt;/td&gt;&lt;td&gt;&lt;code&gt;as.logical()&lt;/code&gt; · &lt;code&gt;== "Sí"&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Ordinal&lt;/td&gt;&lt;td&gt;&lt;code&gt;factor&lt;/code&gt; ordenado&lt;/td&gt;&lt;td&gt;&lt;code&gt;factor(x, levels =, ordered = TRUE)&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Discreta (conteo)&lt;/td&gt;&lt;td&gt;&lt;code&gt;integer&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;as.integer()&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Continua / de razón&lt;/td&gt;&lt;td&gt;&lt;code&gt;double / numeric&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;as.numeric()&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Fecha&lt;/td&gt;&lt;td&gt;&lt;code&gt;Date&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;as.Date()&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+&lt;br&gt;
+
+.highlight-box[
+El puente es siempre el mismo: **primero pienso qué tipo de variable es** (conceptual), **después le digo a R** con qué clase tratarla.
+]
+---
+class: middle
+
+# Ejercicio: "Ejemplos de variables"
+
+Para cada variable: ¿qué tipo es?, ¿qué clase en R le corresponde?, ¿con qué comando la declaramos?
+
+&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Tipo de variable&lt;/th&gt;&lt;th&gt;Tipo en R&lt;/th&gt;&lt;th&gt;Comando&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Fechas (día-mes-año)&lt;/td&gt;&lt;td&gt;Temporal&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Signo zodiacal&lt;/td&gt;&lt;td&gt;Cualitativa nominal&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Índice de capital social (0 a 1)&lt;/td&gt;&lt;td&gt;Cuantitativa continua / razón&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Rating&lt;/td&gt;&lt;td&gt;Cualitativa ordinal&lt;/td&gt;&lt;td&gt;&lt;code&gt;factor&lt;/code&gt; ord.&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;N.º de visitas a un artículo&lt;/td&gt;&lt;td&gt;Cuantitativa discreta&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Hashtags&lt;/td&gt;&lt;td&gt;Cualitativa nominal (texto)&lt;/td&gt;&lt;td&gt;&lt;code&gt;character&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Cantidad de hijos en un hogar&lt;/td&gt;&lt;td&gt;Cuantitativa discreta&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+
+---
+class: middle
+
+# Ejercicio: "Ejemplos de variables"
+
+Para cada variable: ¿qué tipo es?, ¿qué clase en R le corresponde?, ¿con qué comando la declaramos?
+
+&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Tipo de variable&lt;/th&gt;&lt;th&gt;Tipo en R&lt;/th&gt;&lt;th&gt;Comando&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Fechas (día-mes-año)&lt;/td&gt;&lt;td&gt;Temporal&lt;/td&gt;&lt;td&gt;&lt;code&gt;Date&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;as.Date()&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Signo zodiacal&lt;/td&gt;&lt;td&gt;Cualitativa nominal&lt;/td&gt;&lt;td&gt;&lt;code&gt;character&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;as.character()&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Índice de capital social (0 a 1)&lt;/td&gt;&lt;td&gt;Cuantitativa continua / razón&lt;/td&gt;&lt;td&gt;&lt;code&gt;numeric&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;as.numeric()&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Rating&lt;/td&gt;&lt;td&gt;Cualitativa ordinal&lt;/td&gt;&lt;td&gt;&lt;code&gt;factor&lt;/code&gt; ord.&lt;/td&gt;&lt;td&gt;&lt;code&gt;factor(x, ordered = TRUE)&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;N.º de visitas a un artículo&lt;/td&gt;&lt;td&gt;Cuantitativa discreta&lt;/td&gt;&lt;td&gt;&lt;code&gt;integer/numeric&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;as.numeric()&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Hashtags&lt;/td&gt;&lt;td&gt;Cualitativa nominal (texto)&lt;/td&gt;&lt;td&gt;&lt;code&gt;character&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;as.character()&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Cantidad de hijos en un hogar&lt;/td&gt;&lt;td&gt;Cuantitativa discreta&lt;/td&gt;&lt;td&gt;&lt;code&gt;integer/numeric&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;as.numeric()&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+&lt;br&gt;
+.footnote-small["Rating" puede ser ordinal (una puntuación en escala); si fuera un rating continuo de audiencia, sería `numeric`. El contexto manda.]
+
+---
+class: center, middle
+
+# Repaso
+
+# Filtrado con `filter()`
+
+---
+class: middle
+
+# `filter()` — recordatorio
+
+Selecciona **filas** (observaciones) que cumplen una condición:
+
+```r
+gestion %&gt;% dplyr::filter(comuna == "Maipú")
+```
+
+.definition-box[
+`filter()` conserva las filas donde la condición es **verdadera** (`TRUE`) y descarta el resto. La clave está en **escribir bien la condición**, y para eso usamos los operadores lógicos.
+]
+
+---
+class: middle
+
+# Operadores lógicos, en detalle
+
+&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Operador&lt;/th&gt;&lt;th&gt;Significado&lt;/th&gt;&lt;th&gt;Ejemplo&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;==&lt;/code&gt;&lt;/td&gt;&lt;td&gt;es igual a&lt;/td&gt;&lt;td&gt;&lt;code&gt;comuna == "Renca"&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;!=&lt;/code&gt;&lt;/td&gt;&lt;td&gt;es distinto de&lt;/td&gt;&lt;td&gt;&lt;code&gt;estado != 4&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&amp;gt;&lt;/code&gt; &amp;nbsp; &lt;code&gt;&amp;lt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;mayor / menor que&lt;/td&gt;&lt;td&gt;&lt;code&gt;monto_asignado &amp;gt; 1e7&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&amp;gt;=&lt;/code&gt; &amp;nbsp; &lt;code&gt;&amp;lt;=&lt;/code&gt;&lt;/td&gt;&lt;td&gt;mayor o igual / menor o igual&lt;/td&gt;&lt;td&gt;&lt;code&gt;n_beneficiarios &amp;gt;= 100&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;&amp;amp;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Y (deben cumplirse ambas)&lt;/td&gt;&lt;td&gt;&lt;code&gt;A &amp;amp; B&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;|&lt;/code&gt;&lt;/td&gt;&lt;td&gt;O (basta con una)&lt;/td&gt;&lt;td&gt;&lt;code&gt;A | B&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;!&lt;/code&gt;&lt;/td&gt;&lt;td&gt;negación (no)&lt;/td&gt;&lt;td&gt;&lt;code&gt;!requiere_visita&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;%in%&lt;/code&gt;&lt;/td&gt;&lt;td&gt;está contenido en…&lt;/td&gt;&lt;td&gt;&lt;code&gt;comuna %in% c("Maipú","Renca")&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+.footnote-small[Con paréntesis agrupamos condiciones: `(A | B) &amp; C`. Basado en *AnalizaR Datos Políticos*.]
+
+---
+class: middle
+
+# Cinco ejemplos, de menos a más
+
+.info-box[
+**Ejemplo 1** .badge-blue[1 operador] — solicitudes de la comuna de Maipú.
+```r
+gestion %&gt;% dplyr::filter(comuna == "Maipú")
+```
+]
+
+.info-box[
+**Ejemplo 2** .badge-blue[1 operador] — solicitudes con monto sobre 20 millones.
+```r
+gestion %&gt;% dplyr::filter(monto_asignado &gt; 20000000)
+```
+]
+
+---
+class: middle
+
+# Cinco ejemplos, de menos a más
+
+.info-box[
+**Ejemplo 3** .badge-blue[2 operadores] — prioridad Alta **y** ya resueltas.
+```r
+gestion %&gt;% dplyr::filter(nivel_prioridad == "Alta" &amp; estado == 3)
+```
+]
+
+.info-box[
+**Ejemplo 4** .badge-blue[2 operadores] — de Obras o Tránsito **y** que requieran visita.
+```r
+gestion %&gt;% dplyr::filter(
+  oficina_municipal %in% c("Dirección de Obras Municipales",
+                           "Dirección de Tránsito") &amp;
+  requiere_visita == "Sí")
+```
+]
+
+---
+class: middle
+
+# Cinco ejemplos, de menos a más
+
+.definition-box[
+**Ejemplo 5** .badge[3 operadores] — de persona natural **o** empresa, con prioridad Alta **y** monto sobre 5 millones.
+```r
+gestion %&gt;% dplyr::filter(
+  (tipo_solicitante == "Persona natural" | tipo_solicitante == "Empresa") &amp;
+  nivel_prioridad == "Alta" &amp;
+  monto_asignado &gt; 5000000)
+```
+]
+
+.highlight-box[
+Fíjate en los **paréntesis** del Ejemplo 5: primero se resuelve el `O` de adentro, y ese resultado se combina con los dos `Y`. Sin paréntesis, R podría entender otra cosa.
+]
+
+---
+class: middle
+
+# Ahora ustedes .badge[10 ejercicios]
+
+Escriban el `filter()` para obtener:
+
+.two-col[
+.info-box[
+1. Solicitudes de la comuna de **Providencia**.
+2. Solicitudes con **más de 1.000 beneficiarios**.
+3. Solicitudes en estado **Resuelta** (`estado == 3`).
+4. Solicitudes de prioridad **Media** que **requieran visita**.
+5. Solicitudes de **La Florida** con monto **mayor a 10 millones**.
+]
+.info-box[
+6. Solicitudes que **no** sean de persona natural.
+7. Solicitudes de **Maipú, Puente Alto o La Pintana**.
+8. Prioridad **Alta**, **en proceso** y que **requieran visita**.
+9. De **Aseo y Ornato** o **Obras**, con **más de 500 beneficiarios**.
+10. De **persona natural**, prioridad **Alta**, con monto **entre 5 y 20 millones**.
+]
+]
+
+.footnote-small[La pauta está al final de la presentación.]
+
+---
+class: center, middle, inverse
+
+# Bloque 2
+
+# A lápiz y papel
+
+---
+class: middle
+
+# El desafío
+
+.definition-box[
+En la Municipalidad te piden dejar listo un **script base**. En una hoja, y **sin computador**, escribe a mano el código completo que haga lo siguiente:
+]
+
+&lt;div class="step"&gt;&lt;div class="step-num"&gt;1&lt;/div&gt;&lt;div&gt;&lt;b&gt;Instale y active&lt;/b&gt; los paquetes necesarios.&lt;/div&gt;&lt;/div&gt;
+&lt;div class="step"&gt;&lt;div class="step-num"&gt;2&lt;/div&gt;&lt;div&gt;&lt;b&gt;Cargue&lt;/b&gt; &lt;code&gt;gestion_municipal.csv&lt;/code&gt; desde la carpeta &lt;code&gt;data/&lt;/code&gt; en un objeto llamado &lt;code&gt;gestion&lt;/code&gt;.&lt;/div&gt;&lt;/div&gt;
+&lt;div class="step"&gt;&lt;div class="step-num"&gt;3&lt;/div&gt;&lt;div&gt;&lt;b&gt;Muestre un vistazo&lt;/b&gt; general de la base.&lt;/div&gt;&lt;/div&gt;
+&lt;div class="step"&gt;&lt;div class="step-num"&gt;4&lt;/div&gt;&lt;div&gt;&lt;b&gt;Reclasifique&lt;/b&gt; &lt;code&gt;nivel_prioridad&lt;/code&gt; a &lt;b&gt;factor ordenado&lt;/b&gt; (Baja → Media → Alta).&lt;/div&gt;&lt;/div&gt;
+&lt;div class="step"&gt;&lt;div class="step-num"&gt;5&lt;/div&gt;&lt;div&gt;&lt;b&gt;Cree&lt;/b&gt; la variable &lt;code&gt;prioridad_urgente&lt;/code&gt;: &lt;code&gt;TRUE&lt;/code&gt; si la prioridad es Alta &lt;b&gt;y&lt;/b&gt; el estado no es rechazado.&lt;/div&gt;&lt;/div&gt;
+
+---
+class: middle
+
+# Cómo enfrentarlo
+
+.info-box[
+Piensa el script como una **receta ordenada**. Escribe una línea por paso y, al lado, un comentario con `#` que explique qué hace. No importa si algún nombre de función no te sale exacto: lo importante es la **lógica y el orden**.
+]
+
+.definition-box[
+Preguntas guía mientras escribes:
+- ¿Qué se hace **una sola vez** (instalar) y qué **cada vez** (activar)?
+- ¿La ruta al archivo es **relativa** a la carpeta del proyecto?
+- Para el paso 5, ¿qué **operadores lógicos** necesito para "Alta **y** no rechazado"?
+]
+
+.footnote-small[Tienen ~15 minutos. Después revisamos juntos en la pizarra.]
+
+---
+class: center, middle
+
+# ¡Buen trabajo!
+
+### La próxima clase: transformación de variables (Parte II)
+Más recodificación, `ifelse()`, resúmenes por grupo y valores perdidos (`NA`).
+
+.footnote-small[Dudas: fvillarroelr1@docente.uss.cl · Tecnología para la Gestión II · ADPU B012]
+
+---
+class: middle
+
+# Pauta — 10 ejercicios .badge[solo docente]
+
+.two-col[
+.info-box[
+```r
+# 1
+filter(comuna == "Providencia")
+# 2
+filter(n_beneficiarios &gt; 1000)
+# 3
+filter(estado == 3)
+# 4
+filter(nivel_prioridad == "Media" &amp;
+       requiere_visita == "Sí")
+# 5
+filter(comuna == "La Florida" &amp;
+       monto_asignado &gt; 10000000)
+```
+]
+.info-box[
+```r
+# 6
+filter(tipo_solicitante != "Persona natural")
+# 7
+filter(comuna %in% c("Maipú","Puente Alto",
+                     "La Pintana"))
+# 8
+filter(nivel_prioridad == "Alta" &amp;
+       estado == 2 &amp; requiere_visita == "Sí")
+# 9
+filter((oficina_municipal == "Dirección de Aseo y Ornato" |
+        oficina_municipal == "Dirección de Obras Municipales") &amp;
+       n_beneficiarios &gt; 500)
+# 10
+filter(tipo_solicitante == "Persona natural" &amp;
+       nivel_prioridad == "Alta" &amp;
+       monto_asignado &gt; 5000000 &amp;
+       monto_asignado &lt; 20000000)
+```
+]
+]
+
+.footnote-small[Todos anteponiendo `gestion %&gt;% dplyr::` . Elimina esta diapositiva antes de proyectar si no quieres mostrar la pauta.]
+
+---
+class: middle
+
+# Pauta — Bloque 2 (a lápiz y papel) .badge[solo docente]
+
+.info-box[
+```r
+# 1) Paquetes
+install.packages("tidyverse")   # una sola vez
+library(tidyverse)              # cada vez
+
+# 2) Cargar la base
+gestion &lt;- read.csv("data/gestion_municipal.csv")
+
+# 3) Vistazo general
+glimpse(gestion)
+
+# 4) Reclasificar a factor ordenado
+gestion$nivel_prioridad &lt;- factor(gestion$nivel_prioridad,
+                                  levels = c("Baja", "Media", "Alta"))
+
+# 5) Crear variable lógica con operadores
+gestion &lt;- gestion %&gt;%
+  dplyr::mutate(prioridad_urgente = nivel_prioridad == "Alta" &amp; estado != 4)
+```
+]
+
+.footnote-small[Se acepta cualquier variante equivalente (p. ej. `case_when()` en el paso 5). Lo central: orden, rutas relativas y uso correcto de `&amp;`.]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "ratio": "16:9",
+  "countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
