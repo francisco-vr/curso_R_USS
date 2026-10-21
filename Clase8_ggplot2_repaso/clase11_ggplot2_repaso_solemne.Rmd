@@ -1,0 +1,935 @@
+---
+title: "Tecnología para la Gestión II - Clase 11: ggplot2 (profundización) y repaso para la Solemne 2"
+author:
+  - "Francisco Villarroel Riquelme"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+    seal: false
+---
+class: left, middle, bg_portada
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width = 5, fig.height = 3.8, fig.retina = 3,
+  out.width = "100%",
+  fig.align = "center",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE,
+  hiline = TRUE
+)
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#b01333",
+  secondary_color = "#085e9f",
+  inverse_header_color = "#FFFFFF"
+)
+```
+```{r datos, include=FALSE}
+# Carga de la base para que los gráficos de las diapositivas se ejecuten.
+# Pon dotacion_publica.csv en la carpeta data/ (o junto a este .Rmd).
+library(tidyverse)
+ruta <- c("dotacion_publica.csv")
+ruta <- ruta[file.exists(ruta)][1]
+if (is.na(ruta)) stop("No encuentro dotacion_publica.csv: ponlo en data/ o junto a este .Rmd")
+datos <- read.csv(ruta)
+```
+```{css, echo=F}
+h1, h2, h3 {
+  text-align: center;
+}
+.bg_portada {
+  position: relative;
+  z-index: 1;
+}
+.bg_portada::before {
+  content: "";
+  background-image: url('https://www.infoworld.com/wp-content/uploads/2024/06/cw_r_guide_video_series_thinkstock_16x9_1920x1080-100758020-orig.jpg?quality=50&strip=all');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+.definition-box {
+  background: #fdf2f3;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #fef9e7;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.info-box {
+  background: #eaf2fb;
+  border-left: 5px solid #085e9f;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.error-box {
+  background: #2b2b2b;
+  color: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-family: 'Consolas','Courier New',monospace;
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+.error-box .err { color: #ff7a7a; }
+.error-box .ok  { color: #7ee081; }
+.error-box .hint{ color: #ffd479; }
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-green { border-top: 4px solid #1e8449; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.step-num {
+  background: #b01333;
+  color: white;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+.pull-left .remark-code, .pull-left code {
+  font-size: 0.80em;
+}
+table { font-size: 0.78em; width: 100%; border-collapse: collapse; }
+th { background: #b01333; color: white; padding: 7px 10px; text-align: left; }
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #f5f7fa; }
+img { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+```
+
+---
+class: left, middle, bg_portada
+# Tecnología para la Gestión II
+## Clase 11 — ggplot2 en profundidad y repaso para la Solemne 2
+**Francisco Villarroel Riquelme** | `r Sys.Date()`
+
+.footnote-small[Administración Pública · Escuela de Gobierno · Facultad de Economía y Gobierno · ADPU B012]
+
+---
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+background-size: 80px
+background-position: 97% 97%
+class: middle
+
+# ¿Qué haremos hoy?
+
+.two-col[
+.info-box[
+**Bloque 1 — ggplot2, segunda parte**
+- Títulos, subtítulos y nombres de ejes
+- Girar el gráfico con `coord_flip()`
+- Dos gráficos lado a lado: `facet_wrap()` y `facet_grid()`
+]
+.definition-box[
+**Bloque 2 — Repaso para la Solemne 2**
+- El flujo completo, paso a paso
+- Con la base de funcionarios públicos
+- Después lo aplican a CASEN
+]
+]
+
+.footnote-small[Usamos `dotacion_publica.csv`, la misma base de las clases anteriores.]
+
+---
+class: middle
+
+# Antes de partir
+
+```r
+library(tidyverse)
+
+datos <- read.csv("data/dotacion_publica.csv")
+```
+
+.info-box[
+Recuerda: el archivo debe estar en la carpeta `data/` de tu proyecto, y el proyecto debe estar **abierto** (archivo `.Rproj`).
+]
+
+---
+class: center, middle, inverse
+
+# Bloque 1
+
+# ggplot2, segunda parte
+
+---
+class: middle
+
+# Dónde nos quedamos
+
+```{r base1, echo=TRUE, fig.height=2.6, out.width="60%"}
+ggplot(datos, aes(x = calidad_juridica)) +
+  geom_bar(fill = "#b01333")
+```
+
+.footnote-small[Funciona, pero **no se entiende solo**: ¿qué mide el eje vertical? ¿de qué es este gráfico? Hoy lo dejamos listo para presentar.]
+
+---
+class: middle
+
+# Etiquetas con `labs()`
+
+.pull-left[
+```{r labs1_code, ref.label="labs1", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+`labs()` es **otra capa**: se suma con `+`.
+]
+
+.pull-right[
+```{r labs1, echo=FALSE}
+ggplot(datos, aes(x = calidad_juridica)) +
+  geom_bar(fill = "#b01333") +
+  labs(title = "Funcionarios según calidad jurídica",
+       x = "Calidad jurídica",
+       y = "Cantidad de funcionarios")
+```
+]
+
+---
+class: middle
+
+# ¿Qué se puede poner dentro de `labs()`?
+
+| Argumento | Para qué sirve |
+|---|---|
+| `title` | Título principal |
+| `subtitle` | Subtítulo (bajo el título) |
+| `x` / `y` | Nombre de cada eje |
+| `fill` / `color` | Nombre de la **leyenda** |
+| `caption` | Fuente o nota al pie |
+
+.highlight-box[
+Si no quieres nombre en un eje, usa `x = NULL`.
+]
+
+---
+class: middle
+
+# Título y subtítulo
+
+.pull-left[
+```{r labs2_code, ref.label="labs2", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+- El **título** dice *qué* se muestra
+- El **subtítulo** da el contexto: base, año, grupo
+- `caption` indica la **fuente**
+]
+
+.pull-right[
+```{r labs2, echo=FALSE}
+ggplot(datos, aes(x = calidad_juridica)) +
+  geom_bar(fill = "#b01333") +
+  labs(title = "Funcionarios según calidad jurídica",
+       subtitle = "Dotación de 8 ministerios",
+       x = "Calidad jurídica",
+       y = "Cantidad de funcionarios",
+       caption = "Fuente: dotacion_publica.csv")
+```
+]
+
+---
+class: middle
+
+# Nombre de la leyenda
+
+.pull-left[
+```{r labs3_code, ref.label="labs3", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+Cuando el color depende de una variable (`fill = sexo`), la leyenda se renombra con `fill = "..."` dentro de `labs()`.
+]
+
+.pull-right[
+```{r labs3, echo=FALSE}
+ggplot(datos, aes(x = estamento, fill = sexo)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Funcionarios por estamento y sexo",
+       x = "Estamento",
+       y = "Cantidad",
+       fill = "Sexo")
+```
+]
+
+---
+class: middle
+
+# Un tema más limpio: `theme_minimal()`
+
+.pull-left[
+```{r theme1_code, ref.label="theme1", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+`theme_minimal()` quita el fondo gris y deja un gráfico más **limpio**. Se suma al final, como una capa más.
+]
+
+.pull-right[
+```{r theme1, echo=FALSE}
+ggplot(datos, aes(x = estamento, fill = sexo)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Funcionarios por estamento y sexo",
+       x = "Estamento",
+       y = "Cantidad",
+       fill = "Sexo") +
+  theme_minimal()
+```
+]
+
+---
+class: middle
+
+# Actividad — etiquetas
+
+.definition-box[
+**1.** Toma el gráfico de barras de `region` y agrégale título, subtítulo, nombres de ejes y la fuente (`caption`).
+]
+
+.definition-box[
+**2.** Haz un histograma de `renta_bruta` con título, nombre de ejes y `theme_minimal()`.
+]
+
+---
+class: center, middle, inverse
+
+# Girar el gráfico
+
+## `coord_flip()`
+
+---
+class: middle
+
+# El problema: nombres largos
+
+.pull-left[
+```{r flip0_code, ref.label="flip0", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+Con nombres largos, las etiquetas del eje se **pisan** y no se leen.
+]
+
+.pull-right[
+```{r flip0, echo=FALSE}
+ggplot(datos, aes(x = ministerio)) +
+  geom_bar(fill = "#085e9f")
+```
+]
+
+---
+class: middle
+
+# La solución: `coord_flip()`
+
+.pull-left[
+```{r flip1_code, ref.label="flip1", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+`coord_flip()` **intercambia los ejes**: las categorías quedan en vertical y los nombres se leen bien.
+
+Ojo: después de girar, el `x` de `labs()` sigue siendo la variable de `aes(x = ...)`, aunque se vea abajo o al costado.
+]
+
+.pull-right[
+```{r flip1, echo=FALSE}
+ggplot(datos, aes(x = ministerio)) +
+  geom_bar(fill = "#085e9f") +
+  coord_flip() +
+  labs(title = "Funcionarios por ministerio",
+       x = NULL,
+       y = "Cantidad de funcionarios") +
+  theme_minimal()
+```
+]
+
+---
+class: center, middle, inverse
+
+# Varios gráficos en uno
+
+## `facet_wrap()` y `facet_grid()`
+
+---
+class: middle
+
+# Un gráfico por grupo
+
+.definition-box[
+Las **facetas** dividen un gráfico en varios paneles, uno por cada categoría de una variable. Todos usan **la misma escala**, así que se pueden comparar.
+]
+
+--
+
+.two-col[
+.card.card-blue[
+**`facet_wrap(~ variable)`**
+
+Un panel por categoría, ordenados en filas y columnas.
+]
+.card.card-red[
+**`facet_grid(filas ~ columnas)`**
+
+Una grilla que cruza **dos** variables.
+]
+]
+
+---
+class: middle
+
+# `facet_wrap()`: un panel por categoría
+
+.pull-left[
+```{r fw1_code, ref.label="fw1", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+El **`~`** se lee "según": un panel *según* sexo. Así comparas hombres y mujeres **lado a lado**.
+]
+
+.pull-right[
+```{r fw1, echo=FALSE}
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(bins = 20,
+                 fill = "#085e9f",
+                 color = "white") +
+  facet_wrap(~ sexo)
+```
+]
+
+---
+class: middle
+
+# Controlar la disposición: `ncol` y `nrow`
+
+.pull-left[
+```{r fw2_code, ref.label="fw2", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+- `ncol = 1`: los paneles **uno bajo otro**
+- `ncol = 2`: **lado a lado**
+- Con muchas categorías, ggplot2 arma la grilla solo
+]
+
+.pull-right[
+```{r fw2, echo=FALSE, fig.height=4.4}
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(bins = 20,
+                 fill = "#b01333",
+                 color = "white") +
+  facet_wrap(~ sexo, ncol = 1)
+```
+]
+
+---
+class: middle
+
+# `facet_wrap()` con barras
+
+.pull-left[
+```{r fw3_code, ref.label="fw3", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+Aquí cada panel muestra los estamentos de **una calidad jurídica**.
+]
+
+.pull-right[
+```{r fw3, echo=FALSE}
+ggplot(datos, aes(x = estamento)) +
+  geom_bar(fill = "#085e9f") +
+  coord_flip() +
+  facet_wrap(~ calidad_juridica)
+```
+]
+
+---
+class: middle
+
+# `facet_grid()`: cruzar dos variables
+
+.pull-left[
+```{r fg1_code, ref.label="fg1", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+`filas ~ columnas`: aquí **sexo** va en las filas y **calidad jurídica** en las columnas.
+]
+
+.pull-right[
+```{r fg1, echo=FALSE}
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(bins = 15,
+                 fill = "#b01333",
+                 color = "white") +
+  facet_grid(sexo ~ calidad_juridica)
+```
+]
+
+---
+class: middle
+
+# ¿Cuál uso?
+
+.two-col[
+.card.card-blue[
+**`facet_wrap(~ a)`**
+
+- Una variable de agrupación
+- Útil con **muchas categorías**
+- Tú decides las columnas con `ncol`
+]
+.card.card-red[
+**`facet_grid(a ~ b)`**
+
+- **Dos** variables cruzadas
+- Cada fila y columna tiene un significado
+- Cuidado: con muchas categorías se llena
+]
+]
+
+--
+
+.highlight-box[
+Para la solemne: **un histograma por categoría de escolaridad** se hace con `facet_wrap()`.
+]
+
+---
+class: middle
+
+# Todo junto
+
+.pull-left[
+```{r todo1_code, ref.label="todo1", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+Etiquetas + facetas + tema: un gráfico **listo para el informe**.
+]
+
+.pull-right[
+```{r todo1, echo=FALSE}
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(bins = 20,
+                 fill = "#085e9f",
+                 color = "white") +
+  facet_wrap(~ estamento) +
+  labs(title = "Distribución de la renta bruta",
+       subtitle = "Según estamento",
+       x = "Renta bruta (pesos)",
+       y = "Frecuencia",
+       caption = "Fuente: dotacion_publica.csv") +
+  theme_minimal()
+```
+]
+
+---
+class: middle
+
+# Actividad — facetas y giro
+
+.definition-box[
+**3.** Histograma de `edad` dividido por `sexo` con `facet_wrap()`, uno bajo el otro (`ncol = 1`), con título y nombres de ejes.
+]
+
+.definition-box[
+**4.** Barras de `region` giradas con `coord_flip()` y divididas en paneles por `calidad_juridica`.
+]
+
+.definition-box[
+**5.** Histograma de `renta_bruta` con `facet_grid(sexo ~ teletrabajo)`. Agrega título y subtítulo.
+]
+
+---
+class: center, middle, inverse
+
+# Bloque 2
+
+# Repaso para la Solemne 2
+
+---
+class: middle
+
+# El flujo completo de la solemne
+
+.three-col[
+.card.card-red[
+**1. Preparar**
+
+Proyecto, carpetas, paquetes, carga de la base, filtro de la comuna.
+]
+.card.card-blue[
+**2. Calcular**
+
+Tablas descriptivas: total, por sexo, por escolaridad reagrupada.
+]
+.card.card-green[
+**3. Graficar**
+
+Histograma por categoría, con etiquetas.
+]
+]
+
+.footnote-small[Hoy lo ensayamos con la base de funcionarios. En la solemne lo harán con `casen_corta.csv`.]
+
+---
+class: middle
+
+# Paso 1: proyecto y script replicable
+
+.two-col[
+.info-box[
+**Proyecto**
+
+- Proyecto de R (`.Rproj`) abierto
+- Carpetas: `data/`, `scripts/`, `results/`
+- La base en `data/`
+]
+.definition-box[
+**Script**
+
+Debe correr de **principio a fin**, en orden, sin tocar nada:
+
+1. Paquetes
+2. Carga de la base
+3. Transformaciones
+4. Tablas y gráficos
+]
+]
+
+---
+class: middle
+
+# Paquetes, carga y filtro de una categoría
+
+```r
+# install.packages("tidyverse")   # solo la primera vez
+library(tidyverse)
+
+datos <- read.csv("data/dotacion_publica.csv")
+
+# quedarse con un solo ministerio (en la solemne: una comuna)
+salud <- datos %>%
+  filter(ministerio == "Salud")
+```
+
+.info-box[
+En la solemne: `filter(comuna == "...")`. Revisa **cómo está escrito** el nombre de la comuna en la base (`unique(datos$comuna)`).
+]
+
+---
+class: middle
+
+# Paso 2: tabla de tendencia central y dispersión
+
+```{r rep1, echo=TRUE}
+salud <- datos %>% filter(ministerio == "Salud")
+
+salud %>%
+  summarise(
+    n = n(),
+    promedio = mean(renta_bruta),
+    mediana = median(renta_bruta),
+    desv_est = sd(renta_bruta),
+    minimo = min(renta_bruta),
+    maximo = max(renta_bruta)
+  )
+```
+
+---
+class: middle
+
+# Tabla por grupo (sexo)
+
+Los **mismos cálculos**, agregando `group_by()`:
+
+```{r rep2, echo=TRUE}
+salud %>%
+  group_by(sexo) %>%
+  summarise(
+    n = n(),
+    promedio = mean(renta_bruta),
+    mediana = median(renta_bruta),
+    desv_est = sd(renta_bruta),
+    minimo = min(renta_bruta),
+    maximo = max(renta_bruta)
+  )
+```
+
+---
+class: middle
+
+# Reagrupar una variable numérica en categorías
+
+.pull-left[
+```r
+salud <- salud %>%
+  mutate(tramo = case_when(
+    anios_servicio < 5  ~ "0 a 4 años",
+    anios_servicio < 10 ~ "5 a 9 años",
+    anios_servicio < 20 ~ "10 a 19 años",
+    TRUE                ~ "20 años o más"
+  ))
+```
+]
+
+.pull-right[
+.info-box[
+**Es el mismo patrón que `esc`**: una variable numérica que se convierte en categorías con `case_when()`.
+
+Las condiciones se evalúan **en orden**: ponlas de menor a mayor y cierra con `TRUE`.
+]
+]
+
+---
+class: middle
+
+# Ordenar las categorías
+
+```r
+salud <- salud %>%
+  mutate(tramo = factor(tramo,
+    levels = c("0 a 4 años", "5 a 9 años",
+               "10 a 19 años", "20 años o más")))
+```
+
+.highlight-box[
+Sin esto, R ordena las categorías **alfabéticamente** y en las tablas y gráficos quedan desordenadas. `factor(..., levels = ...)` fija el orden que tú quieres.
+]
+
+---
+class: middle
+
+# Tabla por categoría reagrupada
+
+```{r rep3, echo=TRUE}
+salud <- salud %>%
+  mutate(tramo = case_when(
+    anios_servicio < 5  ~ "0 a 4 años",
+    anios_servicio < 10 ~ "5 a 9 años",
+    anios_servicio < 20 ~ "10 a 19 años",
+    TRUE                ~ "20 años o más"),
+    tramo = factor(tramo, levels = c("0 a 4 años", "5 a 9 años",
+                                     "10 a 19 años", "20 años o más")))
+
+salud %>%
+  group_by(tramo) %>%
+  summarise(n = n(), promedio = mean(renta_bruta),
+            mediana = median(renta_bruta), desv_est = sd(renta_bruta))
+```
+
+---
+class: middle
+
+# Paso 3: histograma por categoría
+
+.pull-left[
+```{r rep4_code, ref.label="rep4", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+`facet_wrap(~ tramo)` da **un histograma por categoría**, con etiquetas listas para el informe.
+]
+
+.pull-right[
+```{r rep4, echo=FALSE}
+salud %>%
+  mutate(tramo = case_when(
+    anios_servicio < 5  ~ "0 a 4 años",
+    anios_servicio < 10 ~ "5 a 9 años",
+    anios_servicio < 20 ~ "10 a 19 años",
+    TRUE                ~ "20 años o más"),
+    tramo = factor(tramo, levels = c("0 a 4 años", "5 a 9 años",
+                                     "10 a 19 años", "20 años o más"))) %>%
+  ggplot(aes(x = renta_bruta)) +
+  geom_histogram(bins = 15, fill = "#085e9f", color = "white") +
+  facet_wrap(~ tramo) +
+  labs(title = "Renta bruta según años de servicio",
+       subtitle = "Ministerio de Salud",
+       x = "Renta bruta (pesos)", y = "Frecuencia") +
+  theme_minimal()
+```
+]
+
+---
+class: middle
+
+# Pasar tablas y gráficos a Word
+
+.three-col[
+.card.card-blue[
+**Tablas**
+
+Cópialas a Word, o conviértelas con `knitr::kable()` y pega el resultado. Revisa que queden **ordenadas y con nombres claros**.
+]
+.card.card-red[
+**Gráficos**
+
+Guárdalos con `ggsave("results/nombre.png", width = 8, height = 5, dpi = 300)` e insértalos en el Word.
+]
+.card.card-green[
+**Comentarios**
+
+Cada tabla y gráfico lleva **su análisis**: qué muestra, qué diferencias hay y por qué importa.
+]
+]
+
+---
+class: middle
+
+# Cómo comentar una tabla
+
+.definition-box[
+**1. Describe** lo que ves: promedio, mediana, dispersión.
+
+**2. Compara** entre grupos: ¿quién tiene más? ¿cuánta diferencia hay?
+
+**3. Interpreta**: ¿qué significa para la administración pública?
+]
+
+--
+
+.highlight-box[
+Ejemplo de frase: *"El promedio de renta de las mujeres (X) es menor que el de los hombres (Y); la mediana confirma la brecha, y la mayor desviación estándar indica más dispersión en los hombres."*
+]
+
+---
+class: middle
+
+# Lista de verificación antes de entregar
+
+.two-col[
+.card.card-red[
+**Al final de la clase**
+
+- Proyecto con la estructura de carpetas
+- Base en `data/`
+- Script replicable
+- Proyecto **comprimido** (.zip) a Blackboard
+]
+.card.card-blue[
+**Hasta el jueves 00:00 hrs**
+
+- Word con texto, tablas y gráficos
+- Gráficos con título y etiquetas
+- Script definitivo (solo el `.R`)
+]
+]
+
+---
+class: middle
+
+# Actividad final — ensayo
+
+.definition-box[
+Con la base de funcionarios, **repite el flujo** con otro ministerio:
+
+**1.** Filtra el ministerio de tu preferencia.
+]
+
+.definition-box[
+**2.** Tabla de `renta_bruta`: tendencia central y dispersión, total y por `sexo`.
+]
+
+.definition-box[
+**3.** Reagrupa `edad` en cuatro tramos, calcula los mismos estadísticos y haz un histograma por tramo con título, subtítulo y etiquetas.
+]
+
+---
+class: center, middle, inverse
+
+# ¡Éxito en la Solemne 2!
+
+.footnote-small[Dudas: fvillarroelr1@docente.uss.cl · Tecnología para la Gestión II · ADPU B012]
+
+

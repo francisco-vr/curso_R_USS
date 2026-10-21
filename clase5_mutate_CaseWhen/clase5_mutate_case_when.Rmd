@@ -1,0 +1,562 @@
+---
+title: "Tecnología para la Gestión II - Clase 7: Aprender del error y transformación de variables (mutate y case_when)"
+author:
+  - "Francisco Villarroel Riquelme"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+    seal: false
+---
+class: left, middle, bg_portada
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#b01333",
+  secondary_color = "#085e9f",
+  inverse_header_color = "#FFFFFF"
+)
+```
+```{css, echo=F}
+h1, h2, h3 {
+  text-align: center;
+}
+.bg_portada {
+  position: relative;
+  z-index: 1;
+}
+.bg_portada::before {
+  content: "";
+  background-image: url('https://www.infoworld.com/wp-content/uploads/2024/06/cw_r_guide_video_series_thinkstock_16x9_1920x1080-100758020-orig.jpg?quality=50&strip=all');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+.definition-box {
+  background: #fdf2f3;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #fef9e7;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.info-box {
+  background: #eaf2fb;
+  border-left: 5px solid #085e9f;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.error-box {
+  background: #2b2b2b;
+  color: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-family: 'Consolas','Courier New',monospace;
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+.error-box .err { color: #ff7a7a; }
+.error-box .ok  { color: #7ee081; }
+.error-box .hint{ color: #ffd479; }
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-green { border-top: 4px solid #1e8449; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.step-num {
+  background: #b01333;
+  color: white;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+table { font-size: 0.78em; width: 100%; border-collapse: collapse; }
+th { background: #b01333; color: white; padding: 7px 10px; text-align: left; }
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #f5f7fa; }
+blockquote {
+  border-left: 4px solid #b01333;
+  background: #fdf2f3;
+  padding: 10px 16px;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #333;
+  margin: 10px 0;
+  font-size: 0.90em;
+}
+img { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+```
+
+<!-- Logo USS opcional en cualquier diapo:
+     background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+     background-size: 80px
+     background-position: 97% 97% -->
+
+---
+class: left, middle, bg_portada
+# Tecnología para la Gestión II
+## Clase 7 — Transformar variables: `mutate()` y `case_when()`
+**Francisco Villarroel Riquelme** | `r Sys.Date()`
+
+.footnote-small[Administración Pública · Escuela de Gobierno · Facultad de Economía y Gobierno · ADPU B012]
+
+---
+class: middle
+
+# ¿Qué haremos hoy?
+
+.two-col[
+.info-box[
+**Bloque 1 — Transformar variables**
+- `mutate()`: crear y modificar columnas
+- `case_when()`: recodificar según condiciones
+- Manos a la obra con la base municipal
+]
+.definition-box[
+**Bloque 2 —  Estadística descriptiva**
+
+
+]
+]
+
+
+---
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+background-size: 80px
+background-position: 97% 97%
+class: middle
+
+# Ya sabemos elegir… ahora, crear
+
+.three-col[
+.card.card-red[
+**`select()`**
+
+Elige **columnas**.
+]
+.card.card-blue[
+**`filter()`**
+
+Elige **filas**.
+]
+.card.card-green[
+**`mutate()`**
+
+**Crea o modifica** columnas.
+]
+]
+
+--
+
+.highlight-box[
+Hasta ahora reducíamos la base. Con `mutate()` empezamos a **construir información nueva** a partir de la que ya tenemos: montos por persona, tramos, indicadores, etiquetas…
+]
+
+---
+class: middle
+
+# `mutate()` — crear una columna
+
+Genera una variable nueva a partir de las que ya existen:
+
+```r
+datos <- datos %>%
+  mutate(monto_millones = monto_asignado / 1000000)
+```
+
+.definition-box[
+Se lee: *"a `datos`, agrégale una columna llamada `monto_millones` que sea `monto_asignado` dividido por un millón"*. La base conserva todas sus columnas y suma la nueva al final.
+]
+
+--
+
+.info-box[
+Recuerda **reasignar** con `datos <- datos %>% ...` para que el cambio quede guardado en la base.
+]
+
+---
+class: middle
+
+# `mutate()` — varias columnas a la vez
+
+```r
+datos <- datos %>%
+  mutate(costo_beneficiario = monto_asignado / n_beneficiarios,
+         es_alta            = nivel_prioridad == "Alta")
+```
+
+.two-col[
+.card.card-blue[
+**`costo_beneficiario`**
+
+Una variable **numérica**: cuánto se gasta por persona beneficiada.
+]
+.card.card-green[
+**`es_alta`**
+
+Una variable **lógica** (`TRUE`/`FALSE`): ¿la prioridad es Alta? Nace de una condición.
+]
+]
+
+.footnote-small[Dentro de `mutate()` puedes crear tantas columnas como quieras, separadas por comas.]
+
+---
+class: center, middle 
+
+# Recodificar con `case_when()`
+
+---
+class: middle
+
+# El problema que resuelve `case_when()`
+
+.definition-box[
+La variable `estado` viene como número: 1, 2, 3, 4. Para un informe, nadie entiende "4": queremos que diga **"Rechazada"**.
+]
+
+--
+
+`case_when()` traduce **condiciones en valores**. Es como decir:
+
+.info-box[
+*"**Si** el estado es 1, ponle 'Ingresada'; **si** es 2, ponle 'En proceso'; **si** es 3, 'Resuelta'; **si** es 4, 'Rechazada'."*
+]
+
+---
+class: middle
+
+# `case_when()` — la sintaxis
+
+```r
+datos <- datos %>%
+  mutate(estado_txt = case_when(
+    estado == 1 ~ "Ingresada",
+    estado == 2 ~ "En proceso",
+    estado == 3 ~ "Resuelta",
+    estado == 4 ~ "Rechazada"))
+```
+
+.definition-box[
+Cada línea es **`condición ~ valor`**: a la izquierda del `~` va la pregunta (lógica), a la derecha el valor que asigna si se cumple. Se evalúan **de arriba hacia abajo** y gana la **primera** que se cumple.
+]
+
+.footnote-small[El símbolo `~` se llama "virgulilla" o *tilde*. `case_when()` vive dentro de `mutate()`, porque estamos creando una columna.]
+
+---
+class: middle
+
+# `case_when()` — tramos o categorías
+
+Sirve para agrupar una variable numérica en categorías:
+
+```r
+datos <- datos %>%
+  mutate(tramo_monto = case_when(
+    monto_asignado <  1000000  ~ "Bajo",
+    monto_asignado < 10000000  ~ "Medio",
+    TRUE                       ~ "Alto"))
+```
+
+.highlight-box[
+La última línea, **`TRUE ~ "Alto"`**, es el "para todo lo demás": atrapa cualquier caso que no cumplió las condiciones anteriores. **Sin ese `TRUE`, esos casos quedan como `NA`.**
+]
+
+.footnote-small[Como se evalúa en orden, un monto de 500.000 ya calza en "Bajo" y no sigue bajando.]
+
+---
+class: middle
+
+# `case_when()` — condiciones combinadas
+
+Puedes usar los operadores lógicos que ya conoces (`&`, `|`, `!=`):
+
+```r
+datos <- datos %>%
+  mutate(gestion = case_when(
+    nivel_prioridad == "Alta" & estado != 4 ~ "Urgente",
+    nivel_prioridad == "Media"              ~ "Seguimiento",
+    TRUE                                    ~ "Puede esperar"))
+```
+
+.info-box[
+Traducción: *"si es prioridad Alta **y** no está rechazada → 'Urgente'; si es Media → 'Seguimiento'; en cualquier otro caso → 'Puede esperar'."*
+]
+
+---
+class: middle
+
+# Todo junto: `mutate` + `case_when` + pipe
+
+```r
+datos <- datos %>%
+  mutate(
+    monto_millones = monto_asignado / 1000000,
+    estado_txt = case_when(
+      estado == 1 ~ "Ingresada",
+      estado == 2 ~ "En proceso",
+      estado == 3 ~ "Resuelta",
+      estado == 4 ~ "Rechazada"),
+    tramo_monto = case_when(
+      monto_asignado <  1000000 ~ "Bajo",
+      monto_asignado < 10000000 ~ "Medio",
+      TRUE                      ~ "Alto"))
+```
+
+.footnote-small[Un solo `mutate()` puede crear columnas simples y `case_when()` a la vez. Ordenado y legible.]
+
+---
+class: middle
+
+# Errores frecuentes con `case_when()`
+
+.two-col[
+.card.card-red[
+**De sintaxis**
+
+- Usar `=` o `==` en vez de `~` para asignar
+- Escribir `=` en la condición (va `==`)
+- Olvidar cerrar un paréntesis
+]
+.card.card-orange[
+**De lógica**
+
+- Olvidar el `TRUE ~ ...` → aparecen `NA`
+- Mezclar tipos en las salidas (unas texto, otras número)
+- No envolverlo en `mutate()`
+]
+]
+
+--
+
+.highlight-box[
+Todas las salidas de un mismo `case_when()` deben ser **del mismo tipo** (todas texto, o todas número).
+]
+
+---
+class: center, middle, inverse
+
+# Manos a la obra
+
+## Ejercicios con la base municipal
+
+---
+class: middle
+
+# Ejercicios
+
+.definition-box[
+**1.** Con `mutate()`, crea `semanas_tramitacion = dias_tramitacion / 7`.
+]
+
+.definition-box[
+**2.** Con `mutate()`, crea la variable lógica `urgente = nivel_prioridad == "Alta" & requiere_visita == "Sí"`.
+]
+
+.definition-box[
+**3.** Con `case_when()`, crea `estado_txt` con las etiquetas del estado (1 a 4).
+]
+
+.definition-box[
+**4.** Con `case_when()`, crea `tramo_beneficiarios`: menos de 100 → "Pocos"; menos de 1.000 → "Medio"; el resto → "Muchos".
+]
+
+---
+class: middle
+
+# Tarea: el código con 10 errores .badge-green[nivel experto]
+
+Ahora que ya conoces `mutate()` y `case_when()`, un desafío para la casa. Este script los combina con `select()` y `filter()`. Tiene **10 errores** —de sintaxis y de lógica—. Encuéntralos y corrígelo tú mismo.
+
+.error-box[
+install.packages(tidyverse)<br>
+Library(tidyverse)<br>
+<br>
+datos &lt;- read.csv(data/gestion_municipal.csv)<br>
+<br>
+datos %&gt;%<br>
+&nbsp;&nbsp;select(comuna, tipo_solicitud, monto_asignado, estado, nivel_prioridad)<br>
+&nbsp;&nbsp;filter(estado = 3 &amp; monto_asignado &gt; 500000) %&gt;%<br>
+&nbsp;&nbsp;mutate(monto_millones = monto_asignado / 1000000<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estado_txt = case_when(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estado == 1 ~ "Ingresada"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estado == 2 ~ "En proceso",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estado == 3 ~ "Resuelta",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estado == 4 ~ "Rechazada"),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tramo = case_when(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;monto_asignado &lt; 1000000&nbsp;&nbsp;~ "Bajo",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;monto_asignado &lt; 10000000 ~ "Medio")) %&gt;%<br>
+&nbsp;&nbsp;filter(comuna %in% "Maipú", "Renca")
+]
+
+.footnote-small[No todos los errores detienen el código con un mensaje: algunos son de lógica y el script "funciona" igual, pero entrega un resultado incorrecto. Esos son los más difíciles de encontrar — y los más importantes de saber detectar.]
+
+---
+class: center, middle, inverse
+
+
+
+### La próxima clase: Estadística descriptiva
+
+
+.footnote-small[Dudas: fvillarroelr1@docente.uss.cl · Tecnología para la Gestión II · ADPU B012]
+
+---
+class: middle
+
+# Pauta de ejercicios .badge[solo docente]
+
+.info-box[
+```r
+# 1) mutate simple
+datos <- datos %>%
+  mutate(semanas_tramitacion = dias_tramitacion / 7)
+
+# 2) mutate lógico
+datos <- datos %>%
+  mutate(urgente = nivel_prioridad == "Alta" & requiere_visita == "Sí")
+
+# 3) case_when: etiquetas
+datos <- datos %>%
+  mutate(estado_txt = case_when(
+    estado == 1 ~ "Ingresada",
+    estado == 2 ~ "En proceso",
+    estado == 3 ~ "Resuelta",
+    estado == 4 ~ "Rechazada"))
+
+# 4) case_when: tramos
+datos <- datos %>%
+  mutate(tramo_beneficiarios = case_when(
+    n_beneficiarios <  100 ~ "Pocos",
+    n_beneficiarios < 1000 ~ "Medio",
+    TRUE                   ~ "Muchos"))
+```
+]
+
+.footnote-small[Elimina esta diapositiva antes de proyectar si no quieres mostrar la pauta.]
+
+---
+class: middle
+
+# Pauta: tarea de 10 errores .badge[solo docente]
+
+.two-col[
+.card.card-red[
+**Sintaxis (6)**
+
+1. `"tidyverse"` sin comillas
+2. `Library` → `library`
+3. ruta del csv sin comillas
+4. falta `%>%` después de `select()`
+5. `estado = 3` → `estado == 3`
+6. falta coma antes de `estado_txt =`
+]
+.card.card-orange[
+**Sintaxis y lógica (4)**
+
+7. falta coma dentro del primer `case_when()`
+8. `tramo` sin `TRUE ~ ...` final → NA en montos ≥ 10M
+9. `%in% "Maipú", "Renca"` → falta `c(...)`
+10. el resultado nunca se reasigna a `datos` (falta `datos <-`)
+]
+]
+
+.info-box[
+
+```r
+datos <- datos %>%
+  select(comuna, tipo_solicitud, monto_asignado, estado, nivel_prioridad) %>%
+  filter(estado == 3 & monto_asignado > 500000) %>%
+  mutate(monto_millones = monto_asignado / 1000000,
+         estado_txt = case_when(
+           estado == 1 ~ "Ingresada",
+           estado == 2 ~ "En proceso",
+           estado == 3 ~ "Resuelta",
+           estado == 4 ~ "Rechazada"),
+         tramo = case_when(
+           monto_asignado < 1000000  ~ "Bajo",
+           monto_asignado < 10000000 ~ "Medio",
+           TRUE                      ~ "Alto")) %>%
+  filter(comuna %in% c("Maipú", "Renca"))
+```
+]
+
+.footnote-small[Los errores 8 y 10 no arrojan mensaje de error: el código corre "bien" pero el resultado es incorrecto o no queda guardado. Vale la pena remarcarlo al revisar. Elimina esta diapositiva antes de proyectar.]

@@ -1,0 +1,773 @@
+---
+title: "Tecnología para la Gestión II - Clase 10: Repaso de group_by() y primeros gráficos con ggplot2"
+author:
+  - "Francisco Villarroel Riquelme"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+    seal: false
+---
+class: left, middle, bg_portada
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width = 5, fig.height = 3.8, fig.retina = 3,
+  out.width = "100%",
+  fig.align = "center",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE,
+  hiline = TRUE
+)
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#b01333",
+  secondary_color = "#085e9f",
+  inverse_header_color = "#FFFFFF"
+)
+```
+```{r datos, include=FALSE}
+# Carga de la base para que los gráficos de las diapositivas se ejecuten.
+# Pon dotacion_publica.csv en la carpeta data/ (o junto a este .Rmd).
+library(tidyverse)
+ruta <- c("dotacion_publica.csv")
+ruta <- ruta[file.exists(ruta)][1]
+if (is.na(ruta)) stop("No encuentro dotacion_publica.csv: ponlo en data/ o junto a este .Rmd")
+datos <- read.csv(ruta)
+```
+```{css, echo=F}
+h1, h2, h3 {
+  text-align: center;
+}
+.bg_portada {
+  position: relative;
+  z-index: 1;
+}
+.bg_portada::before {
+  content: "";
+  background-image: url('https://www.infoworld.com/wp-content/uploads/2024/06/cw_r_guide_video_series_thinkstock_16x9_1920x1080-100758020-orig.jpg?quality=50&strip=all');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+.definition-box {
+  background: #fdf2f3;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #fef9e7;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.info-box {
+  background: #eaf2fb;
+  border-left: 5px solid #085e9f;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.error-box {
+  background: #2b2b2b;
+  color: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-family: 'Consolas','Courier New',monospace;
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+.error-box .err { color: #ff7a7a; }
+.error-box .ok  { color: #7ee081; }
+.error-box .hint{ color: #ffd479; }
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-green { border-top: 4px solid #1e8449; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.step-num {
+  background: #b01333;
+  color: white;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+.pull-left .remark-code, .pull-left code {
+  font-size: 0.80em;
+}
+table { font-size: 0.78em; width: 100%; border-collapse: collapse; }
+th { background: #b01333; color: white; padding: 7px 10px; text-align: left; }
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #f5f7fa; }
+img { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+```
+
+---
+class: left, middle, bg_portada
+# Tecnología para la Gestión II
+## Clase 10 — Repaso de `group_by()` y primeros gráficos
+**Francisco Villarroel Riquelme** | `r Sys.Date()`
+
+.footnote-small[Administración Pública · Escuela de Gobierno · Facultad de Economía y Gobierno · ADPU B012]
+
+---
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+background-size: 80px
+background-position: 97% 97%
+class: middle
+
+# ¿Qué haremos hoy?
+
+.two-col[
+.info-box[
+**Bloque 1**
+
+Repaso de `group_by()` + `summarise()`
+- Varios cálculos a la vez
+- Agrupar por más de una variable
+]
+.definition-box[
+**Bloque 2**
+
+Primeros pasos con ggplot2
+- Los principios básicos
+- Gráfico de barras
+- Histograma
+]
+]
+
+.footnote-small[Usamos la base `dotacion_publica.csv`: 600 funcionarios de 8 ministerios.]
+
+---
+class: middle
+
+# Antes de partir
+
+```r
+library(tidyverse)
+
+datos <- read.csv("data/dotacion_publica.csv")
+```
+
+.info-box[
+`ggplot2` viene dentro del `tidyverse`: con `library(tidyverse)` ya tienes todo lo de hoy.
+]
+
+---
+class: center, middle
+
+# Bloque 1
+
+# Repaso de `group_by()` y `summarise()`
+
+---
+class: middle
+
+# La idea: dividir, calcular, juntar
+
+.three-col[
+.card.card-red[
+**1. Dividir**
+
+`group_by(ministerio)`
+
+Separa la base en grupos.
+]
+.card.card-blue[
+**2. Calcular**
+
+`summarise(...)`
+
+Hace un cálculo en cada grupo.
+]
+.card.card-green[
+**3. Juntar**
+
+Entrega **una fila por grupo**.
+]
+]
+
+---
+class: middle
+
+# Un cálculo por grupo
+
+```{r gb1, echo=TRUE}
+datos %>%
+  group_by(calidad_juridica) %>%
+  summarise(renta_promedio = mean(renta_bruta))
+```
+
+.info-box[
+A la izquierda del `=` pones el **nombre** que quieres para la columna nueva; a la derecha, el **cálculo**.
+]
+
+---
+class: middle
+
+# Varios cálculos a la vez
+
+Dentro de un mismo `summarise()`, los cálculos van **separados por coma**:
+
+```{r gb2, echo=TRUE}
+datos %>%
+  group_by(calidad_juridica) %>%
+  summarise(
+    n = n(),
+    renta_promedio = mean(renta_bruta),
+    renta_mediana = median(renta_bruta),
+    renta_maxima = max(renta_bruta)
+  )
+```
+
+---
+class: middle
+
+# Funciones útiles dentro de `summarise()`
+
+| Para calcular | Función |
+|---|---|
+| Cuántos hay | `n()` |
+| Promedio / mediana | `mean()` / `median()` |
+| Dispersión | `sd()` |
+| Mínimo / máximo | `min()` / `max()` |
+| Proporción (sobre un Sí/No) | `mean(teletrabajo == "Sí")` |
+
+.highlight-box[
+Si la variable tiene `NA`, agrega `na.rm = TRUE`: por ejemplo `mean(evaluacion_desempeno, na.rm = TRUE)`.
+]
+
+---
+class: middle
+
+# Con valores perdidos
+
+```{r gb3, echo=TRUE}
+datos %>%
+  group_by(calidad_juridica) %>%
+  summarise(
+    n = n(),
+    eval_promedio = mean(evaluacion_desempeno, na.rm = TRUE)
+  )
+```
+
+.info-box[
+Los honorarios no tienen evaluación: todos sus valores son `NA`, por eso el resultado sale `NaN` (no hay nada que promediar).
+]
+
+---
+class: middle
+
+# Agrupar por más de una variable
+
+Basta con poner **otra variable** dentro de `group_by()`:
+
+```{r gb4, echo=TRUE}
+datos %>%
+  group_by(calidad_juridica, sexo) %>%
+  summarise(
+    n = n(),
+    renta_promedio = mean(renta_bruta)
+  )
+```
+
+---
+class: middle
+
+# ¿Cómo se lee?
+
+.definition-box[
+Con dos variables, R arma **una fila por cada combinación**: Contrata-Femenino, Contrata-Masculino, Honorarios-Femenino, etc.
+]
+
+--
+
+.info-box[
+**¿Y ese mensaje de `summarise()` has grouped output...?** Es solo un aviso: la tabla queda agrupada por la primera variable. No es un error. Si quieres que se vaya, agrega `.groups = "drop"` dentro de `summarise()`.
+]
+
+---
+class: middle
+
+# Ordenar el resultado con `arrange()`
+
+```{r gb5, echo=TRUE, eval=FALSE}
+datos %>%
+  group_by(ministerio, sexo) %>%
+  summarise(
+    n = n(),
+    renta_promedio = mean(renta_bruta),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(renta_promedio))
+```
+
+.footnote-small[`arrange()` va al final, después del `summarise()`. `desc()` ordena de mayor a menor.]
+
+---
+class: middle
+
+# Errores frecuentes
+
+.three-col[
+.card.card-red[
+**Falta la coma**
+
+Entre un cálculo y otro dentro de `summarise()`.
+]
+.card.card-blue[
+**Los `NA`**
+
+Olvidar `na.rm = TRUE` y obtener `NA` en el resultado.
+]
+.card.card-orange[
+**Orden equivocado**
+
+Poner `arrange()` **antes** del `summarise()`: ahí aún no existe la columna nueva.
+]
+]
+
+---
+class: middle
+
+# Actividad — Bloque 1
+
+.definition-box[
+**1.** Por `calidad_juridica`: cantidad de funcionarios, renta promedio y renta mediana.
+]
+
+.definition-box[
+**2.** Por `estamento`: cantidad, renta promedio, desviación estándar, mínimo y máximo de `renta_bruta`.
+]
+
+.definition-box[
+**3.** Por `ministerio` y `sexo`: cantidad y renta promedio, ordenado de mayor a menor renta.
+]
+
+.definition-box[
+**4. Desafío.** Por `region` y `teletrabajo`: cantidad y evaluación promedio (ignora los `NA`), ordenado de mayor a menor.
+]
+
+---
+class: center, middle, inverse
+
+# Bloque 2
+
+# Primeros pasos con ggplot2
+
+---
+class: center, middle
+
+# Una tabla de 600 filas no se lee
+
+--
+
+## Un gráfico se entiende en segundos
+
+---
+class: middle
+
+# Antes de graficar, pregúntate dos cosas
+
+.two-col[
+.card.card-red[
+**1. ¿Qué quiero mostrar?**
+
+¿Cómo se distribuye algo? ¿Cuántos hay de cada tipo? ¿Cómo se comparan los grupos?
+]
+.card.card-blue[
+**2. ¿Qué tipo de variable tengo?**
+
+Categórica (ministerio, sexo) o numérica (renta, edad).
+]
+]
+
+--
+
+.highlight-box[
+El **tipo de variable** decide el gráfico: numérica → **histograma**; categórica → **barras**.
+]
+
+---
+class: middle
+
+# Dos formas de graficar en R
+
+.two-col[
+.card.card-orange[
+**R base**
+
+`hist()`, `plot()`
+
+Rápido para **explorar**. Poco estético.
+]
+.card.card-green[
+**ggplot2**
+
+`ggplot() + geom_...()`
+
+Para **reportes** y presentaciones. Es el que usaremos.
+]
+]
+
+--
+
+```r
+hist(datos$renta_bruta)    # R base: sirve para mirar rápido
+```
+
+---
+class: middle
+
+# La lógica de ggplot2: por capas
+
+.three-col[
+.card.card-red[
+**1. Datos**
+
+`ggplot(datos)`
+
+¿Qué base?
+]
+.card.card-blue[
+**2. Estética**
+
+`aes(x = ...)`
+
+¿Qué variable va en el eje?
+]
+.card.card-green[
+**3. Geometría**
+
+`geom_...()`
+
+¿Con qué figura?
+]
+]
+
+--
+
+.highlight-box[
+Las capas se **suman con `+`**, y el `+` va **al final** de la línea.
+]
+
+---
+class: middle
+
+# Paso 1 y 2: datos y estética... ¿y el gráfico?
+
+.pull-left[
+```{r vacio_code, ref.label="vacio", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+Sale un gráfico **vacío**: ya le dijimos *qué base* y *qué variable*, pero falta decirle **cómo dibujarla**.
+]
+
+.pull-right[
+```{r vacio, echo=FALSE}
+ggplot(datos, aes(x = renta_bruta))
+```
+]
+
+---
+class: middle
+
+# Paso 3: agregar la geometría
+
+.pull-left[
+```{r hist0_code, ref.label="hist0", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+Con `geom_histogram()` el gráfico aparece. Sin variable en `y`, ggplot2 pone la **frecuencia**: cuántos casos hay en cada tramo.
+]
+
+.pull-right[
+```{r hist0, echo=FALSE}
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram()
+```
+]
+
+---
+class: center, middle, inverse
+
+# Variable numérica
+
+## Histograma
+
+---
+class: middle
+
+# Ajustar el histograma
+
+.pull-left[
+```{r hist1_code, ref.label="hist1", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+- `bins`: **cuántas** barras
+- `binwidth`: **qué ancho** tiene cada una
+- `fill`: color de **relleno**
+- `color`: color del **borde**
+]
+
+.pull-right[
+```{r hist1, echo=FALSE}
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(bins = 30,
+                 fill = "#085e9f",
+                 color = "white")
+```
+]
+
+---
+class: middle
+
+# Cambiar el ancho cambia lo que ves
+
+.pull-left[
+```{r hist2_code, ref.label="hist2", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+Con intervalos de 250.000 pesos se ve mejor la forma. Prueba varios valores.
+]
+
+.pull-right[
+```{r hist2, echo=FALSE}
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(binwidth = 250000,
+                 fill = "#b01333",
+                 color = "white")
+```
+]
+
+---
+class: middle
+
+# Leyendo el histograma
+
+.definition-box[
+La mayoría de las rentas está en la zona baja y hay una **cola larga hacia la derecha**: pocos sueldos muy altos.
+]
+
+--
+
+.highlight-box[
+Por eso la **media es mayor que la mediana**: la cola tira el promedio hacia arriba.
+]
+
+---
+class: middle
+
+# Comparar grupos con `fill`
+
+.pull-left[
+```{r hist3_code, ref.label="hist3", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+Si el color **depende de una variable**, va dentro de `aes()`. `alpha` agrega transparencia para ver ambos grupos.
+]
+
+.pull-right[
+```{r hist3, echo=FALSE}
+ggplot(datos, aes(x = renta_bruta,
+                  fill = sexo)) +
+  geom_histogram(bins = 30,
+                 alpha = 0.6,
+                 position = "identity")
+```
+]
+
+---
+class: center, middle, inverse
+
+# Variable categórica
+
+## Gráfico de barras
+
+---
+class: middle
+
+# `geom_bar()`: ¿cuántos hay de cada categoría?
+
+.pull-left[
+```{r bar1_code, ref.label="bar1", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+`geom_bar()` **cuenta sola**: tú solo indicas la variable en `x`.
+]
+
+.pull-right[
+```{r bar1, echo=FALSE}
+ggplot(datos, aes(x = calidad_juridica)) +
+  geom_bar(fill = "#b01333")
+```
+]
+
+---
+class: middle
+
+# Dos categóricas
+
+.pull-left[
+```{r bar3_code, ref.label="bar3", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+`fill = sexo` divide cada barra por grupo. `position = "dodge"` las pone **una al lado de la otra**.
+]
+
+.pull-right[
+```{r bar3, echo=FALSE}
+ggplot(datos, aes(x = estamento, fill = sexo)) +
+  geom_bar(position = "dodge")
+```
+]
+
+---
+class: middle
+
+# Nombres largos: `coord_flip()`
+
+.pull-left[
+```{r bar4_code, ref.label="bar4", eval=FALSE, echo=TRUE}
+```
+
+<br>
+
+`coord_flip()` **gira** el gráfico para que los nombres se lean bien.
+]
+
+.pull-right[
+```{r bar4, echo=FALSE}
+ggplot(datos, aes(x = ministerio)) +
+  geom_bar(fill = "#085e9f") +
+  coord_flip()
+```
+]
+
+---
+class: middle
+
+# Si algo falla
+
+.error-box[
+<span class="err">Error: object 'calidad_juridca' not found</span><br>
+<span class="hint">→ el nombre de la columna está mal escrito.</span>
+]
+
+.error-box[
+<span class="err">could not find function "ggplot"</span><br>
+<span class="hint">→ falta library(tidyverse).</span>
+]
+
+.footnote-small[También revisa que cada `+` esté al final de la línea.]
+
+---
+class: middle
+
+# Actividad — Bloque 2
+
+.definition-box[
+**5.** **Histograma** de `edad` con intervalos de 5 años (`binwidth = 5`), relleno rojo y borde blanco.
+]
+
+.definition-box[
+**6.** Gráfico de **barras** con la cantidad de funcionarios por `region`, en azul (`"#085e9f"`).
+]
+
+.definition-box[
+**7.** Barras de `region` divididas por `sexo`, una al lado de la otra, y giradas con `coord_flip()`.
+]
+
+---
+class: center, middle, inverse
+
+
+
+### Próxima clase: ggplot2, profundización
+Boxplots, dispersión, gráficos de resumen, títulos, temas y `ggsave()`
+
+.footnote-small[Dudas: fvillarroelr1@docente.uss.cl · Tecnología para la Gestión II · ADPU B012]
+
+

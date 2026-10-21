@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Tecnología para la Gestión II - Clase 11: ggplot2 (profundización) y repaso para la Solemne 2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Francisco Villarroel Riquelme" />
+    <meta name="date" content="2026-10-21" />
+    <script src="clase11_ggplot2_repaso_solemne_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: left, middle, bg_portada
+
+
+
+&lt;style type="text/css"&gt;
+h1, h2, h3 {
+  text-align: center;
+}
+.bg_portada {
+  position: relative;
+  z-index: 1;
+}
+.bg_portada::before {
+  content: "";
+  background-image: url('https://www.infoworld.com/wp-content/uploads/2024/06/cw_r_guide_video_series_thinkstock_16x9_1920x1080-100758020-orig.jpg?quality=50&amp;strip=all');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+.definition-box {
+  background: #fdf2f3;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #fef9e7;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.info-box {
+  background: #eaf2fb;
+  border-left: 5px solid #085e9f;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.error-box {
+  background: #2b2b2b;
+  color: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-family: 'Consolas','Courier New',monospace;
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+.error-box .err { color: #ff7a7a; }
+.error-box .ok  { color: #7ee081; }
+.error-box .hint{ color: #ffd479; }
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-green { border-top: 4px solid #1e8449; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.step-num {
+  background: #b01333;
+  color: white;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+.pull-left .remark-code, .pull-left code {
+  font-size: 0.80em;
+}
+table { font-size: 0.78em; width: 100%; border-collapse: collapse; }
+th { background: #b01333; color: white; padding: 7px 10px; text-align: left; }
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #f5f7fa; }
+img { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+&lt;/style&gt;
+
+---
+class: left, middle, bg_portada
+# Tecnología para la Gestión II
+## Clase 11 — ggplot2 en profundidad y repaso para la Solemne 2
+**Francisco Villarroel Riquelme** | 2026-10-21
+
+.footnote-small[Administración Pública · Escuela de Gobierno · Facultad de Economía y Gobierno · ADPU B012]
+
+---
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+background-size: 80px
+background-position: 97% 97%
+class: middle
+
+# ¿Qué haremos hoy?
+
+.two-col[
+.info-box[
+**Bloque 1 — ggplot2, segunda parte**
+- Títulos, subtítulos y nombres de ejes
+- Girar el gráfico con `coord_flip()`
+- Dos gráficos lado a lado: `facet_wrap()` y `facet_grid()`
+]
+.definition-box[
+**Bloque 2 — Repaso para la Solemne 2**
+- El flujo completo, paso a paso
+- Con la base de funcionarios públicos
+- Después lo aplican a CASEN
+]
+]
+
+.footnote-small[Usamos `dotacion_publica.csv`, la misma base de las clases anteriores.]
+
+---
+class: middle
+
+# Antes de partir
+
+```r
+library(tidyverse)
+
+datos &lt;- read.csv("data/dotacion_publica.csv")
+```
+
+.info-box[
+Recuerda: el archivo debe estar en la carpeta `data/` de tu proyecto, y el proyecto debe estar **abierto** (archivo `.Rproj`).
+]
+
+---
+class: center, middle, inverse
+
+# Bloque 1
+
+# ggplot2, segunda parte
+
+---
+class: middle
+
+# Dónde nos quedamos
+
+
+``` r
+ggplot(datos, aes(x = calidad_juridica)) +
+  geom_bar(fill = "#b01333")
+```
+
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/base1-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+.footnote-small[Funciona, pero **no se entiende solo**: ¿qué mide el eje vertical? ¿de qué es este gráfico? Hoy lo dejamos listo para presentar.]
+
+---
+class: middle
+
+# Etiquetas con `labs()`
+
+.pull-left[
+
+``` r
+ggplot(datos, aes(x = calidad_juridica)) +
+  geom_bar(fill = "#b01333") +
+  labs(title = "Funcionarios según calidad jurídica",
+       x = "Calidad jurídica",
+       y = "Cantidad de funcionarios")
+```
+
+&lt;br&gt;
+
+`labs()` es **otra capa**: se suma con `+`.
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/labs1-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+# ¿Qué se puede poner dentro de `labs()`?
+
+| Argumento | Para qué sirve |
+|---|---|
+| `title` | Título principal |
+| `subtitle` | Subtítulo (bajo el título) |
+| `x` / `y` | Nombre de cada eje |
+| `fill` / `color` | Nombre de la **leyenda** |
+| `caption` | Fuente o nota al pie |
+
+.highlight-box[
+Si no quieres nombre en un eje, usa `x = NULL`.
+]
+
+---
+class: middle
+
+# Título y subtítulo
+
+.pull-left[
+
+``` r
+ggplot(datos, aes(x = calidad_juridica)) +
+  geom_bar(fill = "#b01333") +
+  labs(title = "Funcionarios según calidad jurídica",
+       subtitle = "Dotación de 8 ministerios",
+       x = "Calidad jurídica",
+       y = "Cantidad de funcionarios",
+       caption = "Fuente: dotacion_publica.csv")
+```
+
+&lt;br&gt;
+
+- El **título** dice *qué* se muestra
+- El **subtítulo** da el contexto: base, año, grupo
+- `caption` indica la **fuente**
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/labs2-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+# Nombre de la leyenda
+
+.pull-left[
+
+``` r
+ggplot(datos, aes(x = estamento, fill = sexo)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Funcionarios por estamento y sexo",
+       x = "Estamento",
+       y = "Cantidad",
+       fill = "Sexo")
+```
+
+&lt;br&gt;
+
+Cuando el color depende de una variable (`fill = sexo`), la leyenda se renombra con `fill = "..."` dentro de `labs()`.
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/labs3-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+# Un tema más limpio: `theme_minimal()`
+
+.pull-left[
+
+``` r
+ggplot(datos, aes(x = estamento, fill = sexo)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Funcionarios por estamento y sexo",
+       x = "Estamento",
+       y = "Cantidad",
+       fill = "Sexo") +
+  theme_minimal()
+```
+
+&lt;br&gt;
+
+`theme_minimal()` quita el fondo gris y deja un gráfico más **limpio**. Se suma al final, como una capa más.
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/theme1-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+# Actividad — etiquetas
+
+.definition-box[
+**1.** Toma el gráfico de barras de `region` y agrégale título, subtítulo, nombres de ejes y la fuente (`caption`).
+]
+
+.definition-box[
+**2.** Haz un histograma de `renta_bruta` con título, nombre de ejes y `theme_minimal()`.
+]
+
+---
+class: center, middle, inverse
+
+# Girar el gráfico
+
+## `coord_flip()`
+
+---
+class: middle
+
+# El problema: nombres largos
+
+.pull-left[
+
+``` r
+ggplot(datos, aes(x = ministerio)) +
+  geom_bar(fill = "#085e9f")
+```
+
+&lt;br&gt;
+
+Con nombres largos, las etiquetas del eje se **pisan** y no se leen.
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/flip0-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+# La solución: `coord_flip()`
+
+.pull-left[
+
+``` r
+ggplot(datos, aes(x = ministerio)) +
+  geom_bar(fill = "#085e9f") +
+  coord_flip() +
+  labs(title = "Funcionarios por ministerio",
+       x = NULL,
+       y = "Cantidad de funcionarios") +
+  theme_minimal()
+```
+
+&lt;br&gt;
+
+`coord_flip()` **intercambia los ejes**: las categorías quedan en vertical y los nombres se leen bien.
+
+Ojo: después de girar, el `x` de `labs()` sigue siendo la variable de `aes(x = ...)`, aunque se vea abajo o al costado.
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/flip1-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: center, middle, inverse
+
+# Varios gráficos en uno
+
+## `facet_wrap()` y `facet_grid()`
+
+---
+class: middle
+
+# Un gráfico por grupo
+
+.definition-box[
+Las **facetas** dividen un gráfico en varios paneles, uno por cada categoría de una variable. Todos usan **la misma escala**, así que se pueden comparar.
+]
+
+--
+
+.two-col[
+.card.card-blue[
+**`facet_wrap(~ variable)`**
+
+Un panel por categoría, ordenados en filas y columnas.
+]
+.card.card-red[
+**`facet_grid(filas ~ columnas)`**
+
+Una grilla que cruza **dos** variables.
+]
+]
+
+---
+class: middle
+
+# `facet_wrap()`: un panel por categoría
+
+.pull-left[
+
+``` r
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(bins = 20,
+                 fill = "#085e9f",
+                 color = "white") +
+  facet_wrap(~ sexo)
+```
+
+&lt;br&gt;
+
+El **`~`** se lee "según": un panel *según* sexo. Así comparas hombres y mujeres **lado a lado**.
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/fw1-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+# Controlar la disposición: `ncol` y `nrow`
+
+.pull-left[
+
+``` r
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(bins = 20,
+                 fill = "#b01333",
+                 color = "white") +
+  facet_wrap(~ sexo, ncol = 1)
+```
+
+&lt;br&gt;
+
+- `ncol = 1`: los paneles **uno bajo otro**
+- `ncol = 2`: **lado a lado**
+- Con muchas categorías, ggplot2 arma la grilla solo
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/fw2-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+# `facet_wrap()` con barras
+
+.pull-left[
+
+``` r
+ggplot(datos, aes(x = estamento)) +
+  geom_bar(fill = "#085e9f") +
+  coord_flip() +
+  facet_wrap(~ calidad_juridica)
+```
+
+&lt;br&gt;
+
+Aquí cada panel muestra los estamentos de **una calidad jurídica**.
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/fw3-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+# `facet_grid()`: cruzar dos variables
+
+.pull-left[
+
+``` r
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(bins = 15,
+                 fill = "#b01333",
+                 color = "white") +
+  facet_grid(sexo ~ calidad_juridica)
+```
+
+&lt;br&gt;
+
+`filas ~ columnas`: aquí **sexo** va en las filas y **calidad jurídica** en las columnas.
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/fg1-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+# ¿Cuál uso?
+
+.two-col[
+.card.card-blue[
+**`facet_wrap(~ a)`**
+
+- Una variable de agrupación
+- Útil con **muchas categorías**
+- Tú decides las columnas con `ncol`
+]
+.card.card-red[
+**`facet_grid(a ~ b)`**
+
+- **Dos** variables cruzadas
+- Cada fila y columna tiene un significado
+- Cuidado: con muchas categorías se llena
+]
+]
+
+--
+
+.highlight-box[
+Para la solemne: **un histograma por categoría de escolaridad** se hace con `facet_wrap()`.
+]
+
+---
+class: middle
+
+# Todo junto
+
+.pull-left[
+
+``` r
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(bins = 20,
+                 fill = "#085e9f",
+                 color = "white") +
+  facet_wrap(~ estamento) +
+  labs(title = "Distribución de la renta bruta",
+       subtitle = "Según estamento",
+       x = "Renta bruta (pesos)",
+       y = "Frecuencia",
+       caption = "Fuente: dotacion_publica.csv") +
+  theme_minimal()
+```
+
+&lt;br&gt;
+
+Etiquetas + facetas + tema: un gráfico **listo para el informe**.
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/todo1-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+# Actividad — facetas y giro
+
+.definition-box[
+**3.** Histograma de `edad` dividido por `sexo` con `facet_wrap()`, uno bajo el otro (`ncol = 1`), con título y nombres de ejes.
+]
+
+.definition-box[
+**4.** Barras de `region` giradas con `coord_flip()` y divididas en paneles por `calidad_juridica`.
+]
+
+.definition-box[
+**5.** Histograma de `renta_bruta` con `facet_grid(sexo ~ teletrabajo)`. Agrega título y subtítulo.
+]
+
+---
+class: center, middle, inverse
+
+# Bloque 2
+
+# Repaso para la Solemne 2
+
+---
+class: middle
+
+# El flujo completo de la solemne
+
+.three-col[
+.card.card-red[
+**1. Preparar**
+
+Proyecto, carpetas, paquetes, carga de la base, filtro de la comuna.
+]
+.card.card-blue[
+**2. Calcular**
+
+Tablas descriptivas: total, por sexo, por escolaridad reagrupada.
+]
+.card.card-green[
+**3. Graficar**
+
+Histograma por categoría, con etiquetas.
+]
+]
+
+.footnote-small[Hoy lo ensayamos con la base de funcionarios. En la solemne lo harán con `casen_corta.csv`.]
+
+---
+class: middle
+
+# Paso 1: proyecto y script replicable
+
+.two-col[
+.info-box[
+**Proyecto**
+
+- Proyecto de R (`.Rproj`) abierto
+- Carpetas: `data/`, `scripts/`, `results/`
+- La base en `data/`
+]
+.definition-box[
+**Script**
+
+Debe correr de **principio a fin**, en orden, sin tocar nada:
+
+1. Paquetes
+2. Carga de la base
+3. Transformaciones
+4. Tablas y gráficos
+]
+]
+
+---
+class: middle
+
+# Paquetes, carga y filtro de una categoría
+
+```r
+# install.packages("tidyverse")   # solo la primera vez
+library(tidyverse)
+
+datos &lt;- read.csv("data/dotacion_publica.csv")
+
+# quedarse con un solo ministerio (en la solemne: una comuna)
+salud &lt;- datos %&gt;%
+  filter(ministerio == "Salud")
+```
+
+.info-box[
+En la solemne: `filter(comuna == "...")`. Revisa **cómo está escrito** el nombre de la comuna en la base (`unique(datos$comuna)`).
+]
+
+---
+class: middle
+
+# Paso 2: tabla de tendencia central y dispersión
+
+
+``` r
+salud &lt;- datos %&gt;% filter(ministerio == "Salud")
+
+salud %&gt;%
+  summarise(
+    n = n(),
+    promedio = mean(renta_bruta),
+    mediana = median(renta_bruta),
+    desv_est = sd(renta_bruta),
+    minimo = min(renta_bruta),
+    maximo = max(renta_bruta)
+  )
+```
+
+```
+##     n promedio mediana desv_est minimo  maximo
+## 1 107  1532206 1304000 770489.1 523000 4468000
+```
+
+---
+class: middle
+
+# Tabla por grupo (sexo)
+
+Los **mismos cálculos**, agregando `group_by()`:
+
+
+``` r
+salud %&gt;%
+  group_by(sexo) %&gt;%
+  summarise(
+    n = n(),
+    promedio = mean(renta_bruta),
+    mediana = median(renta_bruta),
+    desv_est = sd(renta_bruta),
+    minimo = min(renta_bruta),
+    maximo = max(renta_bruta)
+  )
+```
+
+```
+## # A tibble: 2 × 7
+##   sexo          n promedio mediana desv_est minimo  maximo
+##   &lt;chr&gt;     &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;int&gt;   &lt;int&gt;
+## 1 Femenino     55 1378636. 1112000  635675. 524000 2695000
+## 2 Masculino    52 1694635. 1606500  868148. 523000 4468000
+```
+
+---
+class: middle
+
+# Reagrupar una variable numérica en categorías
+
+.pull-left[
+```r
+salud &lt;- salud %&gt;%
+  mutate(tramo = case_when(
+    anios_servicio &lt; 5  ~ "0 a 4 años",
+    anios_servicio &lt; 10 ~ "5 a 9 años",
+    anios_servicio &lt; 20 ~ "10 a 19 años",
+    TRUE                ~ "20 años o más"
+  ))
+```
+]
+
+.pull-right[
+.info-box[
+**Es el mismo patrón que `esc`**: una variable numérica que se convierte en categorías con `case_when()`.
+
+Las condiciones se evalúan **en orden**: ponlas de menor a mayor y cierra con `TRUE`.
+]
+]
+
+---
+class: middle
+
+# Ordenar las categorías
+
+```r
+salud &lt;- salud %&gt;%
+  mutate(tramo = factor(tramo,
+    levels = c("0 a 4 años", "5 a 9 años",
+               "10 a 19 años", "20 años o más")))
+```
+
+.highlight-box[
+Sin esto, R ordena las categorías **alfabéticamente** y en las tablas y gráficos quedan desordenadas. `factor(..., levels = ...)` fija el orden que tú quieres.
+]
+
+---
+class: middle
+
+# Tabla por categoría reagrupada
+
+
+``` r
+salud &lt;- salud %&gt;%
+  mutate(tramo = case_when(
+    anios_servicio &lt; 5  ~ "0 a 4 años",
+    anios_servicio &lt; 10 ~ "5 a 9 años",
+    anios_servicio &lt; 20 ~ "10 a 19 años",
+    TRUE                ~ "20 años o más"),
+    tramo = factor(tramo, levels = c("0 a 4 años", "5 a 9 años",
+                                     "10 a 19 años", "20 años o más")))
+
+salud %&gt;%
+  group_by(tramo) %&gt;%
+  summarise(n = n(), promedio = mean(renta_bruta),
+            mediana = median(renta_bruta), desv_est = sd(renta_bruta))
+```
+
+```
+## # A tibble: 4 × 5
+##   tramo             n promedio mediana desv_est
+##   &lt;fct&gt;         &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+## 1 0 a 4 años       39 1431615. 1030000  752588.
+## 2 5 a 9 años       39 1701513. 1702000  891741.
+## 3 10 a 19 años     22 1433682. 1261500  571752.
+## 4 20 años o más     7 1459000  1376000  652984.
+```
+
+---
+class: middle
+
+# Paso 3: histograma por categoría
+
+.pull-left[
+
+``` r
+salud %&gt;%
+  mutate(tramo = case_when(
+    anios_servicio &lt; 5  ~ "0 a 4 años",
+    anios_servicio &lt; 10 ~ "5 a 9 años",
+    anios_servicio &lt; 20 ~ "10 a 19 años",
+    TRUE                ~ "20 años o más"),
+    tramo = factor(tramo, levels = c("0 a 4 años", "5 a 9 años",
+                                     "10 a 19 años", "20 años o más"))) %&gt;%
+  ggplot(aes(x = renta_bruta)) +
+  geom_histogram(bins = 15, fill = "#085e9f", color = "white") +
+  facet_wrap(~ tramo) +
+  labs(title = "Renta bruta según años de servicio",
+       subtitle = "Ministerio de Salud",
+       x = "Renta bruta (pesos)", y = "Frecuencia") +
+  theme_minimal()
+```
+
+&lt;br&gt;
+
+`facet_wrap(~ tramo)` da **un histograma por categoría**, con etiquetas listas para el informe.
+]
+
+.pull-right[
+&lt;img src="clase11_ggplot2_repaso_solemne_files/figure-html/rep4-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: middle
+
+# Pasar tablas y gráficos a Word
+
+.three-col[
+.card.card-blue[
+**Tablas**
+
+Cópialas a Word, o conviértelas con `knitr::kable()` y pega el resultado. Revisa que queden **ordenadas y con nombres claros**.
+]
+.card.card-red[
+**Gráficos**
+
+Guárdalos con `ggsave("results/nombre.png", width = 8, height = 5, dpi = 300)` e insértalos en el Word.
+]
+.card.card-green[
+**Comentarios**
+
+Cada tabla y gráfico lleva **su análisis**: qué muestra, qué diferencias hay y por qué importa.
+]
+]
+
+---
+class: middle
+
+# Cómo comentar una tabla
+
+.definition-box[
+**1. Describe** lo que ves: promedio, mediana, dispersión.
+
+**2. Compara** entre grupos: ¿quién tiene más? ¿cuánta diferencia hay?
+
+**3. Interpreta**: ¿qué significa para la administración pública?
+]
+
+--
+
+.highlight-box[
+Ejemplo de frase: *"El promedio de renta de las mujeres (X) es menor que el de los hombres (Y); la mediana confirma la brecha, y la mayor desviación estándar indica más dispersión en los hombres."*
+]
+
+---
+class: middle
+
+# Lista de verificación antes de entregar
+
+.two-col[
+.card.card-red[
+**Al final de la clase**
+
+- Proyecto con la estructura de carpetas
+- Base en `data/`
+- Script replicable
+- Proyecto **comprimido** (.zip) a Blackboard
+]
+.card.card-blue[
+**Hasta el jueves 00:00 hrs**
+
+- Word con texto, tablas y gráficos
+- Gráficos con título y etiquetas
+- Script definitivo (solo el `.R`)
+]
+]
+
+---
+class: middle
+
+# Actividad final — ensayo
+
+.definition-box[
+Con la base de funcionarios, **repite el flujo** con otro ministerio:
+
+**1.** Filtra el ministerio de tu preferencia.
+]
+
+.definition-box[
+**2.** Tabla de `renta_bruta`: tendencia central y dispersión, total y por `sexo`.
+]
+
+.definition-box[
+**3.** Reagrupa `edad` en cuatro tramos, calcula los mismos estadísticos y haz un histograma por tramo con título, subtítulo y etiquetas.
+]
+
+---
+class: center, middle, inverse
+
+# ¡Éxito en la Solemne 2!
+
+.footnote-small[Dudas: fvillarroelr1@docente.uss.cl · Tecnología para la Gestión II · ADPU B012]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "ratio": "16:9",
+  "countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

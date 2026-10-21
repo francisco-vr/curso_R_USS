@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Tecnología para la Gestión II - Estadística descriptiva: teoría y group_by()/summarise()</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Francisco Villarroel Riquelme" />
+    <meta name="date" content="2026-10-07" />
+    <script src="clase6_estadistica_descriptiva_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: left, middle, bg_portada
+
+
+&lt;style type="text/css"&gt;
+h1, h2, h3 {
+  text-align: center;
+}
+.bg_portada {
+  position: relative;
+  z-index: 1;
+}
+.bg_portada::before {
+  content: "";
+  background-image: url('https://www.infoworld.com/wp-content/uploads/2024/06/cw_r_guide_video_series_thinkstock_16x9_1920x1080-100758020-orig.jpg?quality=50&amp;strip=all');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+.definition-box {
+  background: #fdf2f3;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #fef9e7;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.info-box {
+  background: #eaf2fb;
+  border-left: 5px solid #085e9f;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-green { border-top: 4px solid #1e8449; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+table { font-size: 0.78em; width: 100%; border-collapse: collapse; }
+th { background: #b01333; color: white; padding: 7px 10px; text-align: left; }
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #f5f7fa; }
+img { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+&lt;/style&gt;
+
+&lt;!-- Logo USS opcional en cualquier diapo:
+     background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+     background-size: 80px
+     background-position: 97% 97% --&gt;
+
+---
+class: left, middle, bg_portada
+# Tecnología para la Gestión II
+## Estadística descriptiva
+### De la teoría a `group_by()` y `summarise()`
+**Francisco Villarroel Riquelme** | 2026-10-07
+
+.footnote-small[Administración Pública · Escuela de Gobierno · Facultad de Economía y Gobierno · ADPU B012]
+
+---
+class: middle
+
+# ¿Qué veremos hoy?
+
+.two-col[
+.info-box[
+**Bloque 1 — Conceptos**
+- Estadística descriptiva vs. inferencial
+- Frecuencias y porcentajes
+- Medidas de tendencia central
+- Medidas de dispersión y posición
+]
+.definition-box[
+**Bloque 2 — En R**
+- Cada concepto, con su función en R
+- `group_by()` y `summarise()`
+- Estadísticas por grupo con la base municipal
+- Ejercicios
+]
+]
+
+.footnote-small[Sin fórmulas matemáticas: nos enfocamos en qué es cada estadístico, para qué sirve y cuándo conviene usarlo.]
+
+---
+class: center, middle, inverse
+
+# Bloque 1
+
+# Estadística descriptiva: los conceptos
+
+---
+class: middle
+
+## Estadística descriptiva ≠ estadística inferencial
+
+.two-col[
+.card.card-red[
+**Descriptiva**
+
+Resume y describe las características básicas de los datos que tienes. Te da una comprensión inicial de patrones y tendencias.
+]
+.card.card-blue[
+**Inferencial**
+
+Usa una muestra para deducir características de la población completa: predecir, comparar grupos, evaluar hipótesis.
+]
+]
+
+--
+
+.highlight-box[
+Hoy nos quedamos en la **descriptiva**: resumir lo que ya tenemos en la base de datos. La visualización de datos (que vimos con `ggplot2`) también es una herramienta descriptiva.
+]
+
+---
+class: middle
+
+# Frecuencias y porcentajes
+
+.two-col[
+.card.card-red[
+**Frecuencia**
+
+Conteo de cuántas observaciones caen en cada categoría de una variable. Es lo primero que se revisa en una variable cualitativa.
+
+*Sirve para:* detectar errores de datos (categorías vacías o con muy pocos casos son sospechosas).
+]
+.card.card-blue[
+**Porcentaje**
+
+La frecuencia expresada en relación al total. Permite comparar grupos de distinto tamaño (ej: comunas con distinta cantidad de solicitudes).
+
+*Sirve para:* dar contexto — "36 solicitudes" dice poco; "36% de las solicitudes" dice mucho más.
+]
+]
+
+--
+
+.info-box[
+Ambas son la base de cualquier análisis: **antes de calcular cualquier otra cosa, mira cuántos casos hay de cada categoría.**
+]
+
+---
+class: middle
+
+# Frecuencias y porcentajes en R
+
+```r
+# Frecuencia: conteo por categoría
+datos %&gt;%
+  count(tipo_solicitud)
+
+# Porcentaje: la frecuencia sobre el total
+datos %&gt;%
+  count(tipo_solicitud) %&gt;%
+  mutate(porcentaje = round(n / sum(n) * 100, 1))
+```
+
+.definition-box[
+`count()` es un atajo de dplyr: agrupa por la variable indicada y cuenta cuántas filas hay en cada grupo. Es, en el fondo, un `group_by()` + `summarise()` ya armado — lo que veremos en el Bloque 2.
+]
+
+---
+class: center, middle, inverse
+
+# Medidas de tendencia central
+
+---
+class: middle
+
+# Media, mediana y moda
+
+.three-col[
+.card.card-red[
+**Media**
+
+El promedio. El estadístico más usado para variables cuantitativas.
+
+✔ Fácil de calcular e interpretar
+
+✘ Muy sensible a valores extremos
+]
+.card.card-blue[
+**Mediana**
+
+El valor que divide la muestra exactamente a la mitad, ordenando los datos de menor a mayor.
+
+✔ Robusta ante valores extremos
+
+✘ Sensible a cambios en la cantidad de datos
+]
+.card.card-green[
+**Moda**
+
+El valor o categoría que más se repite. Es la "más popular".
+
+✔ Sirve también para variables cualitativas
+
+✘ Poco informativa por sí sola
+]
+]
+
+--
+
+.highlight-box[
+**¿Cuándo usar cuál?** Si la variable tiene valores extremos (outliers) o está muy sesgada, la **mediana** es más representativa que la media. La **moda** es la única opción para variables cualitativas.
+]
+
+---
+class: middle
+
+# Media, mediana y moda en R
+
+```r
+mean(datos$monto_asignado, na.rm = TRUE)     # media
+median(datos$monto_asignado, na.rm = TRUE)   # mediana
+
+# la moda no tiene función propia en R base:
+# se obtiene viendo qué categoría tiene mayor frecuencia
+datos %&gt;%
+  count(tipo_solicitud) %&gt;%
+  slice_max(n, n = 1)
+```
+
+.info-box[
+`na.rm = TRUE` le dice a R que ignore los valores faltantes (`NA`) al calcular. Sin esto, si hay un solo `NA` en la columna, el resultado completo será `NA`.
+]
+
+---
+class: center, middle, inverse
+
+# Medidas de dispersión y posición
+
+---
+class: middle
+
+# ¿Qué son las medidas de dispersión?
+
+.definition-box[
+Las medidas de tendencia central nos dicen **dónde** se agrupan los datos. Las medidas de dispersión nos dicen **qué tan separados** están unos de otros.
+]
+
+--
+
+.highlight-box[
+Dos grupos pueden tener la misma media y ser completamente distintos: uno muy parejo, otro con casos muy dispersos. La dispersión es lo que marca esa diferencia.
+]
+
+---
+class: middle
+
+# Rango y desviación estándar
+
+.two-col[
+.card.card-red[
+**Rango**
+
+La distancia entre el valor máximo y el mínimo de la variable.
+
+✔ Muy fácil de calcular
+
+✘ Solo mira los extremos: no dice nada de cómo se distribuye el resto de los datos
+]
+.card.card-blue[
+**Desviación estándar**
+
+Qué tan lejos están, en promedio, los valores respecto a la media.
+
+✔ Usa toda la información disponible; es la base de muchos análisis posteriores
+
+✘ También se ve inflada por valores extremos, porque se calcula a partir de la media
+]
+]
+
+--
+
+.info-box[
+Regla práctica: media y desviación estándar juntas dan una buena idea de dónde se concentra la mayoría de los casos.
+]
+
+---
+class: middle
+
+# Rango y desviación estándar en R
+
+```r
+range(datos$monto_asignado, na.rm = TRUE)   # valor mínimo y máximo
+sd(datos$monto_asignado, na.rm = TRUE)      # desviación estándar
+```
+
+.definition-box[
+`range()` devuelve dos números: el mínimo y el máximo. Si quieres solo la distancia entre ellos, puedes restarlos: `diff(range(datos$monto_asignado, na.rm = TRUE))`.
+]
+
+---
+class: middle
+
+# Cuartiles: dividir la distribución en partes
+
+.two-col[
+.card.card-green[
+**¿Qué son?**
+
+Puntos que dividen el conjunto de datos ordenado en partes iguales. Los más usados son los **cuartiles** (4 partes: 25%, 50%, 75%).
+
+✔ Más robustos que la media/desviación estándar ante valores extremos
+
+✔ Muestran la forma completa de la distribución, no solo un resumen
+]
+.card.card-orange[
+**¿Para qué sirven?**
+
+Por ejemplo: "el 25% de las solicitudes tarda menos de X días" es más informativo que solo el promedio de días de tramitación.
+
+✘ No se resumen en un único número — hay que mirar varios valores a la vez
+]
+]
+
+---
+class: middle
+
+# Cuartiles en R
+
+```r
+quantile(datos$dias_tramitacion,
+         probs = c(0.25, 0.5, 0.75),
+         na.rm = TRUE)
+```
+
+.info-box[
+El cuartil 50% (`0.5`) es exactamente la **mediana**. `quantile()` te permite pedir cualquier punto de corte, no solo cuartiles: por ejemplo `probs = 0.9` te da el percentil 90.
+]
+
+---
+class: center, middle
+
+# Bloque 2
+
+# `group_by()` y `summarise()`
+
+---
+class: middle
+
+# El problema: resúmenes "a mano" no escalan
+
+.definition-box[
+Hasta ahora calculamos estadísticos sobre **toda la base**: `mean(datos$monto_asignado)`. Pero casi siempre queremos saber esto **por grupo**: ¿cuál es el monto promedio en cada comuna? ¿en cada tipo de solicitud?
+]
+
+--
+
+.highlight-box[
+Filtrar comuna por comuna y calcular la media de cada una, una por una, funciona — pero es lento y propenso a errores. `group_by()` + `summarise()` lo hacen en un solo paso.
+]
+
+---
+class: middle
+
+# `group_by()` — agrupar antes de calcular
+
+.two-col[
+.card.card-blue[
+**¿Qué hace?**
+
+Le dice a R: "de aquí en adelante, trata cada categoría de esta variable como un grupo separado". No cambia los datos visualmente, pero marca la base como agrupada.
+]
+.card.card-green[
+**`summarise()`**
+
+Calcula un resumen (media, mediana, conteo, etc.) **para cada grupo** definido por `group_by()`, en vez de para toda la base.
+]
+]
+
+--
+
+.info-box[
+Van siempre juntos: `group_by()` prepara los grupos, `summarise()` calcula el resumen dentro de cada uno.
+]
+
+---
+class: middle
+
+# La sintaxis
+
+```r
+datos %&gt;%
+  group_by(comuna) %&gt;%
+  summarise(promedio_monto = mean(monto_asignado, na.rm = TRUE))
+```
+
+.definition-box[
+Se lee: *"a `datos`, agrúpalo por `comuna`, y para cada comuna calcula el promedio de `monto_asignado`"*. El resultado es una tabla nueva, con una fila por comuna.
+]
+
+.footnote-small[`summarise()` siempre reduce los datos: si tenías 720 filas y agrupas por comuna, el resultado tiene tantas filas como comunas distintas haya.]
+
+---
+class: middle
+
+# Varios estadísticos a la vez
+
+```r
+datos %&gt;%
+  group_by(comuna) %&gt;%
+  summarise(
+    n_solicitudes  = n(),
+    promedio_monto = mean(monto_asignado, na.rm = TRUE),
+    mediana_dias   = median(dias_tramitacion, na.rm = TRUE),
+    monto_maximo   = max(monto_asignado, na.rm = TRUE)
+  )
+```
+
+.info-box[
+`n()` cuenta cuántas filas hay en cada grupo — es la forma de obtener la **frecuencia** dentro de un `summarise()`. Puedes combinar tantos estadísticos como necesites, separados por comas.
+]
+
+---
+class: middle
+
+# Agrupar por más de una variable
+
+```r
+datos %&gt;%
+  group_by(comuna, tipo_solicitud) %&gt;%
+  summarise(
+    n_solicitudes  = n(),
+    promedio_monto = mean(monto_asignado, na.rm = TRUE)
+  )
+```
+
+.highlight-box[
+Con dos variables en `group_by()`, R crea un grupo por **cada combinación** de comuna y tipo de solicitud. Útil cuando quieres cruzar dos categorías a la vez.
+]
+
+---
+class: middle
+
+# `group_by()` + `summarise()` + el resto de lo que ya sabes
+
+```r
+datos %&gt;%
+  filter(estado != 4) %&gt;%
+  group_by(oficina_municipal) %&gt;%
+  summarise(
+    n_solicitudes    = n(),
+    promedio_monto   = mean(monto_asignado, na.rm = TRUE),
+    satisfaccion_prom = mean(puntaje_satisfaccion, na.rm = TRUE)
+  ) %&gt;%
+  arrange(desc(n_solicitudes))
+```
+
+.definition-box[
+Todo el flujo junto: **filtrar** primero (solo solicitudes no rechazadas), **agrupar** por oficina, **resumir** con varios estadísticos, y **ordenar** el resultado con `arrange()` de mayor a menor.
+]
+
+.footnote-small[`arrange(desc(...))` no es obligatorio, pero ayuda a leer el resultado: las oficinas con más solicitudes aparecen primero.]
+
+---
+class: middle
+
+# Errores frecuentes
+
+.two-col[
+.card.card-red[
+**De sintaxis**
+
+- Usar `group_by()` sin `summarise()` después (no pasa nada visible, pero no calculaste nada)
+- Olvidar `na.rm = TRUE` y obtener `NA` en el resultado
+- Poner el nombre del estadístico entre comillas dentro de `summarise()`
+]
+.card.card-orange[
+**De lógica**
+
+- Agrupar por una variable que tiene casi un valor distinto por fila (el resumen no resume nada)
+- Confundir `n()` (cuenta filas) con `sum()` (suma una columna numérica)
+]
+]
+
+---
+class: center, middle, inverse
+
+# Manos a la obra
+
+## Ejercicios con la base municipal
+
+---
+class: middle
+
+# Ejercicios
+
+.definition-box[
+**1.** Sin agrupar, calcula la media, mediana y desviación estándar de `monto_asignado`.
+]
+
+.definition-box[
+**2.** Con `count()`, obtén la frecuencia y el porcentaje de solicitudes por `nivel_prioridad`.
+]
+
+.definition-box[
+**3.** Con `group_by()` y `summarise()`, calcula el número de solicitudes y el promedio de `dias_tramitacion` por `comuna`.
+]
+
+.definition-box[
+**4.** Agrupa por `tipo_solicitante` y calcula el promedio de `puntaje_satisfaccion` y el monto máximo asignado. Ordena el resultado de mayor a menor promedio de satisfacción.
+]
+
+---
+class: center, middle, inverse
+
+# ¡Buen trabajo!
+
+### La próxima clase: gráficos con ggplot2
+
+.footnote-small[Dudas: fvillarroelr1@docente.uss.cl · Tecnología para la Gestión II · ADPU B012]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "ratio": "16:9",
+  "countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
