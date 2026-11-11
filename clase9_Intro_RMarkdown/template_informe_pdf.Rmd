@@ -1,0 +1,71 @@
+---
+title: "Informe de dotación pública"
+author: "Escribe aquí tu nombre"
+date: "`r format(Sys.Date(), '%d-%m-%Y')`"
+output: pdf_document
+
+---
+
+```{r setup, include=FALSE}
+# Opciones para todos los chunks: no mostrar el código en el informe
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+# install.packages(c("tidyverse", "here", "knitr"))   # solo la primera vez
+library(tidyverse)
+library(knitr)
+
+# here() parte siempre desde la raíz del proyecto (donde está el .Rproj)
+datos <- read.csv("dotacion_publica.csv")
+```
+
+# Introducción
+
+*(Escribe 2 o 3 frases: cuál es el tema, cuál es la pregunta o el objetivo del análisis y cómo se organiza el informe.)*
+
+Este informe describe la dotación de funcionarios públicos, con foco en la renta bruta, para identificar diferencias entre grupos.
+
+# Datos y método
+
+*(Indica la fuente, el número de casos, las variables usadas, las transformaciones que hiciste y las medidas que calculaste.)*
+
+Se utilizó la base `dotacion_publica`, con `r nrow(datos)` funcionarios de `r n_distinct(datos$ministerio)` ministerios. Se analizó la variable renta bruta mediante promedio, mediana y desviación estándar.
+
+# Resultados
+
+## Renta bruta según sexo
+
+```{r tabla1}
+tabla1 <- datos %>%
+  group_by(sexo) %>%
+  summarise(
+    n = n(),
+    promedio = mean(renta_bruta),
+    mediana = median(renta_bruta),
+    desv_est = sd(renta_bruta)
+  )
+
+kable(tabla1, digits = 0,
+      col.names = c("Sexo", "N", "Promedio", "Mediana", "Desv. estándar"),
+      caption = "Tabla 1. Renta bruta (en pesos) según sexo")
+```
+
+*(Comenta la tabla en un párrafo: 1. describe lo que ves, 2. compara entre grupos, 3. interpreta qué significa.)*
+
+COMENTARIO DE LA TABLA 1: ...
+
+## Distribución de la renta bruta
+
+```{r grafico1, fig.cap = "Figura 1. Distribución de la renta bruta de los funcionarios", fig.width = 6, fig.height = 4}
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(bins = 30, fill = "#085e9f", color = "white") +
+  labs(x = "Renta bruta (pesos)", y = "Frecuencia") +
+  theme_minimal()
+```
+
+COMENTARIO DE LA FIGURA 1: ...
+
+# Conclusiones
+
+*(Resume los hallazgos principales en pocas frases, menciona una limitación de los datos o del análisis y una idea de qué sigue. No agregues información nueva.)*
+
+...

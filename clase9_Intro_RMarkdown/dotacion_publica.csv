@@ -1,0 +1,601 @@
+id_funcionario,ministerio,region,sexo,edad,anios_servicio,calidad_juridica,estamento,renta_bruta,horas_extra_mes,evaluacion_desempeno,capacitaciones_anio,teletrabajo,dias_licencia
+F0001,Educación,Valparaíso,Masculino,24,1,Planta,Profesional,1847000,0,6.0,4,Sí,0
+F0002,Interior,Metropolitana,Masculino,41,11,Contrata,Profesional,2208000,0,5.2,3,Sí,2
+F0003,Educación,Valparaíso,Masculino,34,6,Contrata,Profesional,2990000,0,6.7,3,Sí,5
+F0004,Desarrollo Social,Valparaíso,Masculino,33,3,Contrata,Profesional,1801000,8,6.5,0,No,0
+F0005,Hacienda,Metropolitana,Masculino,46,2,Contrata,Administrativo,951000,0,4.7,0,No,0
+F0006,Educación,Metropolitana,Masculino,42,6,Planta,Técnico,1274000,0,5.0,1,No,2
+F0007,Educación,Los Lagos,Masculino,54,4,Contrata,Profesional,2056000,0,4.9,3,Sí,0
+F0008,Educación,Metropolitana,Femenino,58,2,Contrata,Profesional,2455000,9,6.1,0,Sí,0
+F0009,Hacienda,Biobío,Masculino,50,3,Contrata,Técnico,1386000,10,5.5,2,Sí,0
+F0010,Educación,Los Lagos,Masculino,45,16,Honorarios,Profesional,2197000,0,NA,1,Sí,0
+F0011,Salud,Metropolitana,Femenino,50,16,Contrata,Técnico,1116000,8,5.2,5,Sí,0
+F0012,Obras Públicas,Biobío,Masculino,49,6,Contrata,Profesional,2246000,8,5.7,0,No,3
+F0013,Hacienda,Valparaíso,Femenino,24,1,Contrata,Directivo,3318000,0,6.1,4,No,0
+F0014,Vivienda,Valparaíso,Femenino,45,0,Contrata,Profesional,1583000,0,NA,2,Sí,0
+F0015,Vivienda,Antofagasta,Masculino,51,15,Honorarios,Administrativo,1212000,0,NA,3,Sí,0
+F0016,Obras Públicas,Metropolitana,Masculino,44,3,Contrata,Profesional,1759000,10,4.7,1,No,0
+F0017,Trabajo,Metropolitana,Masculino,47,4,Honorarios,Técnico,1276000,0,NA,2,Sí,5
+F0018,Desarrollo Social,Metropolitana,Femenino,63,7,Planta,Administrativo,842000,0,5.1,1,No,0
+F0019,Vivienda,Los Lagos,Masculino,47,18,Contrata,Técnico,1354000,0,5.4,2,No,0
+F0020,Educación,Valparaíso,Femenino,38,11,Planta,Administrativo,1059000,8,5.3,0,Sí,8
+F0021,Interior,Metropolitana,Femenino,52,10,Planta,Administrativo,1060000,8,6.9,3,Sí,0
+F0022,Obras Públicas,Metropolitana,Femenino,35,0,Honorarios,Profesional,1762000,0,NA,2,Sí,0
+F0023,Hacienda,Valparaíso,Femenino,23,0,Contrata,Auxiliar,764000,9,NA,1,No,0
+F0024,Salud,Metropolitana,Masculino,52,18,Contrata,Técnico,1668000,16,6.4,3,No,0
+F0025,Educación,Araucanía,Masculino,43,19,Honorarios,Técnico,1335000,0,NA,1,No,11
+F0026,Salud,Metropolitana,Femenino,45,18,Contrata,Profesional,1739000,0,5.2,0,Sí,9
+F0027,Vivienda,Metropolitana,Femenino,23,0,Contrata,Técnico,1299000,6,NA,3,No,0
+F0028,Educación,Biobío,Masculino,44,2,Contrata,Técnico,1068000,0,6.3,4,No,5
+F0029,Hacienda,Metropolitana,Femenino,46,11,Contrata,Administrativo,904000,0,6.1,1,No,0
+F0030,Educación,Los Lagos,Masculino,43,2,Honorarios,Administrativo,1014000,0,NA,4,No,0
+F0031,Desarrollo Social,Araucanía,Femenino,37,1,Contrata,Auxiliar,621000,0,3.6,5,No,2
+F0032,Interior,Metropolitana,Masculino,33,7,Contrata,Profesional,1977000,8,NA,1,Sí,16
+F0033,Desarrollo Social,Valparaíso,Masculino,46,1,Contrata,Administrativo,851000,3,5.3,3,No,0
+F0034,Desarrollo Social,Los Lagos,Femenino,44,12,Planta,Administrativo,1106000,0,7.0,7,Sí,1
+F0035,Educación,Araucanía,Femenino,55,11,Contrata,Administrativo,831000,7,6.4,3,No,0
+F0036,Hacienda,Araucanía,Masculino,40,15,Honorarios,Administrativo,1179000,0,NA,3,Sí,0
+F0037,Interior,Antofagasta,Masculino,56,6,Contrata,Profesional,2217000,7,5.6,3,Sí,0
+F0038,Desarrollo Social,Metropolitana,Femenino,23,0,Contrata,Técnico,777000,11,NA,0,No,8
+F0039,Vivienda,Metropolitana,Femenino,41,3,Contrata,Técnico,1477000,13,5.7,3,Sí,2
+F0040,Educación,Biobío,Femenino,55,3,Planta,Auxiliar,851000,11,5.1,2,No,13
+F0041,Educación,Metropolitana,Masculino,46,14,Honorarios,Auxiliar,763000,0,NA,1,No,0
+F0042,Desarrollo Social,Metropolitana,Masculino,64,23,Planta,Administrativo,959000,7,4.4,2,No,7
+F0043,Educación,Valparaíso,Masculino,41,3,Honorarios,Profesional,1718000,0,NA,1,No,4
+F0044,Educación,Antofagasta,Femenino,50,10,Planta,Administrativo,1176000,0,5.6,2,Sí,10
+F0045,Salud,Metropolitana,Femenino,64,5,Contrata,Profesional,2110000,7,4.8,4,Sí,11
+F0046,Educación,Metropolitana,Femenino,36,9,Contrata,Administrativo,1178000,8,4.8,2,No,0
+F0047,Desarrollo Social,Metropolitana,Masculino,48,2,Contrata,Auxiliar,712000,8,5.2,4,No,0
+F0048,Educación,Metropolitana,Masculino,27,2,Contrata,Administrativo,879000,6,5.9,6,No,5
+F0049,Salud,Valparaíso,Masculino,44,5,Contrata,Administrativo,801000,0,5.0,2,Sí,0
+F0050,Hacienda,Valparaíso,Femenino,37,3,Honorarios,Profesional,1572000,0,NA,4,No,0
+F0051,Obras Públicas,Los Lagos,Femenino,43,3,Contrata,Profesional,2317000,6,5.7,1,Sí,0
+F0052,Salud,Metropolitana,Femenino,30,2,Honorarios,Administrativo,967000,0,NA,1,Sí,0
+F0053,Educación,Valparaíso,Femenino,40,1,Contrata,Administrativo,812000,0,6.9,2,No,0
+F0054,Salud,Antofagasta,Femenino,64,18,Honorarios,Profesional,2344000,0,NA,1,Sí,14
+F0055,Hacienda,Valparaíso,Femenino,49,7,Honorarios,Técnico,1016000,0,NA,1,Sí,0
+F0056,Interior,Metropolitana,Femenino,55,4,Contrata,Administrativo,735000,0,5.7,5,No,0
+F0057,Salud,Los Lagos,Femenino,38,2,Contrata,Profesional,2014000,17,5.1,2,No,28
+F0058,Obras Públicas,Biobío,Femenino,45,4,Contrata,Técnico,1122000,0,NA,1,Sí,0
+F0059,Desarrollo Social,Metropolitana,Femenino,39,0,Contrata,Técnico,984000,0,NA,2,No,7
+F0060,Educación,Metropolitana,Femenino,31,1,Honorarios,Administrativo,822000,0,NA,2,No,16
+F0061,Educación,Metropolitana,Masculino,46,2,Contrata,Profesional,1996000,6,6.4,4,Sí,0
+F0062,Interior,Antofagasta,Femenino,23,0,Planta,Técnico,1579000,0,NA,1,Sí,0
+F0063,Salud,Valparaíso,Masculino,46,3,Honorarios,Técnico,1017000,0,NA,1,Sí,0
+F0064,Trabajo,Metropolitana,Femenino,29,3,Honorarios,Profesional,2076000,0,NA,2,Sí,0
+F0065,Desarrollo Social,Valparaíso,Femenino,36,1,Contrata,Administrativo,1165000,0,5.9,2,Sí,0
+F0066,Obras Públicas,Metropolitana,Masculino,30,3,Contrata,Auxiliar,756000,0,4.8,3,No,1
+F0067,Salud,Los Lagos,Femenino,46,0,Honorarios,Profesional,1693000,0,NA,1,No,0
+F0068,Vivienda,Araucanía,Femenino,60,11,Contrata,Administrativo,908000,0,5.2,3,No,5
+F0069,Educación,Metropolitana,Masculino,36,2,Contrata,Profesional,1901000,0,5.8,3,Sí,0
+F0070,Hacienda,Los Lagos,Femenino,46,13,Planta,Administrativo,962000,0,6.0,2,No,0
+F0071,Hacienda,Metropolitana,Femenino,29,0,Contrata,Profesional,2003000,11,NA,3,Sí,0
+F0072,Salud,Metropolitana,Masculino,45,1,Contrata,Profesional,2442000,13,6.1,3,Sí,0
+F0073,Salud,Metropolitana,Femenino,29,0,Planta,Administrativo,817000,10,NA,2,No,4
+F0074,Educación,Antofagasta,Femenino,50,17,Honorarios,Técnico,1130000,0,NA,2,No,0
+F0075,Salud,Araucanía,Masculino,39,2,Planta,Profesional,1660000,0,6.3,1,Sí,8
+F0076,Salud,Metropolitana,Femenino,39,6,Contrata,Profesional,2525000,9,6.6,2,No,0
+F0077,Vivienda,Metropolitana,Femenino,45,9,Contrata,Técnico,1330000,0,6.8,3,No,3
+F0078,Salud,Metropolitana,Masculino,39,2,Contrata,Profesional,1780000,0,5.8,1,Sí,1
+F0079,Educación,Antofagasta,Masculino,32,5,Contrata,Auxiliar,440000,5,5.0,2,No,0
+F0080,Salud,Biobío,Masculino,41,7,Planta,Auxiliar,751000,12,5.7,2,No,0
+F0081,Interior,Araucanía,Femenino,49,8,Planta,Técnico,1179000,0,6.4,2,No,1
+F0082,Salud,Metropolitana,Femenino,47,9,Contrata,Profesional,2387000,11,4.6,2,No,0
+F0083,Desarrollo Social,Valparaíso,Femenino,25,0,Planta,Administrativo,809000,9,NA,6,No,5
+F0084,Obras Públicas,Araucanía,Femenino,42,8,Contrata,Profesional,1836000,8,7.0,2,Sí,0
+F0085,Desarrollo Social,Metropolitana,Femenino,37,10,Planta,Técnico,1269000,10,4.7,0,Sí,0
+F0086,Educación,Los Lagos,Femenino,46,10,Honorarios,Profesional,2106000,0,NA,3,No,0
+F0087,Salud,Los Lagos,Femenino,47,17,Planta,Auxiliar,894000,0,3.8,2,No,23
+F0088,Hacienda,Metropolitana,Masculino,48,17,Contrata,Auxiliar,692000,0,5.3,3,No,0
+F0089,Educación,Metropolitana,Femenino,39,7,Contrata,Administrativo,1023000,9,5.7,4,No,4
+F0090,Salud,Metropolitana,Femenino,40,12,Contrata,Administrativo,937000,0,6.1,1,Sí,0
+F0091,Hacienda,Valparaíso,Femenino,34,4,Planta,Administrativo,821000,0,4.9,2,No,5
+F0092,Vivienda,Metropolitana,Masculino,29,5,Contrata,Profesional,1988000,12,5.2,2,No,4
+F0093,Educación,Metropolitana,Femenino,49,5,Honorarios,Administrativo,834000,0,NA,1,No,0
+F0094,Vivienda,Valparaíso,Masculino,54,5,Contrata,Administrativo,756000,0,5.0,1,No,2
+F0095,Educación,Biobío,Femenino,44,8,Contrata,Profesional,1973000,0,6.8,2,No,6
+F0096,Desarrollo Social,Metropolitana,Femenino,45,11,Contrata,Profesional,1542000,9,5.4,0,No,0
+F0097,Educación,Metropolitana,Masculino,34,5,Planta,Profesional,1859000,5,4.9,2,Sí,0
+F0098,Hacienda,Biobío,Femenino,49,21,Honorarios,Auxiliar,682000,0,NA,3,No,1
+F0099,Desarrollo Social,Araucanía,Masculino,34,7,Contrata,Profesional,2222000,0,6.9,2,No,0
+F0100,Interior,Los Lagos,Masculino,55,3,Honorarios,Técnico,1009000,0,NA,3,No,5
+F0101,Educación,Valparaíso,Femenino,45,14,Contrata,Profesional,1815000,0,5.8,3,No,0
+F0102,Desarrollo Social,Metropolitana,Femenino,51,0,Contrata,Administrativo,781000,0,NA,0,Sí,0
+F0103,Salud,Biobío,Femenino,47,3,Honorarios,Auxiliar,524000,0,NA,1,No,0
+F0104,Trabajo,Los Lagos,Masculino,23,0,Planta,Directivo,3183000,0,NA,0,No,5
+F0105,Educación,Metropolitana,Masculino,57,5,Planta,Administrativo,851000,0,5.5,2,Sí,23
+F0106,Salud,Valparaíso,Femenino,55,21,Planta,Administrativo,862000,0,4.5,4,No,0
+F0107,Vivienda,Metropolitana,Femenino,32,4,Contrata,Administrativo,894000,13,6.1,1,No,1
+F0108,Obras Públicas,Metropolitana,Femenino,56,1,Planta,Profesional,1831000,0,5.8,1,Sí,2
+F0109,Educación,Metropolitana,Femenino,34,2,Contrata,Administrativo,751000,0,5.3,2,Sí,0
+F0110,Salud,Metropolitana,Femenino,53,16,Contrata,Técnico,1049000,0,5.2,1,Sí,0
+F0111,Desarrollo Social,Biobío,Masculino,39,4,Contrata,Profesional,1589000,0,6.3,1,Sí,0
+F0112,Desarrollo Social,Los Lagos,Femenino,58,20,Planta,Profesional,1837000,0,6.1,1,Sí,0
+F0113,Salud,Los Lagos,Masculino,63,9,Contrata,Profesional,1586000,14,5.3,1,No,0
+F0114,Desarrollo Social,Araucanía,Femenino,38,7,Contrata,Administrativo,795000,6,6.1,0,No,1
+F0115,Interior,Valparaíso,Femenino,36,4,Planta,Profesional,1938000,0,5.9,2,Sí,0
+F0116,Obras Públicas,Metropolitana,Masculino,34,1,Contrata,Administrativo,743000,3,6.2,2,No,0
+F0117,Educación,Metropolitana,Femenino,36,1,Contrata,Profesional,2068000,0,5.9,4,Sí,0
+F0118,Desarrollo Social,Metropolitana,Femenino,55,12,Contrata,Profesional,1799000,0,6.3,2,Sí,0
+F0119,Salud,Antofagasta,Masculino,48,9,Contrata,Profesional,2448000,6,5.8,4,Sí,0
+F0120,Trabajo,Metropolitana,Masculino,37,10,Contrata,Administrativo,678000,0,5.1,1,Sí,0
+F0121,Salud,Antofagasta,Masculino,64,13,Contrata,Administrativo,1219000,0,5.0,2,No,0
+F0122,Desarrollo Social,Metropolitana,Masculino,45,3,Planta,Directivo,3289000,0,4.6,1,No,0
+F0123,Salud,Metropolitana,Masculino,35,1,Planta,Administrativo,720000,0,4.8,1,No,3
+F0124,Vivienda,Metropolitana,Masculino,29,1,Honorarios,Técnico,1063000,0,NA,1,No,5
+F0125,Salud,Metropolitana,Masculino,31,1,Contrata,Profesional,2299000,0,5.2,4,Sí,0
+F0126,Hacienda,Valparaíso,Masculino,39,2,Planta,Técnico,1297000,0,5.7,3,No,10
+F0127,Salud,Los Lagos,Femenino,52,14,Contrata,Administrativo,829000,12,6.0,1,No,0
+F0128,Educación,Valparaíso,Masculino,30,1,Planta,Directivo,3761000,0,NA,0,No,0
+F0129,Vivienda,Metropolitana,Femenino,41,8,Planta,Técnico,1356000,11,4.9,2,No,0
+F0130,Hacienda,Los Lagos,Femenino,29,4,Planta,Directivo,3377000,0,6.4,2,No,2
+F0131,Obras Públicas,Metropolitana,Femenino,30,5,Planta,Profesional,2905000,10,6.5,1,No,0
+F0132,Interior,Biobío,Masculino,23,0,Honorarios,Técnico,1360000,0,NA,2,No,3
+F0133,Desarrollo Social,Los Lagos,Masculino,59,6,Contrata,Profesional,2353000,0,7.0,0,Sí,0
+F0134,Educación,Metropolitana,Masculino,60,4,Contrata,Técnico,1035000,0,4.4,2,Sí,0
+F0135,Vivienda,Metropolitana,Femenino,47,13,Contrata,Profesional,1869000,0,6.2,5,Sí,19
+F0136,Trabajo,Antofagasta,Masculino,56,5,Planta,Administrativo,969000,0,NA,4,Sí,4
+F0137,Salud,Los Lagos,Masculino,45,14,Honorarios,Técnico,1398000,0,NA,0,No,0
+F0138,Educación,Metropolitana,Femenino,42,1,Contrata,Profesional,2134000,0,5.3,1,No,0
+F0139,Educación,Metropolitana,Femenino,43,4,Honorarios,Técnico,1202000,0,NA,2,No,0
+F0140,Salud,Los Lagos,Femenino,59,8,Honorarios,Administrativo,1056000,0,NA,1,No,0
+F0141,Interior,Metropolitana,Femenino,46,17,Contrata,Técnico,1637000,0,NA,1,No,0
+F0142,Obras Públicas,Metropolitana,Femenino,45,14,Honorarios,Técnico,1110000,0,NA,2,No,8
+F0143,Educación,Metropolitana,Femenino,44,6,Contrata,Auxiliar,621000,0,6.5,2,No,27
+F0144,Desarrollo Social,Metropolitana,Masculino,38,0,Honorarios,Técnico,1156000,0,NA,4,No,6
+F0145,Educación,Metropolitana,Femenino,43,0,Honorarios,Técnico,942000,0,NA,1,Sí,21
+F0146,Educación,Metropolitana,Femenino,52,12,Contrata,Administrativo,1057000,8,5.7,1,No,0
+F0147,Salud,Biobío,Femenino,33,8,Contrata,Profesional,1908000,0,5.0,2,Sí,8
+F0148,Salud,Metropolitana,Masculino,38,5,Contrata,Directivo,4468000,0,6.4,0,Sí,28
+F0149,Obras Públicas,Metropolitana,Masculino,39,1,Contrata,Técnico,985000,11,6.0,1,No,0
+F0150,Obras Públicas,Metropolitana,Femenino,39,0,Honorarios,Auxiliar,832000,0,NA,4,No,0
+F0151,Educación,Araucanía,Femenino,64,18,Contrata,Profesional,1992000,0,4.4,1,Sí,0
+F0152,Trabajo,Metropolitana,Masculino,56,6,Contrata,Técnico,1775000,9,6.4,4,No,0
+F0153,Obras Públicas,Metropolitana,Femenino,34,3,Planta,Directivo,2898000,0,5.6,2,Sí,0
+F0154,Educación,Metropolitana,Masculino,49,10,Planta,Administrativo,996000,0,5.6,2,Sí,0
+F0155,Educación,Metropolitana,Masculino,60,27,Contrata,Administrativo,1231000,8,4.4,2,No,25
+F0156,Educación,Metropolitana,Masculino,48,3,Honorarios,Profesional,1877000,0,NA,1,No,17
+F0157,Educación,Metropolitana,Femenino,43,11,Planta,Técnico,1374000,7,6.5,2,Sí,31
+F0158,Desarrollo Social,Metropolitana,Masculino,39,9,Planta,Administrativo,1025000,0,5.1,2,No,6
+F0159,Educación,Araucanía,Femenino,45,2,Contrata,Administrativo,824000,0,5.4,2,No,7
+F0160,Trabajo,Los Lagos,Masculino,34,4,Contrata,Profesional,2049000,0,4.9,0,Sí,0
+F0161,Trabajo,Metropolitana,Masculino,54,7,Planta,Técnico,1272000,8,4.9,3,No,8
+F0162,Obras Públicas,Metropolitana,Femenino,58,16,Honorarios,Auxiliar,765000,0,NA,2,No,3
+F0163,Educación,Valparaíso,Masculino,32,3,Honorarios,Técnico,890000,0,NA,2,No,0
+F0164,Hacienda,Antofagasta,Femenino,41,3,Honorarios,Técnico,1115000,0,NA,3,Sí,0
+F0165,Hacienda,Metropolitana,Masculino,52,16,Contrata,Administrativo,935000,0,4.7,0,Sí,3
+F0166,Interior,Metropolitana,Femenino,57,9,Honorarios,Profesional,1786000,0,NA,2,No,0
+F0167,Obras Públicas,Metropolitana,Masculino,48,11,Contrata,Técnico,1483000,4,5.8,1,No,0
+F0168,Educación,Valparaíso,Femenino,30,7,Planta,Administrativo,1011000,0,5.2,3,No,3
+F0169,Desarrollo Social,Biobío,Masculino,39,9,Honorarios,Auxiliar,699000,0,NA,4,No,9
+F0170,Educación,Biobío,Femenino,29,0,Contrata,Administrativo,869000,11,NA,1,No,6
+F0171,Obras Públicas,Metropolitana,Masculino,49,8,Planta,Administrativo,688000,14,6.6,1,No,0
+F0172,Hacienda,Metropolitana,Femenino,53,2,Contrata,Administrativo,868000,0,6.0,0,No,2
+F0173,Obras Públicas,Araucanía,Femenino,43,2,Honorarios,Administrativo,798000,0,NA,3,No,0
+F0174,Educación,Valparaíso,Femenino,43,6,Contrata,Profesional,2384000,0,6.2,2,No,0
+F0175,Trabajo,Los Lagos,Femenino,34,2,Honorarios,Profesional,2012000,0,NA,2,No,0
+F0176,Salud,Biobío,Femenino,46,15,Contrata,Profesional,2327000,0,5.3,3,Sí,0
+F0177,Educación,Metropolitana,Masculino,41,10,Planta,Profesional,2506000,16,6.5,1,No,0
+F0178,Educación,Metropolitana,Femenino,48,1,Contrata,Administrativo,861000,0,4.6,1,No,0
+F0179,Vivienda,Metropolitana,Masculino,46,5,Planta,Directivo,2551000,0,5.8,1,Sí,0
+F0180,Educación,Metropolitana,Masculino,39,7,Planta,Administrativo,1163000,11,7.0,3,No,6
+F0181,Interior,Metropolitana,Masculino,54,8,Contrata,Profesional,1661000,0,5.0,1,Sí,0
+F0182,Vivienda,Biobío,Femenino,55,13,Honorarios,Administrativo,952000,0,NA,4,Sí,15
+F0183,Educación,Valparaíso,Femenino,42,5,Contrata,Profesional,1873000,7,5.7,1,Sí,18
+F0184,Vivienda,Biobío,Masculino,62,18,Contrata,Profesional,2953000,0,6.2,3,Sí,0
+F0185,Educación,Antofagasta,Femenino,23,0,Contrata,Administrativo,763000,9,NA,6,No,0
+F0186,Educación,Valparaíso,Femenino,44,15,Honorarios,Profesional,2066000,0,NA,4,No,3
+F0187,Interior,Biobío,Femenino,30,2,Honorarios,Administrativo,741000,0,NA,2,No,0
+F0188,Educación,Biobío,Femenino,37,6,Planta,Profesional,2086000,10,5.9,2,Sí,0
+F0189,Obras Públicas,Antofagasta,Femenino,51,9,Contrata,Técnico,1321000,9,6.4,1,No,0
+F0190,Educación,Los Lagos,Femenino,49,6,Contrata,Profesional,2645000,0,5.3,2,No,0
+F0191,Interior,Valparaíso,Femenino,37,8,Planta,Técnico,1573000,0,5.0,0,No,1
+F0192,Interior,Los Lagos,Femenino,34,4,Contrata,Administrativo,924000,0,5.5,1,No,7
+F0193,Trabajo,Valparaíso,Masculino,59,6,Planta,Técnico,1046000,0,6.1,5,No,0
+F0194,Salud,Metropolitana,Masculino,51,5,Planta,Profesional,2635000,0,4.7,3,Sí,8
+F0195,Interior,Los Lagos,Femenino,44,8,Honorarios,Técnico,1111000,0,NA,3,No,3
+F0196,Salud,Biobío,Masculino,47,8,Planta,Técnico,965000,0,5.2,1,No,0
+F0197,Interior,Metropolitana,Femenino,49,6,Contrata,Administrativo,1109000,0,5.6,1,Sí,0
+F0198,Educación,Araucanía,Masculino,57,5,Contrata,Técnico,1308000,0,6.3,4,No,0
+F0199,Vivienda,Biobío,Masculino,55,9,Contrata,Profesional,2132000,4,6.3,2,Sí,0
+F0200,Obras Públicas,Biobío,Femenino,40,0,Contrata,Administrativo,881000,10,NA,0,No,0
+F0201,Salud,Metropolitana,Masculino,36,5,Planta,Administrativo,1107000,15,5.9,2,No,0
+F0202,Educación,Biobío,Masculino,52,22,Contrata,Administrativo,1181000,0,5.6,1,No,7
+F0203,Educación,Valparaíso,Femenino,63,25,Contrata,Directivo,3864000,0,6.3,5,No,0
+F0204,Educación,Araucanía,Femenino,38,13,Contrata,Profesional,2564000,0,5.2,1,No,0
+F0205,Vivienda,Los Lagos,Femenino,59,8,Contrata,Administrativo,791000,0,5.6,4,Sí,7
+F0206,Salud,Valparaíso,Masculino,53,14,Planta,Técnico,1304000,8,6.6,7,Sí,5
+F0207,Educación,Biobío,Masculino,44,2,Planta,Directivo,2817000,0,5.7,2,Sí,4
+F0208,Vivienda,Metropolitana,Masculino,35,1,Planta,Técnico,950000,12,5.9,4,No,0
+F0209,Salud,Antofagasta,Femenino,44,11,Contrata,Técnico,1422000,0,6.4,1,No,0
+F0210,Vivienda,Valparaíso,Femenino,44,2,Contrata,Profesional,1862000,0,6.3,2,Sí,8
+F0211,Salud,Valparaíso,Masculino,52,20,Contrata,Administrativo,1437000,7,5.5,3,Sí,17
+F0212,Interior,Biobío,Masculino,44,5,Contrata,Profesional,2168000,0,5.3,4,No,1
+F0213,Desarrollo Social,Biobío,Femenino,27,2,Contrata,Administrativo,895000,0,5.3,3,No,0
+F0214,Interior,Metropolitana,Femenino,53,4,Planta,Profesional,2043000,0,NA,1,Sí,0
+F0215,Obras Públicas,Biobío,Femenino,32,1,Contrata,Administrativo,972000,9,6.2,1,No,16
+F0216,Vivienda,Valparaíso,Femenino,52,7,Planta,Auxiliar,689000,0,6.3,1,No,3
+F0217,Interior,Metropolitana,Masculino,32,4,Contrata,Profesional,1486000,0,4.9,5,Sí,4
+F0218,Educación,Metropolitana,Femenino,38,1,Contrata,Administrativo,933000,3,5.2,2,No,2
+F0219,Vivienda,Valparaíso,Femenino,40,2,Contrata,Administrativo,822000,11,5.9,2,No,10
+F0220,Educación,Antofagasta,Femenino,55,6,Contrata,Técnico,1335000,0,5.3,1,No,0
+F0221,Interior,Valparaíso,Masculino,46,6,Planta,Profesional,1825000,0,4.9,1,Sí,3
+F0222,Educación,Biobío,Masculino,55,4,Contrata,Profesional,2043000,0,5.5,3,Sí,0
+F0223,Educación,Los Lagos,Masculino,43,5,Contrata,Administrativo,638000,0,4.9,1,Sí,0
+F0224,Hacienda,Antofagasta,Femenino,46,9,Contrata,Administrativo,764000,13,5.7,1,No,0
+F0225,Obras Públicas,Metropolitana,Masculino,44,0,Planta,Técnico,1125000,0,NA,2,No,0
+F0226,Obras Públicas,Metropolitana,Masculino,44,14,Contrata,Profesional,2742000,8,5.2,1,Sí,0
+F0227,Obras Públicas,Araucanía,Femenino,53,6,Contrata,Profesional,2321000,6,4.6,1,No,2
+F0228,Vivienda,Los Lagos,Masculino,41,6,Contrata,Técnico,1312000,0,4.9,2,No,0
+F0229,Trabajo,Metropolitana,Masculino,46,17,Planta,Técnico,1152000,8,5.2,3,No,8
+F0230,Educación,Antofagasta,Femenino,43,0,Honorarios,Técnico,1217000,0,NA,3,Sí,0
+F0231,Hacienda,Los Lagos,Masculino,62,5,Planta,Directivo,3377000,0,5.7,2,No,0
+F0232,Interior,Valparaíso,Masculino,64,24,Contrata,Técnico,1367000,8,5.3,4,No,2
+F0233,Vivienda,Valparaíso,Femenino,39,9,Contrata,Directivo,3473000,0,5.8,3,No,3
+F0234,Desarrollo Social,Los Lagos,Masculino,50,11,Contrata,Técnico,1537000,11,4.4,3,No,0
+F0235,Obras Públicas,Araucanía,Femenino,46,6,Contrata,Profesional,1872000,10,5.5,4,Sí,9
+F0236,Hacienda,Metropolitana,Masculino,37,4,Contrata,Técnico,1290000,0,5.5,5,No,1
+F0237,Obras Públicas,Biobío,Femenino,44,10,Contrata,Administrativo,945000,15,5.4,3,No,2
+F0238,Trabajo,Valparaíso,Femenino,28,2,Honorarios,Profesional,1760000,0,NA,1,No,0
+F0239,Hacienda,Valparaíso,Femenino,54,0,Contrata,Administrativo,825000,0,NA,2,No,2
+F0240,Obras Públicas,Metropolitana,Masculino,42,6,Contrata,Profesional,1475000,0,6.0,6,No,0
+F0241,Trabajo,Metropolitana,Masculino,30,2,Contrata,Profesional,2050000,0,7.0,0,No,6
+F0242,Educación,Los Lagos,Femenino,60,5,Honorarios,Profesional,2137000,0,NA,1,Sí,1
+F0243,Salud,Metropolitana,Femenino,37,1,Planta,Técnico,1327000,14,5.5,1,Sí,0
+F0244,Vivienda,Araucanía,Femenino,44,2,Contrata,Directivo,2828000,0,6.3,2,No,0
+F0245,Trabajo,Biobío,Masculino,46,15,Honorarios,Administrativo,971000,0,NA,1,No,0
+F0246,Salud,Metropolitana,Femenino,35,8,Planta,Profesional,2248000,0,5.7,4,No,4
+F0247,Educación,Biobío,Femenino,38,3,Contrata,Administrativo,1005000,0,5.7,3,No,0
+F0248,Educación,Metropolitana,Femenino,40,7,Contrata,Técnico,964000,11,4.8,2,No,4
+F0249,Educación,Metropolitana,Masculino,39,10,Contrata,Profesional,2121000,16,5.5,1,No,6
+F0250,Obras Públicas,Los Lagos,Masculino,54,3,Planta,Administrativo,756000,9,6.3,1,Sí,0
+F0251,Educación,Antofagasta,Masculino,33,0,Contrata,Directivo,3598000,0,NA,3,No,0
+F0252,Trabajo,Los Lagos,Masculino,38,10,Contrata,Profesional,2849000,0,5.4,1,Sí,0
+F0253,Trabajo,Los Lagos,Masculino,27,0,Planta,Directivo,2702000,0,NA,3,No,0
+F0254,Obras Públicas,Metropolitana,Femenino,61,12,Honorarios,Profesional,1709000,0,NA,2,Sí,2
+F0255,Trabajo,Metropolitana,Masculino,58,1,Contrata,Profesional,1875000,9,6.9,2,No,0
+F0256,Salud,Antofagasta,Femenino,62,38,Honorarios,Profesional,2655000,0,NA,3,Sí,0
+F0257,Desarrollo Social,Metropolitana,Femenino,33,5,Honorarios,Profesional,2216000,0,NA,2,Sí,30
+F0258,Salud,Metropolitana,Masculino,37,4,Planta,Administrativo,869000,0,5.0,2,No,0
+F0259,Desarrollo Social,Metropolitana,Masculino,35,2,Planta,Profesional,1593000,0,6.7,4,Sí,3
+F0260,Salud,Valparaíso,Masculino,62,26,Planta,Profesional,1940000,0,6.8,4,Sí,4
+F0261,Interior,Los Lagos,Femenino,55,2,Honorarios,Administrativo,601000,0,NA,0,No,0
+F0262,Salud,Metropolitana,Masculino,43,7,Planta,Profesional,2230000,9,5.6,0,No,0
+F0263,Hacienda,Araucanía,Femenino,56,10,Contrata,Administrativo,892000,9,5.5,3,No,7
+F0264,Salud,Biobío,Masculino,32,0,Contrata,Profesional,2160000,14,NA,2,Sí,0
+F0265,Educación,Valparaíso,Femenino,36,4,Contrata,Profesional,1960000,4,5.7,1,Sí,3
+F0266,Salud,Metropolitana,Masculino,41,6,Contrata,Administrativo,1122000,0,5.6,2,No,6
+F0267,Salud,Araucanía,Femenino,32,6,Contrata,Profesional,2695000,14,5.7,1,Sí,0
+F0268,Salud,Antofagasta,Masculino,28,1,Contrata,Administrativo,745000,12,5.7,1,Sí,0
+F0269,Trabajo,Metropolitana,Femenino,39,5,Planta,Administrativo,1157000,12,6.7,3,No,9
+F0270,Obras Públicas,Metropolitana,Masculino,50,0,Contrata,Profesional,2096000,11,NA,1,Sí,0
+F0271,Interior,Biobío,Masculino,30,0,Contrata,Administrativo,1213000,0,NA,2,Sí,0
+F0272,Hacienda,Biobío,Femenino,46,12,Contrata,Técnico,1260000,10,6.2,1,No,12
+F0273,Desarrollo Social,Biobío,Femenino,48,19,Honorarios,Administrativo,1042000,0,NA,1,Sí,20
+F0274,Educación,Metropolitana,Femenino,46,8,Contrata,Profesional,1907000,0,5.0,0,Sí,0
+F0275,Trabajo,Metropolitana,Femenino,39,4,Honorarios,Técnico,1073000,0,NA,4,No,0
+F0276,Salud,Metropolitana,Masculino,38,5,Contrata,Auxiliar,547000,0,5.9,2,No,0
+F0277,Desarrollo Social,Antofagasta,Femenino,43,13,Planta,Auxiliar,653000,7,5.5,4,No,1
+F0278,Desarrollo Social,Valparaíso,Masculino,53,3,Contrata,Técnico,1096000,8,5.0,0,No,0
+F0279,Desarrollo Social,Valparaíso,Masculino,48,7,Planta,Técnico,1187000,0,6.5,0,No,0
+F0280,Salud,Metropolitana,Femenino,51,12,Contrata,Profesional,2277000,0,6.5,0,No,0
+F0281,Vivienda,Metropolitana,Masculino,35,3,Planta,Profesional,1688000,8,5.9,3,No,2
+F0282,Interior,Valparaíso,Masculino,34,0,Contrata,Profesional,1869000,0,NA,2,Sí,7
+F0283,Educación,Biobío,Femenino,52,4,Contrata,Auxiliar,683000,0,5.7,0,No,6
+F0284,Salud,Metropolitana,Masculino,41,2,Planta,Administrativo,773000,8,6.5,1,No,13
+F0285,Desarrollo Social,Araucanía,Masculino,49,4,Contrata,Profesional,2748000,0,6.5,1,Sí,0
+F0286,Hacienda,Metropolitana,Masculino,60,19,Planta,Técnico,1458000,3,5.3,1,No,0
+F0287,Obras Públicas,Valparaíso,Femenino,48,11,Honorarios,Técnico,991000,0,NA,1,Sí,0
+F0288,Obras Públicas,Metropolitana,Masculino,32,1,Planta,Administrativo,848000,0,5.8,3,No,1
+F0289,Desarrollo Social,Metropolitana,Femenino,47,1,Planta,Técnico,1216000,8,6.0,1,No,3
+F0290,Trabajo,Araucanía,Masculino,41,2,Planta,Profesional,2243000,0,5.4,1,No,10
+F0291,Desarrollo Social,Los Lagos,Femenino,26,0,Honorarios,Técnico,924000,0,NA,1,No,1
+F0292,Educación,Biobío,Femenino,44,2,Planta,Técnico,736000,0,5.8,2,No,0
+F0293,Vivienda,Biobío,Femenino,44,4,Planta,Profesional,2351000,0,5.6,1,No,3
+F0294,Hacienda,Valparaíso,Femenino,25,0,Honorarios,Profesional,1700000,0,NA,0,No,0
+F0295,Salud,Valparaíso,Femenino,36,3,Honorarios,Técnico,1003000,0,NA,0,Sí,0
+F0296,Desarrollo Social,Metropolitana,Femenino,32,2,Honorarios,Profesional,1996000,0,NA,0,Sí,0
+F0297,Trabajo,Araucanía,Femenino,51,3,Honorarios,Administrativo,667000,0,NA,2,No,0
+F0298,Salud,Metropolitana,Femenino,44,2,Honorarios,Administrativo,1030000,0,NA,0,Sí,0
+F0299,Educación,Metropolitana,Femenino,44,1,Planta,Profesional,2303000,11,5.6,2,Sí,0
+F0300,Salud,Biobío,Femenino,49,12,Honorarios,Técnico,1201000,0,NA,3,No,6
+F0301,Salud,Biobío,Femenino,54,27,Honorarios,Administrativo,802000,0,NA,5,No,12
+F0302,Obras Públicas,Valparaíso,Femenino,61,20,Contrata,Auxiliar,958000,0,5.7,4,No,21
+F0303,Salud,Antofagasta,Masculino,42,3,Honorarios,Profesional,2121000,0,NA,2,Sí,0
+F0304,Educación,Araucanía,Femenino,38,0,Planta,Profesional,2254000,14,NA,3,No,0
+F0305,Educación,Biobío,Femenino,61,20,Contrata,Administrativo,1388000,0,5.5,3,Sí,0
+F0306,Salud,Valparaíso,Masculino,40,5,Planta,Técnico,1109000,0,4.5,2,No,0
+F0307,Hacienda,Metropolitana,Masculino,48,17,Contrata,Auxiliar,649000,0,4.4,5,No,0
+F0308,Salud,Metropolitana,Femenino,44,1,Contrata,Administrativo,629000,3,4.5,2,Sí,2
+F0309,Salud,Araucanía,Masculino,37,8,Contrata,Profesional,2801000,0,5.0,5,No,0
+F0310,Salud,Metropolitana,Femenino,27,1,Planta,Auxiliar,554000,0,5.6,4,No,0
+F0311,Trabajo,Metropolitana,Masculino,49,7,Contrata,Administrativo,759000,0,5.1,0,Sí,0
+F0312,Obras Públicas,Metropolitana,Masculino,52,14,Contrata,Auxiliar,839000,0,5.8,0,No,0
+F0313,Salud,Araucanía,Femenino,36,0,Honorarios,Técnico,1038000,0,NA,1,No,1
+F0314,Trabajo,Araucanía,Femenino,58,11,Honorarios,Profesional,2256000,0,NA,1,Sí,0
+F0315,Trabajo,Biobío,Masculino,62,28,Honorarios,Administrativo,1278000,0,NA,4,No,0
+F0316,Salud,Metropolitana,Masculino,48,5,Contrata,Profesional,1781000,0,6.0,2,Sí,2
+F0317,Educación,Araucanía,Femenino,25,1,Planta,Administrativo,845000,0,5.2,5,Sí,0
+F0318,Salud,Valparaíso,Femenino,35,10,Honorarios,Auxiliar,677000,0,NA,1,No,0
+F0319,Educación,Biobío,Masculino,37,3,Contrata,Administrativo,838000,0,5.7,2,No,22
+F0320,Interior,Metropolitana,Masculino,45,0,Contrata,Administrativo,630000,0,NA,0,No,1
+F0321,Salud,Metropolitana,Femenino,52,7,Contrata,Profesional,2080000,6,5.6,3,No,11
+F0322,Vivienda,Araucanía,Femenino,36,3,Contrata,Directivo,3082000,0,5.9,2,No,0
+F0323,Educación,Metropolitana,Femenino,35,3,Honorarios,Administrativo,899000,0,NA,3,Sí,8
+F0324,Obras Públicas,Los Lagos,Masculino,59,16,Honorarios,Técnico,1273000,0,NA,3,No,0
+F0325,Salud,Antofagasta,Masculino,40,3,Honorarios,Profesional,1627000,0,NA,0,Sí,18
+F0326,Salud,Antofagasta,Masculino,36,1,Contrata,Profesional,2278000,11,4.7,3,No,13
+F0327,Obras Públicas,Araucanía,Masculino,36,4,Planta,Técnico,1082000,11,6.3,3,Sí,8
+F0328,Salud,Biobío,Masculino,50,6,Contrata,Auxiliar,682000,0,6.9,3,No,0
+F0329,Educación,Los Lagos,Femenino,51,11,Planta,Profesional,1971000,6,4.7,0,No,0
+F0330,Educación,Metropolitana,Femenino,33,4,Contrata,Administrativo,961000,0,6.4,0,No,0
+F0331,Obras Públicas,Antofagasta,Masculino,49,1,Contrata,Auxiliar,702000,0,5.8,2,No,0
+F0332,Obras Públicas,Metropolitana,Femenino,55,25,Planta,Técnico,1642000,0,5.4,1,No,0
+F0333,Educación,Valparaíso,Femenino,49,10,Contrata,Profesional,1894000,9,6.6,3,Sí,0
+F0334,Salud,Metropolitana,Femenino,49,10,Planta,Técnico,1112000,11,5.0,1,Sí,0
+F0335,Educación,Metropolitana,Femenino,37,11,Planta,Directivo,2472000,0,5.7,4,Sí,1
+F0336,Obras Públicas,Valparaíso,Masculino,64,30,Contrata,Profesional,2749000,0,5.7,1,Sí,0
+F0337,Educación,Metropolitana,Femenino,55,9,Honorarios,Profesional,2177000,0,NA,2,No,0
+F0338,Salud,Metropolitana,Masculino,23,0,Planta,Directivo,2896000,0,NA,1,No,0
+F0339,Trabajo,Metropolitana,Masculino,40,0,Contrata,Técnico,945000,0,NA,1,No,0
+F0340,Salud,Metropolitana,Masculino,29,1,Contrata,Profesional,1470000,9,4.3,0,Sí,9
+F0341,Salud,Valparaíso,Femenino,38,7,Contrata,Administrativo,778000,0,6.4,0,No,0
+F0342,Educación,Metropolitana,Masculino,38,8,Contrata,Profesional,2125000,0,6.1,3,No,0
+F0343,Salud,Valparaíso,Masculino,34,0,Contrata,Administrativo,871000,12,NA,2,No,0
+F0344,Obras Públicas,Metropolitana,Femenino,34,3,Contrata,Profesional,1665000,0,6.2,2,Sí,0
+F0345,Desarrollo Social,Los Lagos,Masculino,59,3,Honorarios,Auxiliar,648000,0,NA,2,No,5
+F0346,Educación,Los Lagos,Femenino,47,17,Contrata,Profesional,2485000,10,5.5,2,Sí,8
+F0347,Salud,Antofagasta,Femenino,30,2,Honorarios,Profesional,1871000,0,NA,2,No,10
+F0348,Educación,Antofagasta,Femenino,43,11,Contrata,Directivo,2793000,0,5.3,2,No,0
+F0349,Desarrollo Social,Metropolitana,Femenino,47,1,Planta,Profesional,1904000,8,6.3,0,Sí,0
+F0350,Vivienda,Metropolitana,Femenino,38,10,Planta,Técnico,1254000,12,5.5,4,No,0
+F0351,Educación,Metropolitana,Masculino,49,5,Contrata,Técnico,1166000,8,5.4,1,No,0
+F0352,Hacienda,Valparaíso,Femenino,36,2,Contrata,Profesional,1986000,0,7.0,2,No,0
+F0353,Obras Públicas,Valparaíso,Masculino,27,0,Contrata,Auxiliar,842000,0,NA,1,No,22
+F0354,Educación,Metropolitana,Femenino,37,5,Contrata,Profesional,2012000,10,4.7,0,Sí,0
+F0355,Vivienda,Biobío,Femenino,55,4,Contrata,Profesional,1908000,12,4.6,2,Sí,0
+F0356,Interior,Metropolitana,Femenino,52,11,Contrata,Administrativo,806000,0,5.4,1,No,0
+F0357,Educación,Metropolitana,Femenino,33,2,Contrata,Profesional,1486000,0,4.3,2,Sí,0
+F0358,Educación,Metropolitana,Masculino,56,4,Planta,Directivo,3954000,0,6.2,1,No,0
+F0359,Trabajo,Araucanía,Masculino,35,5,Contrata,Profesional,2058000,0,5.7,1,Sí,0
+F0360,Obras Públicas,Metropolitana,Masculino,41,3,Planta,Profesional,2322000,0,5.3,1,Sí,0
+F0361,Trabajo,Antofagasta,Femenino,49,3,Planta,Administrativo,750000,0,5.2,2,Sí,0
+F0362,Educación,Araucanía,Masculino,26,3,Honorarios,Profesional,1978000,0,NA,5,Sí,3
+F0363,Desarrollo Social,Biobío,Femenino,49,11,Honorarios,Administrativo,1020000,0,NA,1,No,2
+F0364,Obras Públicas,Valparaíso,Masculino,35,5,Honorarios,Profesional,2064000,0,NA,2,Sí,0
+F0365,Trabajo,Metropolitana,Masculino,29,1,Planta,Administrativo,674000,0,6.4,6,Sí,0
+F0366,Hacienda,Metropolitana,Femenino,54,2,Contrata,Profesional,1647000,9,6.0,3,No,0
+F0367,Vivienda,Valparaíso,Femenino,42,7,Planta,Técnico,1394000,5,5.2,0,Sí,0
+F0368,Trabajo,Metropolitana,Femenino,37,8,Planta,Administrativo,1173000,0,5.5,3,Sí,0
+F0369,Desarrollo Social,Los Lagos,Femenino,52,4,Honorarios,Técnico,1023000,0,NA,3,No,6
+F0370,Interior,Valparaíso,Masculino,50,15,Contrata,Técnico,1596000,9,6.0,3,No,3
+F0371,Educación,Biobío,Femenino,28,1,Honorarios,Profesional,2252000,0,NA,2,No,4
+F0372,Interior,Los Lagos,Femenino,51,4,Contrata,Profesional,2583000,9,6.1,1,No,0
+F0373,Educación,Metropolitana,Femenino,29,1,Planta,Técnico,1231000,10,5.1,2,No,0
+F0374,Educación,Los Lagos,Femenino,37,1,Planta,Técnico,871000,0,5.3,1,Sí,0
+F0375,Hacienda,Araucanía,Femenino,33,8,Planta,Administrativo,941000,12,5.6,1,No,3
+F0376,Desarrollo Social,Los Lagos,Femenino,49,8,Planta,Administrativo,1030000,0,5.4,2,No,0
+F0377,Educación,Metropolitana,Masculino,23,0,Honorarios,Profesional,2232000,0,NA,1,No,0
+F0378,Obras Públicas,Biobío,Masculino,50,18,Contrata,Técnico,1689000,7,5.6,5,No,1
+F0379,Trabajo,Los Lagos,Masculino,61,5,Planta,Técnico,1142000,14,4.8,4,Sí,0
+F0380,Educación,Antofagasta,Masculino,31,1,Planta,Administrativo,750000,6,6.4,2,Sí,0
+F0381,Trabajo,Los Lagos,Masculino,38,0,Contrata,Profesional,2384000,7,NA,2,No,4
+F0382,Desarrollo Social,Metropolitana,Femenino,28,1,Honorarios,Profesional,1464000,0,NA,3,Sí,2
+F0383,Interior,Metropolitana,Femenino,37,2,Planta,Directivo,3198000,0,5.8,0,No,0
+F0384,Desarrollo Social,Valparaíso,Masculino,47,17,Planta,Técnico,1237000,4,5.8,5,No,0
+F0385,Desarrollo Social,Metropolitana,Masculino,38,5,Contrata,Técnico,1359000,0,6.9,2,No,0
+F0386,Desarrollo Social,Antofagasta,Masculino,53,16,Contrata,Administrativo,1150000,9,6.0,3,Sí,0
+F0387,Educación,Metropolitana,Femenino,31,8,Contrata,Profesional,2645000,0,5.8,2,Sí,7
+F0388,Obras Públicas,Metropolitana,Femenino,50,1,Contrata,Técnico,1093000,0,6.0,0,No,0
+F0389,Educación,Metropolitana,Masculino,40,3,Contrata,Auxiliar,673000,6,NA,1,No,0
+F0390,Educación,Valparaíso,Femenino,34,4,Contrata,Profesional,1832000,7,4.6,1,Sí,2
+F0391,Educación,Biobío,Femenino,48,8,Contrata,Administrativo,806000,0,6.1,2,No,12
+F0392,Hacienda,Valparaíso,Masculino,40,7,Contrata,Profesional,2219000,0,5.5,2,No,0
+F0393,Vivienda,Biobío,Femenino,29,2,Honorarios,Profesional,1508000,0,NA,6,No,0
+F0394,Obras Públicas,Metropolitana,Masculino,39,1,Honorarios,Administrativo,715000,0,NA,0,Sí,1
+F0395,Hacienda,Antofagasta,Masculino,36,4,Planta,Profesional,1690000,0,5.1,2,No,0
+F0396,Vivienda,Valparaíso,Masculino,49,7,Contrata,Administrativo,853000,5,6.0,2,Sí,0
+F0397,Obras Públicas,Valparaíso,Femenino,48,2,Planta,Profesional,1714000,5,5.2,1,Sí,26
+F0398,Desarrollo Social,Araucanía,Femenino,57,11,Contrata,Profesional,1614000,0,6.1,3,No,0
+F0399,Hacienda,Metropolitana,Femenino,45,2,Contrata,Técnico,1142000,9,4.7,1,No,1
+F0400,Educación,Biobío,Masculino,45,6,Honorarios,Auxiliar,736000,0,NA,0,No,2
+F0401,Salud,Valparaíso,Masculino,38,2,Contrata,Administrativo,926000,12,5.5,1,No,7
+F0402,Salud,Biobío,Femenino,41,13,Contrata,Profesional,2532000,0,5.8,4,Sí,0
+F0403,Trabajo,Metropolitana,Masculino,45,4,Contrata,Directivo,3418000,0,6.0,1,No,18
+F0404,Educación,Biobío,Masculino,45,3,Honorarios,Auxiliar,457000,0,NA,2,No,0
+F0405,Interior,Metropolitana,Masculino,47,4,Contrata,Administrativo,706000,0,6.2,3,Sí,0
+F0406,Interior,Antofagasta,Femenino,32,1,Honorarios,Profesional,1807000,0,NA,2,No,2
+F0407,Salud,Metropolitana,Femenino,25,1,Contrata,Administrativo,721000,0,4.6,2,Sí,12
+F0408,Interior,Metropolitana,Masculino,51,13,Honorarios,Profesional,2225000,0,NA,0,No,9
+F0409,Interior,Antofagasta,Femenino,42,15,Honorarios,Técnico,1347000,0,NA,0,Sí,0
+F0410,Hacienda,Biobío,Masculino,49,1,Planta,Técnico,1394000,11,5.1,2,Sí,0
+F0411,Desarrollo Social,Metropolitana,Femenino,54,21,Contrata,Profesional,2356000,0,4.9,5,Sí,0
+F0412,Trabajo,Metropolitana,Femenino,40,7,Planta,Profesional,2119000,0,5.1,0,No,0
+F0413,Desarrollo Social,Metropolitana,Femenino,49,1,Planta,Técnico,925000,8,5.1,4,Sí,0
+F0414,Interior,Metropolitana,Femenino,41,7,Contrata,Administrativo,783000,0,5.3,3,No,9
+F0415,Obras Públicas,Biobío,Femenino,42,10,Contrata,Administrativo,983000,0,6.0,1,No,0
+F0416,Hacienda,Araucanía,Femenino,40,2,Contrata,Técnico,1169000,9,6.7,1,No,11
+F0417,Educación,Los Lagos,Femenino,48,15,Contrata,Administrativo,1145000,10,6.8,1,No,12
+F0418,Salud,Metropolitana,Femenino,56,22,Honorarios,Técnico,1376000,0,NA,3,No,0
+F0419,Salud,Metropolitana,Femenino,41,5,Planta,Técnico,1191000,0,6.6,2,No,0
+F0420,Interior,Metropolitana,Femenino,34,2,Contrata,Profesional,1963000,0,5.8,2,No,0
+F0421,Vivienda,Biobío,Femenino,52,16,Contrata,Técnico,1181000,0,4.2,2,No,0
+F0422,Obras Públicas,Biobío,Masculino,55,16,Honorarios,Administrativo,851000,0,NA,1,Sí,0
+F0423,Salud,Araucanía,Masculino,51,8,Contrata,Profesional,2008000,7,5.3,1,No,2
+F0424,Obras Públicas,Antofagasta,Femenino,41,7,Planta,Administrativo,907000,0,5.8,2,Sí,0
+F0425,Hacienda,Valparaíso,Masculino,49,23,Contrata,Profesional,2752000,0,5.8,2,No,0
+F0426,Educación,Metropolitana,Femenino,43,16,Planta,Administrativo,905000,0,6.8,0,No,13
+F0427,Salud,Araucanía,Femenino,56,6,Contrata,Administrativo,716000,9,4.7,5,No,0
+F0428,Desarrollo Social,Metropolitana,Masculino,52,0,Contrata,Administrativo,757000,9,NA,1,No,0
+F0429,Interior,Los Lagos,Femenino,41,9,Honorarios,Profesional,1411000,0,NA,3,No,0
+F0430,Vivienda,Metropolitana,Femenino,51,13,Planta,Profesional,2193000,19,7.0,3,Sí,2
+F0431,Salud,Metropolitana,Masculino,43,6,Contrata,Técnico,1130000,0,4.6,2,No,0
+F0432,Vivienda,Metropolitana,Femenino,47,11,Contrata,Auxiliar,737000,8,6.8,3,No,0
+F0433,Educación,Metropolitana,Femenino,35,7,Contrata,Profesional,1957000,9,5.9,1,Sí,4
+F0434,Hacienda,Metropolitana,Masculino,26,0,Planta,Directivo,3364000,0,NA,2,Sí,0
+F0435,Trabajo,Los Lagos,Femenino,39,1,Honorarios,Profesional,2289000,0,NA,0,No,8
+F0436,Interior,Araucanía,Masculino,23,0,Planta,Administrativo,1096000,12,NA,0,Sí,0
+F0437,Educación,Metropolitana,Femenino,36,0,Contrata,Técnico,860000,11,NA,0,No,0
+F0438,Educación,Araucanía,Femenino,36,1,Planta,Profesional,1696000,7,5.3,1,Sí,0
+F0439,Salud,Los Lagos,Femenino,55,22,Contrata,Administrativo,1141000,11,6.5,1,No,0
+F0440,Educación,Los Lagos,Femenino,54,10,Contrata,Profesional,1935000,12,6.0,1,Sí,0
+F0441,Vivienda,Araucanía,Masculino,26,1,Contrata,Profesional,2055000,7,6.0,1,Sí,0
+F0442,Vivienda,Biobío,Femenino,30,2,Planta,Profesional,1550000,15,5.7,5,No,11
+F0443,Hacienda,Valparaíso,Masculino,39,6,Contrata,Auxiliar,715000,9,5.8,2,No,0
+F0444,Interior,Biobío,Masculino,41,1,Contrata,Auxiliar,614000,0,4.6,0,No,9
+F0445,Salud,Metropolitana,Femenino,49,6,Contrata,Técnico,1101000,0,5.5,2,No,0
+F0446,Vivienda,Antofagasta,Femenino,41,3,Honorarios,Profesional,2332000,0,NA,1,No,0
+F0447,Salud,Metropolitana,Masculino,45,8,Planta,Directivo,3672000,0,5.3,2,Sí,0
+F0448,Vivienda,Metropolitana,Masculino,23,0,Honorarios,Profesional,1848000,0,NA,2,No,0
+F0449,Obras Públicas,Los Lagos,Femenino,46,6,Honorarios,Administrativo,844000,0,NA,1,No,4
+F0450,Educación,Biobío,Masculino,28,3,Contrata,Profesional,2047000,0,5.7,2,Sí,0
+F0451,Vivienda,Antofagasta,Masculino,36,8,Contrata,Directivo,3302000,0,6.3,1,No,0
+F0452,Educación,Metropolitana,Femenino,44,2,Contrata,Profesional,2021000,0,4.8,2,No,0
+F0453,Educación,Metropolitana,Femenino,53,2,Planta,Técnico,1192000,10,6.1,2,No,0
+F0454,Educación,Valparaíso,Femenino,48,3,Contrata,Administrativo,806000,12,6.2,2,Sí,0
+F0455,Educación,Biobío,Femenino,54,13,Planta,Profesional,2437000,4,NA,1,Sí,3
+F0456,Trabajo,Metropolitana,Femenino,54,26,Planta,Administrativo,1053000,5,5.8,2,Sí,0
+F0457,Obras Públicas,Metropolitana,Femenino,42,10,Contrata,Profesional,2308000,0,5.2,3,Sí,5
+F0458,Educación,Metropolitana,Masculino,30,2,Planta,Profesional,2634000,0,5.1,2,Sí,0
+F0459,Obras Públicas,Araucanía,Femenino,40,2,Contrata,Administrativo,1051000,0,5.9,3,No,7
+F0460,Educación,Antofagasta,Femenino,53,13,Planta,Técnico,1423000,7,6.2,3,Sí,0
+F0461,Desarrollo Social,Valparaíso,Masculino,43,7,Contrata,Directivo,4033000,0,6.1,3,No,2
+F0462,Vivienda,Valparaíso,Femenino,48,2,Contrata,Profesional,2478000,6,5.5,5,Sí,6
+F0463,Vivienda,Antofagasta,Femenino,44,4,Planta,Directivo,3795000,0,5.9,5,No,0
+F0464,Interior,Valparaíso,Femenino,48,16,Contrata,Administrativo,981000,0,NA,3,Sí,0
+F0465,Educación,Valparaíso,Masculino,39,4,Contrata,Administrativo,1104000,6,5.5,4,No,0
+F0466,Trabajo,Metropolitana,Masculino,48,9,Planta,Profesional,2660000,10,5.0,2,No,10
+F0467,Vivienda,Biobío,Femenino,45,6,Contrata,Administrativo,1021000,10,4.6,1,No,0
+F0468,Obras Públicas,Biobío,Femenino,30,1,Contrata,Profesional,1907000,5,6.1,1,No,2
+F0469,Vivienda,Araucanía,Femenino,64,7,Planta,Administrativo,849000,0,5.5,3,Sí,1
+F0470,Salud,Araucanía,Masculino,35,7,Planta,Profesional,2605000,0,6.0,2,Sí,0
+F0471,Interior,Metropolitana,Masculino,53,7,Contrata,Técnico,1482000,0,5.0,3,Sí,0
+F0472,Vivienda,Metropolitana,Masculino,42,6,Planta,Técnico,978000,0,5.9,1,Sí,6
+F0473,Educación,Los Lagos,Masculino,23,0,Planta,Profesional,1468000,0,NA,1,Sí,0
+F0474,Educación,Biobío,Femenino,41,8,Honorarios,Técnico,1064000,0,NA,1,No,0
+F0475,Vivienda,Antofagasta,Femenino,49,2,Planta,Profesional,2080000,0,6.0,1,No,0
+F0476,Hacienda,Valparaíso,Femenino,40,13,Contrata,Técnico,1227000,11,5.9,1,No,1
+F0477,Obras Públicas,Los Lagos,Femenino,31,3,Contrata,Técnico,899000,10,3.6,1,Sí,1
+F0478,Vivienda,Antofagasta,Femenino,39,13,Planta,Técnico,1466000,8,4.3,2,No,0
+F0479,Desarrollo Social,Metropolitana,Femenino,42,1,Planta,Profesional,1850000,0,6.5,3,No,8
+F0480,Salud,Metropolitana,Femenino,34,3,Planta,Administrativo,840000,12,5.7,1,No,12
+F0481,Hacienda,Valparaíso,Femenino,39,3,Contrata,Técnico,1311000,0,5.7,1,No,0
+F0482,Educación,Metropolitana,Femenino,49,10,Contrata,Profesional,1673000,0,5.7,2,No,0
+F0483,Educación,Biobío,Masculino,53,1,Planta,Directivo,3886000,0,5.5,0,No,0
+F0484,Trabajo,Araucanía,Masculino,64,20,Contrata,Administrativo,840000,10,5.6,2,No,0
+F0485,Vivienda,Los Lagos,Femenino,37,5,Planta,Técnico,994000,0,5.7,5,No,3
+F0486,Vivienda,Antofagasta,Femenino,52,18,Contrata,Técnico,1393000,0,5.4,3,No,8
+F0487,Obras Públicas,Biobío,Masculino,43,16,Planta,Directivo,3496000,0,3.1,4,No,0
+F0488,Obras Públicas,Valparaíso,Femenino,47,7,Contrata,Administrativo,931000,0,5.4,1,No,0
+F0489,Educación,Metropolitana,Femenino,29,1,Contrata,Técnico,972000,0,5.6,4,No,0
+F0490,Desarrollo Social,Metropolitana,Masculino,23,0,Contrata,Técnico,1085000,10,NA,1,No,1
+F0491,Vivienda,Biobío,Femenino,44,0,Contrata,Profesional,1855000,0,NA,4,No,0
+F0492,Desarrollo Social,Metropolitana,Femenino,38,2,Contrata,Administrativo,768000,6,6.1,1,No,0
+F0493,Obras Públicas,Metropolitana,Masculino,36,10,Contrata,Técnico,1140000,0,5.4,2,No,6
+F0494,Salud,Araucanía,Femenino,46,5,Contrata,Administrativo,854000,0,6.1,1,No,0
+F0495,Salud,Metropolitana,Femenino,43,9,Planta,Técnico,1018000,0,5.5,2,No,0
+F0496,Interior,Biobío,Masculino,43,2,Planta,Directivo,3431000,0,6.3,3,No,32
+F0497,Educación,Metropolitana,Femenino,52,15,Planta,Profesional,2778000,8,5.4,3,Sí,1
+F0498,Hacienda,Biobío,Femenino,49,10,Contrata,Administrativo,749000,0,5.2,1,No,0
+F0499,Interior,Metropolitana,Femenino,47,13,Planta,Profesional,1665000,0,5.3,5,No,9
+F0500,Trabajo,Metropolitana,Masculino,37,5,Contrata,Profesional,1878000,4,4.9,5,No,0
+F0501,Educación,Biobío,Femenino,41,5,Contrata,Profesional,2054000,0,5.7,2,Sí,0
+F0502,Obras Públicas,Los Lagos,Femenino,41,1,Honorarios,Profesional,1693000,0,NA,2,Sí,23
+F0503,Vivienda,Valparaíso,Femenino,34,7,Planta,Administrativo,851000,0,4.9,1,Sí,0
+F0504,Salud,Valparaíso,Femenino,24,0,Honorarios,Técnico,934000,0,NA,4,No,4
+F0505,Salud,Los Lagos,Masculino,40,1,Contrata,Profesional,2754000,0,6.0,1,Sí,0
+F0506,Hacienda,Los Lagos,Femenino,40,7,Contrata,Administrativo,1061000,0,5.5,1,Sí,12
+F0507,Hacienda,Valparaíso,Femenino,43,4,Planta,Profesional,2256000,6,5.6,3,No,0
+F0508,Hacienda,Valparaíso,Femenino,56,13,Contrata,Profesional,2062000,0,6.3,2,No,0
+F0509,Obras Públicas,Antofagasta,Masculino,29,4,Honorarios,Administrativo,925000,0,NA,2,No,3
+F0510,Obras Públicas,Los Lagos,Masculino,33,1,Planta,Técnico,1175000,0,5.6,1,Sí,2
+F0511,Interior,Biobío,Femenino,41,4,Contrata,Administrativo,913000,13,6.6,2,Sí,13
+F0512,Educación,Los Lagos,Femenino,50,7,Contrata,Auxiliar,549000,7,5.3,2,No,0
+F0513,Hacienda,Valparaíso,Masculino,37,0,Planta,Administrativo,1062000,8,NA,2,Sí,9
+F0514,Vivienda,Biobío,Femenino,53,14,Honorarios,Profesional,2399000,0,NA,1,No,12
+F0515,Salud,Metropolitana,Masculino,44,3,Planta,Profesional,1755000,0,5.7,3,No,0
+F0516,Vivienda,Metropolitana,Femenino,38,6,Contrata,Profesional,2209000,0,4.4,1,Sí,1
+F0517,Salud,Biobío,Masculino,37,10,Contrata,Profesional,2142000,7,6.4,2,Sí,0
+F0518,Trabajo,Valparaíso,Masculino,42,11,Contrata,Profesional,1795000,0,6.2,4,Sí,8
+F0519,Trabajo,Valparaíso,Femenino,41,3,Contrata,Profesional,1480000,13,4.8,4,No,0
+F0520,Obras Públicas,Biobío,Masculino,40,7,Contrata,Técnico,1592000,9,5.9,2,No,0
+F0521,Obras Públicas,Los Lagos,Masculino,23,0,Contrata,Técnico,1376000,8,NA,4,Sí,0
+F0522,Trabajo,Araucanía,Femenino,53,2,Contrata,Técnico,1264000,0,6.1,3,Sí,0
+F0523,Hacienda,Antofagasta,Masculino,57,14,Honorarios,Administrativo,784000,0,NA,1,No,0
+F0524,Vivienda,Metropolitana,Masculino,57,15,Contrata,Profesional,2104000,0,5.1,0,No,0
+F0525,Interior,Antofagasta,Masculino,45,4,Planta,Técnico,1117000,10,6.9,3,No,0
+F0526,Obras Públicas,Araucanía,Masculino,40,5,Honorarios,Profesional,1882000,0,NA,2,No,5
+F0527,Educación,Valparaíso,Masculino,31,0,Planta,Profesional,1680000,0,NA,2,Sí,0
+F0528,Obras Públicas,Biobío,Femenino,41,9,Contrata,Técnico,1110000,13,6.4,0,No,1
+F0529,Obras Públicas,Metropolitana,Masculino,29,1,Planta,Profesional,1940000,0,5.2,1,No,0
+F0530,Vivienda,Metropolitana,Femenino,28,1,Contrata,Auxiliar,699000,13,5.2,2,No,0
+F0531,Desarrollo Social,Biobío,Femenino,45,12,Honorarios,Profesional,2031000,0,NA,1,Sí,0
+F0532,Salud,Valparaíso,Femenino,35,9,Honorarios,Profesional,1702000,0,NA,3,No,0
+F0533,Interior,Antofagasta,Masculino,35,7,Planta,Profesional,1800000,5,5.5,0,Sí,4
+F0534,Educación,Biobío,Femenino,54,6,Planta,Profesional,2051000,0,6.0,3,No,1
+F0535,Trabajo,Metropolitana,Femenino,58,4,Planta,Técnico,1646000,0,5.3,0,No,6
+F0536,Salud,Los Lagos,Femenino,42,2,Planta,Profesional,2065000,13,5.9,0,No,0
+F0537,Educación,Antofagasta,Masculino,44,4,Contrata,Administrativo,968000,11,5.9,3,Sí,3
+F0538,Salud,Los Lagos,Masculino,38,7,Contrata,Profesional,1751000,0,4.8,1,No,7
+F0539,Salud,Metropolitana,Femenino,23,0,Planta,Técnico,905000,0,NA,1,No,1
+F0540,Salud,Biobío,Masculino,50,19,Honorarios,Técnico,1095000,0,NA,3,Sí,0
+F0541,Salud,Metropolitana,Masculino,49,7,Contrata,Técnico,1128000,14,5.9,1,No,13
+F0542,Salud,Valparaíso,Femenino,42,6,Contrata,Profesional,1990000,0,5.0,2,Sí,0
+F0543,Trabajo,Araucanía,Femenino,30,6,Planta,Profesional,2240000,0,6.5,3,No,0
+F0544,Desarrollo Social,Biobío,Femenino,55,10,Contrata,Técnico,1167000,12,6.6,1,No,0
+F0545,Salud,Valparaíso,Femenino,38,10,Contrata,Auxiliar,669000,0,6.4,1,No,0
+F0546,Hacienda,Metropolitana,Femenino,48,6,Contrata,Profesional,2084000,0,6.2,5,No,6
+F0547,Desarrollo Social,Valparaíso,Masculino,39,0,Planta,Directivo,2732000,0,NA,3,Sí,0
+F0548,Hacienda,Los Lagos,Masculino,38,7,Contrata,Directivo,3770000,0,NA,0,No,0
+F0549,Salud,Metropolitana,Masculino,57,5,Planta,Auxiliar,523000,4,6.5,1,No,0
+F0550,Interior,Los Lagos,Masculino,33,0,Planta,Técnico,848000,6,NA,0,No,0
+F0551,Desarrollo Social,Araucanía,Femenino,48,9,Contrata,Profesional,1647000,0,NA,1,No,2
+F0552,Obras Públicas,Valparaíso,Masculino,50,14,Planta,Directivo,3263000,0,6.3,2,No,0
+F0553,Educación,Metropolitana,Femenino,54,8,Planta,Directivo,2985000,0,5.1,0,No,2
+F0554,Trabajo,Araucanía,Femenino,40,1,Planta,Administrativo,892000,6,4.8,3,Sí,6
+F0555,Educación,Metropolitana,Femenino,37,0,Contrata,Administrativo,747000,0,NA,3,No,6
+F0556,Educación,Biobío,Femenino,45,15,Planta,Técnico,1769000,0,5.5,2,No,7
+F0557,Educación,Biobío,Femenino,29,5,Contrata,Auxiliar,589000,6,5.7,4,No,2
+F0558,Salud,Valparaíso,Femenino,48,18,Contrata,Técnico,1590000,0,5.3,2,No,0
+F0559,Interior,Metropolitana,Masculino,29,4,Planta,Directivo,3822000,0,5.5,0,No,0
+F0560,Vivienda,Metropolitana,Femenino,46,4,Contrata,Profesional,2085000,0,6.6,0,No,2
+F0561,Educación,Antofagasta,Femenino,51,5,Contrata,Administrativo,1099000,0,5.2,3,No,10
+F0562,Trabajo,Araucanía,Masculino,59,12,Planta,Administrativo,669000,0,NA,1,No,0
+F0563,Vivienda,Biobío,Femenino,41,10,Contrata,Técnico,1090000,0,5.7,1,Sí,0
+F0564,Obras Públicas,Metropolitana,Femenino,36,10,Contrata,Profesional,2550000,0,6.9,2,No,6
+F0565,Obras Públicas,Metropolitana,Femenino,39,4,Planta,Administrativo,898000,9,4.1,1,Sí,4
+F0566,Interior,Metropolitana,Femenino,42,8,Planta,Técnico,1628000,0,3.6,1,No,2
+F0567,Interior,Los Lagos,Femenino,53,13,Contrata,Administrativo,954000,7,6.2,1,No,0
+F0568,Obras Públicas,Metropolitana,Femenino,40,12,Planta,Administrativo,1099000,0,5.5,0,No,0
+F0569,Salud,Metropolitana,Masculino,29,2,Contrata,Técnico,1030000,11,4.6,2,Sí,0
+F0570,Hacienda,Los Lagos,Femenino,64,26,Contrata,Profesional,2836000,0,6.0,1,Sí,9
+F0571,Trabajo,Metropolitana,Masculino,31,2,Planta,Administrativo,874000,7,5.2,1,No,1
+F0572,Trabajo,Araucanía,Femenino,45,1,Planta,Profesional,2397000,0,5.4,5,No,2
+F0573,Obras Públicas,Metropolitana,Femenino,53,11,Honorarios,Técnico,1099000,0,NA,1,No,0
+F0574,Vivienda,Metropolitana,Femenino,46,7,Honorarios,Técnico,1023000,0,NA,3,No,0
+F0575,Trabajo,Biobío,Masculino,48,0,Contrata,Técnico,1124000,0,NA,2,No,5
+F0576,Obras Públicas,Antofagasta,Femenino,48,2,Honorarios,Profesional,1563000,0,NA,0,No,0
+F0577,Obras Públicas,Biobío,Masculino,54,27,Planta,Auxiliar,945000,9,6.4,2,No,0
+F0578,Hacienda,Metropolitana,Femenino,30,0,Contrata,Administrativo,983000,11,NA,4,No,0
+F0579,Desarrollo Social,Valparaíso,Femenino,41,12,Planta,Técnico,1454000,0,6.5,1,Sí,0
+F0580,Desarrollo Social,Biobío,Femenino,34,5,Contrata,Profesional,2132000,8,6.0,2,No,0
+F0581,Salud,Biobío,Masculino,39,0,Contrata,Directivo,3725000,0,NA,1,No,6
+F0582,Salud,Metropolitana,Femenino,39,1,Contrata,Técnico,983000,7,5.4,0,No,2
+F0583,Educación,Metropolitana,Femenino,27,3,Contrata,Profesional,1665000,11,5.1,4,No,6
+F0584,Educación,Biobío,Masculino,23,0,Contrata,Auxiliar,679000,11,NA,3,No,0
+F0585,Educación,Metropolitana,Masculino,37,7,Planta,Directivo,3162000,0,5.7,2,No,0
+F0586,Obras Públicas,Metropolitana,Masculino,34,5,Contrata,Profesional,1534000,10,5.3,4,Sí,0
+F0587,Trabajo,Valparaíso,Masculino,48,22,Honorarios,Administrativo,1006000,0,NA,2,Sí,16
+F0588,Educación,Antofagasta,Femenino,52,2,Honorarios,Administrativo,818000,0,NA,1,No,0
+F0589,Educación,Valparaíso,Femenino,36,3,Contrata,Profesional,2096000,0,4.7,1,Sí,0
+F0590,Salud,Los Lagos,Masculino,51,9,Contrata,Profesional,2150000,10,5.3,0,Sí,0
+F0591,Desarrollo Social,Metropolitana,Masculino,51,4,Honorarios,Administrativo,810000,0,NA,0,Sí,3
+F0592,Educación,Valparaíso,Femenino,51,11,Planta,Administrativo,1052000,9,7.0,1,No,3
+F0593,Interior,Araucanía,Masculino,49,2,Planta,Técnico,1126000,7,4.8,1,Sí,16
+F0594,Hacienda,Metropolitana,Femenino,29,4,Planta,Administrativo,793000,0,4.0,1,No,0
+F0595,Interior,Valparaíso,Femenino,45,5,Honorarios,Administrativo,917000,0,NA,1,No,13
+F0596,Hacienda,Araucanía,Femenino,63,8,Contrata,Técnico,1246000,0,4.9,1,No,0
+F0597,Trabajo,Metropolitana,Masculino,49,22,Honorarios,Profesional,2415000,0,NA,4,No,0
+F0598,Educación,Araucanía,Masculino,28,2,Planta,Técnico,1136000,0,6.2,2,Sí,0
+F0599,Desarrollo Social,Metropolitana,Femenino,39,14,Planta,Administrativo,765000,0,5.8,0,No,5
+F0600,Obras Públicas,Metropolitana,Femenino,37,9,Contrata,Profesional,2209000,8,4.9,4,Sí,1

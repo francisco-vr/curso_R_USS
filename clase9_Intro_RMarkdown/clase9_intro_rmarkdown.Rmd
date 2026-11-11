@@ -1,0 +1,785 @@
+---
+title: "Tecnología para la Gestión II - Clase 13: Introducción a R Markdown y cómo se hace un informe"
+author:
+  - "Francisco Villarroel Riquelme"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+    seal: false
+---
+class: left, middle, bg_portada
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width = 5, fig.height = 3.8, fig.retina = 3,
+  out.width = "100%",
+  fig.align = "center",
+  cache = FALSE,
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = TRUE,
+  hiline = TRUE
+)
+```
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#b01333",
+  secondary_color = "#085e9f",
+  inverse_header_color = "#FFFFFF"
+)
+```
+```{css, echo=F}
+h1, h2, h3 {
+  text-align: center;
+}
+.bg_portada {
+  position: relative;
+  z-index: 1;
+}
+.bg_portada::before {
+  content: "";
+  background-image: url('https://www.infoworld.com/wp-content/uploads/2024/06/cw_r_guide_video_series_thinkstock_16x9_1920x1080-100758020-orig.jpg?quality=50&strip=all');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+.definition-box {
+  background: #fdf2f3;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #fef9e7;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.info-box {
+  background: #eaf2fb;
+  border-left: 5px solid #085e9f;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.error-box {
+  background: #2b2b2b;
+  color: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-family: 'Consolas','Courier New',monospace;
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+.error-box .err { color: #ff7a7a; }
+.error-box .ok  { color: #7ee081; }
+.error-box .hint{ color: #ffd479; }
+pre.error-box { white-space: pre-wrap; }
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-green { border-top: 4px solid #1e8449; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.step-num {
+  background: #b01333;
+  color: white;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+.pull-left .remark-code, .pull-left code {
+  font-size: 0.80em;
+}
+table { font-size: 0.78em; width: 100%; border-collapse: collapse; }
+th { background: #b01333; color: white; padding: 7px 10px; text-align: left; }
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #f5f7fa; }
+img { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+```
+
+---
+class: left, middle, bg_portada
+# Tecnología para la Gestión II
+## Clase 13 — Introducción a R Markdown
+### Cómo se hace un informe
+**Francisco Villarroel Riquelme** | `r Sys.Date()`
+
+.footnote-small[Administración Pública · Escuela de Gobierno · Facultad de Economía y Gobierno · ADPU B012]
+
+---
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+background-size: 80px
+background-position: 97% 97%
+class: middle
+
+# ¿Qué haremos hoy?
+
+.two-col[
+.info-box[
+**Bloque 1 — R Markdown**
+- Qué es y para qué sirve
+- Las tres partes de un archivo `.Rmd`
+- Chunks, tablas y gráficos
+- Generar un documento Word
+]
+.definition-box[
+**Bloque 2 — El informe**
+- La estructura de un informe técnico
+- Cómo comentar tablas y gráficos
+- Armar nuestro primer informe con la base de funcionarios
+]
+]
+
+.footnote-small[Esta clase y la próxima las dedicamos a esto: el objetivo final es el **informe consolidado de la Solemne 3**.]
+
+---
+class: center, middle, inverse
+
+# Bloque 1
+
+# Introducción a R Markdown
+
+---
+class: middle
+
+# El problema: copiar y pegar
+
+.two-col[
+.card.card-red[
+**Cómo lo hacemos hoy**
+
+1. Corremos el script en R
+2. Copiamos la tabla
+3. Guardamos el gráfico
+4. Los pegamos en Word
+5. Cambia un dato... y **partimos de nuevo**
+]
+.card.card-green[
+**Con R Markdown**
+
+1. Escribimos texto y código en **un solo archivo**
+2. Apretamos un botón
+3. Sale el Word con tablas y gráficos **ya puestos**
+4. Cambia un dato... y se **actualiza solo**
+]
+]
+
+---
+class: middle
+
+# ¿Qué es R Markdown?
+
+.definition-box[
+**R Markdown** es un formato de archivo (`.Rmd`) donde se mezclan **texto**, **código de R** y **los resultados** de ese código, en un solo documento.
+]
+
+--
+
+.highlight-box[
+Es la forma de hacer un informe **reproducible**: cualquiera que tenga tu archivo y tu base puede obtener exactamente el mismo documento.
+]
+
+---
+class: middle
+
+# El flujo de trabajo
+
+.three-col[
+.card.card-blue[
+**1. Escribes**
+
+Un archivo `.Rmd` con texto y código.
+]
+.card.card-red[
+**2. *Knit***
+
+Apretas el botón **Knit** de RStudio.
+]
+.card.card-green[
+**3. Obtienes**
+
+Un documento **Word**, HTML o PDF.
+]
+]
+
+.footnote-small[*Knit* significa "tejer": R teje el texto con los resultados del código.]
+
+---
+class: middle
+
+# Crear el archivo en RStudio
+
+.step[
+.step-num[1]
+**File → New File → R Markdown...**
+]
+
+.step[
+.step-num[2]
+Elige **Document** y el formato de salida **Word**. Escribe un título y tu nombre.
+]
+
+.step[
+.step-num[3]
+**Guárdalo** dentro de tu proyecto, en la carpeta principal (junto al archivo `.Rproj`).
+]
+
+.step[
+.step-num[4]
+Borra el texto de ejemplo que trae y parte de cero.
+]
+
+---
+class: middle
+
+# Las tres partes de un `.Rmd`
+
+.three-col[
+.card.card-red[
+**1. Encabezado (YAML)**
+
+Entre dos líneas de guiones, al inicio. Define título, autor y formato.
+]
+.card.card-blue[
+**2. Texto**
+
+Lo que escribes tú: explicaciones, análisis y comentarios. Usa formato **Markdown**.
+]
+.card.card-green[
+**3. Chunks de código**
+
+Bloques de R. Al hacer *knit*, se ejecutan y su resultado aparece en el documento.
+]
+]
+
+---
+class: middle
+
+# 1. El encabezado (YAML)
+
+<pre class="error-box">
+&#45;&#45;&#45;
+title: "Informe de dotación pública"
+author: "Tu nombre"
+date: "04-11-2026"
+output: word_document
+&#45;&#45;&#45;
+</pre>
+
+.info-box[
+Va **al comienzo** del archivo, entre dos líneas de tres guiones. Respeta los **espacios y los dos puntos**: es el error más común.
+]
+
+---
+class: middle
+
+# 2. El texto: formato Markdown
+
+| Quiero escribir | Lo escribo así |
+|---|---|
+| Un título | `# Título` |
+| Un subtítulo | `## Subtítulo` |
+| **Negrita** | `**negrita**` |
+| *Cursiva* | `*cursiva*` |
+| Una lista | `- elemento` (uno por línea) |
+| Un párrafo nuevo | Deja una **línea en blanco** entre párrafos |
+
+.footnote-small[Los títulos con `#` se convierten en los títulos del documento Word.]
+
+---
+class: middle
+
+# 3. Los chunks de código
+
+<pre class="error-box">
+&#96;&#96;&#96;{r carga}
+library(tidyverse)
+datos &lt;- read.csv("data/dotacion_publica.csv")
+&#96;&#96;&#96;
+</pre>
+
+.info-box[
+Un chunk **empieza** con tres tildes invertidas y `{r nombre}`, y **termina** con tres tildes invertidas. Entre medio va el código de siempre.
+
+Atajo en RStudio: **Ctrl + Alt + I** (Windows) o **Cmd + Option + I** (Mac).
+]
+
+---
+class: middle
+
+# Opciones de los chunks
+
+Van dentro de las llaves: `{r nombre, echo = FALSE}`
+
+| Opción | Qué hace |
+|---|---|
+| `echo = FALSE` | **No muestra** el código, solo el resultado |
+| `message = FALSE` | Oculta los mensajes (ej.: al cargar paquetes) |
+| `warning = FALSE` | Oculta las advertencias |
+| `eval = FALSE` | Muestra el código pero **no lo ejecuta** |
+| `include = FALSE` | Ejecuta el chunk pero **no muestra nada** |
+| `fig.cap = "..."` | Pone **título al gráfico** |
+
+---
+class: middle
+
+# El chunk de preparación (`setup`)
+
+<pre class="error-box">
+&#96;&#96;&#96;{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+library(tidyverse)
+
+datos &lt;- read.csv("data/dotacion_publica.csv")
+&#96;&#96;&#96;
+</pre>
+
+.highlight-box[
+Al inicio del informe: define las opciones **para todos los chunks** y carga paquetes y datos. Así el informe lleva solo el análisis, sin código a la vista.
+]
+
+---
+class: middle
+
+# Ojo con las rutas
+
+.error-box[
+Error in file(file, "rt"): cannot open the connection<br>
+<span class="hint">→ el .Rmd busca la base desde SU carpeta, no desde la raíz del proyecto.</span>
+]
+
+.definition-box[
+Un `.Rmd` trabaja desde **la carpeta donde está guardado**. Si el archivo está en `scripts/`, la ruta `"data/..."` no existe desde ahí.
+]
+
+--
+
+.info-box[
+**Solución:** guarda el `.Rmd` en la **carpeta principal del proyecto**, junto al `.Rproj`. Desde ahí, `"data/dotacion_publica.csv"` funciona igual que en tus scripts.
+
+Si lo dejas en otra carpeta (por ejemplo `scripts/`), debes subir un nivel: `"../data/dotacion_publica.csv"`.
+]
+
+---
+class: middle
+
+# Tablas en el informe
+
+<pre class="error-box">
+&#96;&#96;&#96;{r tabla1}
+tabla1 &lt;- datos %&gt;%
+  group_by(sexo) %&gt;%
+  summarise(n = n(), promedio = mean(renta_bruta),
+            mediana = median(renta_bruta))
+
+knitr::kable(tabla1, digits = 0,
+             caption = "Tabla 1. Renta bruta según sexo")
+&#96;&#96;&#96;
+</pre>
+
+.info-box[
+`knitr::kable()` convierte la tabla de R en una **tabla formateada** en el Word. `digits` fija los decimales y `caption` pone el título.
+]
+
+---
+class: middle
+
+# Gráficos en el informe
+
+<pre class="error-box">
+&#96;&#96;&#96;{r grafico1, fig.cap = "Figura 1. Distribución de la renta bruta"}
+ggplot(datos, aes(x = renta_bruta)) +
+  geom_histogram(bins = 30, fill = "#085e9f", color = "white") +
+  labs(x = "Renta bruta (pesos)", y = "Frecuencia") +
+  theme_minimal()
+&#96;&#96;&#96;
+</pre>
+
+.info-box[
+El gráfico aparece **donde está el chunk**. Con `fig.cap` le pones título. Las etiquetas de ejes siguen siendo parte de lo que se evalúa.
+]
+
+---
+class: middle
+
+# Números dentro del texto
+
+.definition-box[
+Puedes insertar **resultados de R dentro de una frase**, con código en línea:
+]
+
+<pre class="error-box">
+La base tiene &#96;r nrow(datos)&#96; funcionarios y la renta
+promedio es de &#96;r round(mean(datos$renta_bruta))&#96; pesos.
+</pre>
+
+.highlight-box[
+En el Word queda: *"La base tiene 600 funcionarios y la renta promedio es de ... pesos."* Si cambia la base, el texto **se actualiza solo**.
+]
+
+---
+class: middle
+
+# Generar el documento: *Knit*
+
+.pull-left[
+.step[
+.step-num[1]
+Guarda el archivo.
+]
+.step[
+.step-num[2]
+Aprieta **Knit** (arriba del editor).
+]
+.step[
+.step-num[3]
+Se genera un `.docx` en la **misma carpeta** del `.Rmd`.
+]
+]
+
+.pull-right[
+.highlight-box[
+Si hay un error, **no se genera el Word**. R te dice en qué línea está en la pestaña **Background Jobs / R Markdown**.
+]
+]
+
+--
+
+.footnote-small[Para que funcione, el `.Rmd` debe correr **de principio a fin** en una sesión limpia: lo que no está escrito en el archivo, no existe.]
+
+---
+class: middle
+
+# Errores frecuentes al hacer *knit*
+
+.three-col[
+.card.card-red[
+**Falta un objeto**
+
+Usas `datos` pero no cargaste la base **dentro del `.Rmd`**. Lo que cargaste a mano en la consola no cuenta.
+]
+.card.card-blue[
+**Ruta mal puesta**
+
+La base no se encuentra desde la carpeta del `.Rmd`. Revisa dónde lo guardaste.
+]
+.card.card-orange[
+**Chunk mal cerrado**
+
+Falta alguna de las tres tildes invertidas del final, y todo lo que sigue se vuelve código.
+]
+]
+
+---
+class: middle
+
+# Actividad — Bloque 1
+
+.definition-box[
+**1.** Crea un archivo R Markdown con salida **Word**, guárdalo en tu proyecto y borra el texto de ejemplo.
+]
+
+.definition-box[
+**2.** Agrega el chunk `setup` con la carga de paquetes y de `dotacion_publica.csv`.
+]
+
+.definition-box[
+**3.** Escribe un título con `#` y un chunk con una **tabla** de renta promedio por `ministerio`, usando `kable()` y `caption`.
+]
+
+.definition-box[
+**4.** Aprieta **Knit** y abre el Word. ¿Qué cambió respecto de lo que escribiste?
+]
+
+---
+class: center, middle, inverse
+
+# Bloque 2
+
+# El informe: cómo se escribe
+
+---
+class: middle
+
+# Un informe no es código: es una explicación
+
+.definition-box[
+Quien lee tu informe **no necesariamente sabe R**. Quiere saber: *¿qué se preguntó?, ¿con qué datos?, ¿qué se encontró?, ¿qué significa?*
+]
+
+--
+
+.highlight-box[
+Las tablas y gráficos son la **evidencia**. Lo que le da valor al informe es **tu comentario**: lo que ves, lo que comparas y lo que concluyes.
+]
+
+---
+class: middle
+
+# Estructura de un informe técnico
+
+.three-col[
+.card.card-red[
+**1. Introducción**
+
+Qué se analiza y para qué.
+]
+.card.card-blue[
+**2. Datos y método**
+
+Qué base, qué variables, qué se hizo con ellas.
+]
+.card.card-green[
+**3. Resultados**
+
+Tablas, gráficos y **comentario** de cada uno.
+]
+]
+
+.footnote-small[Sigue con una **4. Conclusiones** (qué se encontró y qué significa). Cada parte va con un título (`#` o `##`).]
+
+---
+class: middle
+
+# 1. Introducción
+
+.two-col[
+.info-box[
+**Qué incluye**
+
+- El **tema** y su importancia
+- La **pregunta** o el objetivo del análisis
+- Una frase sobre **cómo se organiza** el informe
+]
+.definition-box[
+**Ejemplo**
+
+*"Este informe describe la dotación de funcionarios públicos, con foco en la renta bruta, para identificar diferencias entre grupos."*
+]
+]
+
+---
+class: middle
+
+# 2. Datos y método
+
+.two-col[
+.info-box[
+**Qué incluye**
+
+- **Fuente** de los datos y número de casos
+- Las **variables** usadas y su tipo
+- Las **transformaciones** hechas (filtros, reagrupaciones)
+- Las **medidas** calculadas
+]
+.definition-box[
+**Ejemplo**
+
+*"Se utilizó la base de 600 funcionarios. Se analizó la renta bruta mediante promedio, mediana y desviación estándar, y se reagrupó la antigüedad en cuatro tramos."*
+]
+]
+
+---
+class: middle
+
+# 3. Resultados: tabla o gráfico + comentario
+
+.three-col[
+.card.card-blue[
+**1. Presenta**
+
+La tabla o gráfico, con **número y título**.
+]
+.card.card-red[
+**2. Comenta**
+
+Un párrafo **debajo**, que explique lo que se ve.
+]
+.card.card-green[
+**3. Enlaza**
+
+Conecta con la **pregunta** del informe.
+]
+]
+
+.highlight-box[
+Nunca dejes una tabla o un gráfico **sin comentario**: el lector no debería tener que adivinar qué mirar.
+]
+
+---
+class: middle
+
+# Cómo comentar: describir, comparar, interpretar
+
+.definition-box[
+**1. Describir** lo que se ve: promedio, mediana, dispersión, forma.
+
+**2. Comparar** entre grupos: ¿quién tiene más? ¿cuánta diferencia hay?
+
+**3. Interpretar**: ¿qué significa para la administración pública?
+]
+
+.info-box[
+*"El promedio de renta de las mujeres es de $X y el de los hombres de $Y. La mediana confirma la diferencia. La mayor desviación estándar en los hombres indica rentas más dispersas, lo que sugiere..."*
+]
+
+---
+class: middle
+
+# 4. Conclusiones
+
+.two-col[
+.info-box[
+**Qué incluye**
+
+- Los **hallazgos principales**, en pocas frases
+- Una **limitación** de los datos o del análisis
+- Una idea de **qué sigue**
+]
+.error-box[
+<span class="err">✗ No se agrega</span><br>
+información nueva que no apareció en los resultados.
+]
+]
+
+---
+class: middle
+
+# Errores frecuentes en un informe
+
+.three-col[
+.card.card-red[
+**Tablas sin comentar**
+
+Se pegan los resultados y no se explica qué dicen.
+]
+.card.card-blue[
+**Sin títulos ni etiquetas**
+
+Tablas sin número, gráficos sin nombres en los ejes.
+]
+.card.card-orange[
+**Solo describir**
+
+Se repiten los números, pero **no se compara ni se interpreta**.
+]
+]
+
+---
+class: middle
+
+# Esqueleto de un informe en R Markdown
+
+<pre class="error-box">
+# Introducción
+Texto: tema, pregunta y objetivo.
+
+# Datos y método
+Texto: fuente, variables y transformaciones.
+
+&#96;&#96;&#96;{r tabla1}
+(código de la tabla con kable)
+&#96;&#96;&#96;
+
+# Resultados
+## Renta según sexo
+Tabla 1 + párrafo de comentario.
+
+# Conclusiones
+Texto: hallazgos, límites y próximos pasos.
+</pre>
+
+.footnote-small[Se entrega un archivo plantilla `plantilla_informe_TG2.Rmd` con esta estructura ya armada.]
+
+---
+class: middle
+
+# Actividad — Bloque 2
+
+.definition-box[
+**5.** Usa la **plantilla** de informe con la base de funcionarios. Escribe la **introducción** (2 o 3 frases) y la sección de **datos y método**.
+]
+
+.definition-box[
+**6.** Agrega una **tabla** (renta según `sexo`) y un **gráfico** (histograma de renta) con título, y **escribe el comentario** de cada uno (describir, comparar, interpretar).
+]
+
+.definition-box[
+**7.** Escribe las **conclusiones** y genera el Word con *Knit*.
+]
+
+---
+class: center, middle, inverse
+
+# Próxima clase
+
+### Seguimos con el informe
+Tablas más elaboradas, formato del documento, y más práctica
+
+.footnote-small[Dudas: fvillarroelr1@docente.uss.cl · Tecnología para la Gestión II · ADPU B012]

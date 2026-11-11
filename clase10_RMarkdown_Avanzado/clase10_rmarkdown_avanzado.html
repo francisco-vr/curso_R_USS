@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Tecnología para la Gestión II - Clase 14: R Markdown en PDF y redacción de resultados</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Francisco Villarroel Riquelme" />
+    <meta name="date" content="2026-11-11" />
+    <script src="clase10_rmarkdown_avanzado_files/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: left, middle, bg_portada
+
+
+&lt;style type="text/css"&gt;
+h1, h2, h3 {
+  text-align: center;
+}
+.bg_portada {
+  position: relative;
+  z-index: 1;
+}
+.bg_portada::before {
+  content: "";
+  background-image: url('https://www.infoworld.com/wp-content/uploads/2024/06/cw_r_guide_video_series_thinkstock_16x9_1920x1080-100758020-orig.jpg?quality=50&amp;strip=all');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0px; right: 0px; bottom: 0px; left: 0px;
+  opacity: 0.15;
+  z-index: -1;
+}
+.definition-box {
+  background: #fdf2f3;
+  border-left: 5px solid #b01333;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 0.88em;
+}
+.highlight-box {
+  background: #fef9e7;
+  border: 2px solid #f39c12;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.info-box {
+  background: #eaf2fb;
+  border-left: 5px solid #085e9f;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.85em;
+}
+.error-box {
+  background: #2b2b2b;
+  color: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-family: 'Consolas','Courier New',monospace;
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+.error-box .err { color: #ff7a7a; }
+.error-box .ok  { color: #7ee081; }
+.error-box .hint{ color: #ffd479; }
+pre.error-box { white-space: pre-wrap; }
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 8px rgba(176,19,51,0.12);
+  font-size: 0.84em;
+}
+.card-red   { border-top: 4px solid #b01333; }
+.card-blue  { border-top: 4px solid #085e9f; }
+.card-green { border-top: 4px solid #1e8449; }
+.card-orange{ border-top: 4px solid #e67e22; }
+.badge {
+  display: inline-block;
+  background: #b01333;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 0.78em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.badge-blue  { background: #085e9f; }
+.badge-green { background: #1e8449; }
+.step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 12px;
+}
+.step-num {
+  background: #b01333;
+  color: white;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+.footnote-small {
+  font-size: 0.68em;
+  color: #777;
+  border-top: 1px solid #DDD;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+.pull-left .remark-code, .pull-left code {
+  font-size: 0.80em;
+}
+table { font-size: 0.78em; width: 100%; border-collapse: collapse; }
+th { background: #b01333; color: white; padding: 7px 10px; text-align: left; }
+td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+tr:nth-child(even) { background: #f5f7fa; }
+img { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+&lt;/style&gt;
+
+---
+class: left, middle, bg_portada
+# Tecnología para la Gestión II
+## Clase 14 — R Markdown: documentos en PDF
+### y cómo escribir los resultados
+**Francisco Villarroel Riquelme** | 2026-11-11
+
+.footnote-small[Administración Pública · Escuela de Gobierno · Facultad de Economía y Gobierno · ADPU B012]
+
+---
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universidad_san_sebastian.png)
+background-size: 80px
+background-position: 97% 97%
+class: middle
+
+# ¿Qué haremos hoy?
+
+.two-col[
+.info-box[
+**Bloque 1 — Teoría y práctica corta**
+- Repaso de R Markdown (5 láminas)
+- Un PDF con más presencia: el **YAML**
+- Cómo **escribir los resultados**, con un ejemplo y un ejercicio
+]
+.definition-box[
+**Bloque 2 — Actividad**
+
+Traspasar el trabajo de la **Solemne 2** a un informe en R Markdown, con salida **PDF**.
+]
+]
+
+---
+class: center, middle, inverse
+
+# Bloque 1
+
+# Repaso de R Markdown
+
+---
+class: middle
+
+# 1. ¿Qué es y para qué sirve?
+
+.definition-box[
+**R Markdown** (`.Rmd`) mezcla en un solo archivo **texto**, **código** y **resultados**. Al apretar **Knit**, R ejecuta el código y arma el documento (aquí, un **PDF**).
+]
+
+.two-col[
+.card.card-red[
+**Sin R Markdown**
+
+Copiar y pegar tablas y gráficos. Si cambia un dato, se rehace todo.
+]
+.card.card-green[
+**Con R Markdown**
+
+Todo en un archivo. Si cambia un dato, **se actualiza solo**.
+]
+]
+
+---
+class: middle
+
+# 2. Las tres partes del archivo
+
+.three-col[
+.card.card-red[
+**Encabezado (YAML)**
+
+Entre dos líneas de tres guiones. Título, autor, formato de salida.
+]
+.card.card-blue[
+**Texto**
+
+Lo que escribes tú, en formato Markdown: `#` títulos, `**negrita**`, listas con `-`.
+]
+.card.card-green[
+**Chunks de código**
+
+Bloques de R entre tres tildes invertidas y `{r nombre}`.
+]
+]
+
+---
+class: middle
+
+# 3. Los chunks y sus opciones
+
+&lt;pre class="error-box"&gt;
+&amp;#96;&amp;#96;&amp;#96;{r nombre, echo = FALSE, message = FALSE}
+datos &amp;lt;- read.csv("data/base.csv")
+&amp;#96;&amp;#96;&amp;#96;
+&lt;/pre&gt;
+
+| Opción | Qué hace |
+|---|---|
+| `echo = FALSE` | Oculta el código, muestra el resultado |
+| `message = FALSE` / `warning = FALSE` | Oculta mensajes y advertencias |
+| `eval = FALSE` | Muestra el código, pero no lo ejecuta |
+| `include = FALSE` | Ejecuta, pero no muestra nada |
+
+---
+class: middle
+
+# 4. Tablas, gráficos y números en el texto
+
+&lt;pre class="error-box"&gt;
+&amp;#96;&amp;#96;&amp;#96;{r tabla1}
+knitr::kable(tabla1, digits = 1,
+             caption = "Tabla 1. Título de la tabla")
+&amp;#96;&amp;#96;&amp;#96;
+
+&amp;#96;&amp;#96;&amp;#96;{r grafico1, fig.cap = "Figura 1. Título del gráfico"}
+ggplot(datos, aes(x = variable)) + geom_histogram()
+&amp;#96;&amp;#96;&amp;#96;
+
+El promedio fue de &amp;#96;r round(mean(datos$variable))&amp;#96; pesos.
+&lt;/pre&gt;
+
+---
+class: middle
+
+# 5. Knit y los errores más comunes
+
+.three-col[
+.card.card-red[
+**Falta un objeto**
+
+Todo lo que uses debe estar **escrito dentro del `.Rmd`** (carga de base incluida).
+]
+.card.card-blue[
+**Ruta mal puesta**
+
+Guarda el `.Rmd` en la **carpeta principal del proyecto**, junto al `.Rproj`.
+]
+.card.card-orange[
+**Chunk mal cerrado**
+
+Falta una de las tres tildes del final, y lo que sigue se vuelve código.
+]
+]
+
+---
+class: center, middle, inverse
+
+# Un PDF con más presencia
+
+## Modificar el YAML
+
+---
+class: middle
+
+# Antes de generar PDF: instalar LaTeX
+
+R Markdown genera el PDF a través de **LaTeX**. Se instala **una sola vez**, desde la consola:
+
+```r
+install.packages("tinytex")
+tinytex::install_tinytex()
+```
+
+.highlight-box[
+Después, **reinicia RStudio**. La instalación demora unos minutos. Si algo falla al hacer *knit*, casi siempre es porque falta este paso.
+]
+
+---
+class: middle
+
+# El YAML para un PDF
+
+&lt;pre class="error-box"&gt;
+&amp;#45;&amp;#45;&amp;#45;
+title: "Informe de dotación pública"
+subtitle: "Análisis descriptivo de la renta bruta"
+author: "Tu nombre"
+date: "&amp;#96;r format(Sys.Date(), '%d-%m-%Y')&amp;#96;"
+lang: es
+output:
+  pdf_document:
+    toc: true
+    number_sections: true
+    fig_caption: true
+&amp;#45;&amp;#45;&amp;#45;
+&lt;/pre&gt;
+
+.info-box[
+`output: pdf_document` indica el formato. `subtitle` agrega subtítulo, `toc: true` suma un **índice** y `number_sections: true` **numera** los títulos.
+]
+
+---
+class: middle
+
+# Cuidado con la sangría (espacios)
+
+.error-box[
+&lt;span class="err"&gt;Error: YAML parse exception at line 6, column 1&lt;/span&gt;&lt;br&gt;
+&lt;span class="hint"&gt;→ el YAML es sensible a los espacios.&lt;/span&gt;
+]
+
+.definition-box[
+- Cada nivel se **sangra con 2 espacios** (nunca con tabulador)
+- Después de los dos puntos va **un espacio**: `toc: true`
+- Los textos con símbolos o dos puntos van **entre comillas**
+]
+
+---
+class: middle
+
+# Tipo y tamaño de letra, márgenes e interlineado
+
+&lt;pre class="error-box"&gt;
+&amp;#45;&amp;#45;&amp;#45;
+title: "Informe de dotación pública"
+output:
+  pdf_document:
+    toc: true
+fontsize: 12pt
+linestretch: 1.3
+geometry: margin=2.5cm
+&amp;#45;&amp;#45;&amp;#45;
+&lt;/pre&gt;
+
+.info-box[
+- `fontsize`: **10pt, 11pt o 12pt**
+- `linestretch`: **interlineado** (1 = normal, 1.5 = amplio)
+- `geometry: margin=2.5cm`: **márgenes** de la hoja
+]
+
+---
+class: middle
+
+# Elegir el tipo de letra
+
+.pull-left[
+&lt;pre class="error-box"&gt;
+output:
+  pdf_document:
+    latex_engine: xelatex
+mainfont: "Arial"
+&lt;/pre&gt;
+]
+
+.pull-right[
+.info-box[
+`mainfont` cambia la fuente de **todo el documento** (`"Arial"`, `"Times New Roman"`, `"Calibri"`...).
+
+Requiere `latex_engine: xelatex` y que la fuente esté **instalada** en tu computador.
+]
+]
+
+.footnote-small[Si no quieres complicarte: `fontfamily: mathpazo` usa una letra estilo Palatino, sin instalar nada.]
+
+---
+class: middle
+
+# Más detalles de presentación
+
+| Quiero... | Lo pongo así |
+|---|---|
+| Letras de colores en los enlaces | `colorlinks: true` |
+| Empezar una **página nueva** | Escribir `\newpage` en el texto |
+| Dejar un espacio vertical | `\vspace{1cm}` en el texto |
+| Fijar el tamaño de los gráficos | `knitr::opts_chunk$set(fig.width = 6, fig.height = 4)` |
+| Centrar los gráficos | `fig.align = "center"` en las opciones |
+| Tablas más prolijas en PDF | `kable(..., booktabs = TRUE)` |
+| Escribir en español | `lang: es` en el YAML |
+
+---
+class: middle
+
+# Actividad corta — formato
+
+.definition-box[
+**1.** Crea un R Markdown con salida **PDF**. Agrégale **subtítulo**, **índice** y **títulos numerados**. Haz *knit*.
+]
+
+.definition-box[
+**2.** Cambia el **tamaño de letra** a 12pt, el **interlineado** a 1.3 y los **márgenes** a 2.5 cm. ¿Qué cambió?
+]
+
+.definition-box[
+**3.** (Opcional) Cambia el **tipo de letra** con `mainfont`.
+]
+
+---
+class: center, middle, inverse
+
+# Cómo escribir los resultados
+
+---
+class: middle
+
+# Un informe explica; no solo muestra
+
+.definition-box[
+Quien lee tu informe **no necesariamente sabe R**. Las tablas y gráficos son la **evidencia**; lo que le da valor es **tu comentario**.
+]
+
+--
+
+.three-col[
+.card.card-blue[
+**1. Presenta**
+
+*"La Tabla 1 muestra..."*
+]
+.card.card-red[
+**2. Describe**
+
+Valores clave: promedio, mediana, dispersión.
+]
+.card.card-green[
+**3. Compara**
+
+Entre grupos: ¿quién es mayor? ¿cuánta diferencia?
+]
+]
+
+.highlight-box[
+**4. Interpreta**: ¿qué significa para la pregunta del informe? Es lo que el lector no ve solo en la tabla.
+]
+
+---
+class: middle
+
+# Reglas para redactar resultados
+
+.two-col[
+.card.card-blue[
+**Qué hacer**
+
+- **Cita** cada tabla y gráfico en el texto
+- Usa pocos números: **los importantes**
+- **Redondea** y pon **unidades** (pesos, años, %)
+- Compara con **diferencias**, no solo con valores
+- Usa código en línea: los números **se actualizan solos**
+]
+.card.card-red[
+**Qué evitar**
+
+- Copiar toda la tabla en palabras
+- Decir *"se puede ver que..."* sin decir **qué**
+- Afirmar **causas** cuando solo hay descripción
+- Dejar tablas o gráficos **sin comentario**
+]
+]
+
+---
+class: middle
+
+# Ejemplo: la tabla
+
+Renta bruta de los funcionarios según sexo (pesos):
+
+| Sexo | N | Promedio | Mediana | Desv. estándar |
+|---|---|---|---|---|
+| Femenino | 344 | 1.461.875 | 1.222.000 | 658.585 |
+| Masculino | 256 | 1.628.117 | 1.381.000 | 841.734 |
+
+.footnote-small[*Tabla 1. Renta bruta (en pesos) según sexo. Fuente: dotacion_publica.csv*]
+
+--
+
+```r
+datos %&gt;%
+  group_by(sexo) %&gt;%
+  summarise(n = n(), promedio = mean(renta_bruta),
+            mediana = median(renta_bruta), desv_est = sd(renta_bruta))
+```
+
+---
+class: middle
+
+# Ejemplo: el texto que la comenta
+
+.definition-box[
+**Presenta:** La Tabla 1 muestra la renta bruta de los funcionarios según sexo.
+
+**Describe:** Los hombres tienen una renta promedio de $1,63 millones y una mediana de $1,38 millones; en las mujeres, el promedio es de $1,46 millones y la mediana de $1,22 millones.
+
+**Compara:** Los hombres ganan en promedio unos $166 mil más que las mujeres (11%), y la diferencia en la mediana es similar (cerca de $159 mil). Además, la desviación estándar es mayor en los hombres, es decir, sus rentas son más dispersas.
+
+**Interpreta:** En ambos grupos el promedio supera a la mediana, lo que indica que unas pocas rentas muy altas elevan el promedio. La brecha entre sexos se mantiene en la mediana, por lo que no depende solo de esos valores extremos.
+]
+
+---
+class: middle
+
+# Mira cómo está construido
+
+.three-col[
+.card.card-blue[
+**Presenta**
+
+Nombra la tabla y qué mide: *"La Tabla 1 muestra la renta bruta según sexo"*.
+]
+.card.card-red[
+**Describe y compara**
+
+Pocos números, con unidades, y la **diferencia** entre grupos (**$166 mil, 11%**).
+]
+.card.card-green[
+**Interpreta**
+
+Usa la relación **promedio vs. mediana** para decir **qué significa**, sin afirmar causas.
+]
+]
+
+.footnote-small[Fíjate que el texto no repite toda la tabla: elige lo importante y lo explica.]
+
+---
+class: middle
+
+# Tu turno: escribe el comentario
+
+Renta bruta de los funcionarios según calidad jurídica (pesos):
+
+| Calidad jurídica | N | Promedio | Mediana | Desv. estándar |
+|---|---|---|---|---|
+| Contrata | 310 | 1.546.606 | 1.381.000 | 742.684 |
+| Honorarios | 113 | 1.351.133 | 1.156.000 | 542.280 |
+| Planta | 177 | 1.624.616 | 1.297.000 | 842.225 |
+
+.footnote-small[*Tabla 2. Renta bruta (en pesos) según calidad jurídica. Fuente: dotacion_publica.csv*]
+
+.definition-box[
+Escribe **un párrafo** que **presente, describa, compare e interprete** esta tabla.
+]
+
+---
+class: center, middle, inverse
+
+# Bloque 2
+
+# Actividad: pasar la Solemne 2 a R Markdown
+
+---
+class: middle
+
+# El objetivo
+
+.definition-box[
+Tomar el **script** y los **comentarios** que hicieron para la Solemne 2 y construir **el mismo informe en R Markdown**, con salida **PDF**, usando la **plantilla**.
+]
+
+.three-col[
+.card.card-red[
+**Entra**
+
+- Tu script `.R`
+- Tus comentarios
+- La plantilla `.Rmd`
+]
+.card.card-blue[
+**Pasa**
+
+El código a **chunks**, el texto a **párrafos** y las cifras a **código en línea**.
+]
+.card.card-green[
+**Sale**
+
+Un **PDF** generado por *knit*, con tablas y gráficos **sin copiar y pegar**.
+]
+]
+
+---
+class: middle
+
+# Paso a paso
+
+.step[
+.step-num[1]
+**Abre la plantilla** y guárdala en la carpeta principal de tu proyecto. Cambia título, autor y fecha.
+]
+
+.step[
+.step-num[2]
+En el chunk `setup`, deja la **carga de paquetes**, de `casen_corta.csv` y el **filtro de tu comuna**.
+]
+
+.step[
+.step-num[3]
+Escribe **introducción** y **datos y método**.
+]
+
+.step[
+.step-num[4]
+Por cada tabla y gráfico: **un chunk** con su código, `caption` y `fig.cap`, y **debajo su comentario**.
+]
+
+.step[
+.step-num[5]
+Escribe las **conclusiones**, ajusta el **formato** (letra, márgenes, índice) y haz *knit*.
+]
+
+---
+class: middle
+
+# Cómo traspasar un trozo de tu script
+
+.pull-left[
+.info-box[
+**En tu script**
+
+```r
+tabla1 &lt;- datos %&gt;%
+  summarise(n = n(),
+    media = mean(ytotcor),
+    mediana = median(ytotcor))
+```
+]
+]
+
+.pull-right[
+.info-box[
+**En el `.Rmd`**
+
+Ese mismo código va **dentro de un chunk**, y se agrega `kable()` con su `caption` para que la tabla se vea bien en el PDF.
+]
+]
+
+.footnote-small[El script se copia casi igual. Lo nuevo es el **chunk** que lo rodea y **el texto** que lo acompaña.]
+
+---
+class: middle
+
+# Lista de verificación
+
+.two-col[
+.card.card-blue[
+**Antes de hacer *knit***
+
+- Todo está **dentro del `.Rmd`**
+- La base se carga con la ruta `data/...`
+- Cada chunk tiene un **nombre distinto**
+- Tablas con `caption`, gráficos con `fig.cap`
+]
+.card.card-green[
+**Después de hacer *knit***
+
+- Salió el PDF sin errores
+- Tablas y gráficos **en su lugar**
+- Cada uno tiene su **comentario** (4 pasos)
+- Las etiquetas de los ejes son claras
+]
+]
+
+---
+class: middle
+
+# Si algo falla
+
+.error-box[
+&lt;span class="err"&gt;Error in eval(expr, envir, enclos): object 'datos' not found&lt;/span&gt;&lt;br&gt;
+&lt;span class="hint"&gt;→ el chunk usa un objeto que no creaste dentro del .Rmd. Revisa el orden de los chunks.&lt;/span&gt;
+]
+
+.error-box[
+&lt;span class="err"&gt;Error: Duplicate chunk label 'tabla1'&lt;/span&gt;&lt;br&gt;
+&lt;span class="hint"&gt;→ dos chunks tienen el mismo nombre. Cámbiale el nombre a uno.&lt;/span&gt;
+]
+
+.error-box[
+&lt;span class="err"&gt;! LaTeX Error / No LaTeX installation found&lt;/span&gt;&lt;br&gt;
+&lt;span class="hint"&gt;→ falta instalar tinytex (ver lámina de LaTeX).&lt;/span&gt;
+]
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "slideNumberFormat": "%current%",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "ratio": "16:9",
+  "countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
